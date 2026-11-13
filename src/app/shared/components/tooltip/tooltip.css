@@ -1,0 +1,353 @@
+/* ==========================================================================
+   TOOLTIP COMPONENT
+   ==========================================================================
+
+   Supports:
+   - Four positions
+   - Three appearances
+   - Three sizes
+   - Optional arrow
+   - Pointer and keyboard focus
+   - Reduced motion
+   - Default, Blue and Green themes
+
+   ========================================================================== */
+
+/* ==========================================================================
+   HOST
+   ========================================================================== */
+
+:host {
+  display: inline-flex;
+
+  position: relative;
+
+  max-width: 100%;
+  min-width: 0;
+
+  vertical-align: middle;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+.tooltip {
+  --tooltip-background: var(--text-primary);
+  --tooltip-foreground: var(--background);
+  --tooltip-border: transparent;
+
+  --tooltip-offset: var(--space-2);
+  --tooltip-padding-y: var(--space-2);
+  --tooltip-padding-x: var(--space-3);
+
+  --tooltip-font-size: var(--font-size-xs);
+
+  --tooltip-radius: var(--radius-md);
+  --tooltip-duration: 160ms;
+
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   TRIGGER
+   ========================================================================== */
+
+.tooltip__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   TOOLTIP BUBBLE
+   ========================================================================== */
+
+.tooltip__bubble {
+  position: absolute;
+
+  z-index: var(--z-tooltip, 1000);
+
+  display: block;
+
+  width: max-content;
+  max-width: min(16rem, 80vw);
+
+  padding:
+    var(--tooltip-padding-y) var(--tooltip-padding-x);
+
+  border:
+    var(--border-width-thin) solid var(--tooltip-border);
+
+  border-radius: var(--tooltip-radius);
+
+  background: var(--tooltip-background);
+  color: var(--tooltip-foreground);
+
+  box-shadow: var(--shadow-md);
+
+  font-family: var(--font-family-base);
+  font-size: var(--tooltip-font-size);
+  font-weight: var(--font-weight-medium);
+
+  line-height: var(--line-height-normal);
+  letter-spacing: normal;
+
+  text-align: center;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+
+  pointer-events: none;
+  user-select: none;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity var(--tooltip-duration) ease,
+    transform var(--tooltip-duration) ease,
+    visibility var(--tooltip-duration);
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
+.tooltip__text {
+  display: block;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   OPEN
+   ========================================================================== */
+
+.tooltip--open .tooltip__bubble {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==========================================================================
+   APPEARANCES
+   ========================================================================== */
+
+/* Dark: inverted relative to page */
+
+.tooltip--dark {
+  --tooltip-background: var(--text-primary);
+  --tooltip-foreground: var(--background);
+  --tooltip-border: transparent;
+}
+
+/* Light: surface-style bubble */
+
+.tooltip--light {
+  --tooltip-background: var(--surface);
+  --tooltip-foreground: var(--text-primary);
+  --tooltip-border: var(--border-strong);
+}
+
+/* Theme: active brand color */
+
+.tooltip--theme {
+  --tooltip-background: var(--primary);
+  --tooltip-foreground: var(--on-primary);
+  --tooltip-border: transparent;
+}
+
+/* ==========================================================================
+   SIZES
+   ========================================================================== */
+
+/* Small */
+
+.tooltip--small {
+  --tooltip-padding-y: var(--space-1);
+  --tooltip-padding-x: var(--space-2);
+  --tooltip-font-size: var(--font-size-xs);
+}
+
+/* Medium */
+
+.tooltip--medium {
+  --tooltip-padding-y: var(--space-2);
+  --tooltip-padding-x: var(--space-3);
+  --tooltip-font-size: var(--font-size-xs);
+}
+
+/* Large */
+
+.tooltip--large {
+  --tooltip-padding-y: var(--space-3);
+  --tooltip-padding-x: var(--space-4);
+  --tooltip-font-size: var(--font-size-sm);
+}
+
+/* ==========================================================================
+   TOP
+   ========================================================================== */
+
+.tooltip--top .tooltip__bubble {
+  bottom: calc(100% + var(--tooltip-offset));
+  left: 50%;
+
+  transform:
+    translate(-50%, var(--space-1));
+}
+
+.tooltip--top.tooltip--open .tooltip__bubble {
+  transform: translate(-50%, 0);
+}
+
+/* ==========================================================================
+   BOTTOM
+   ========================================================================== */
+
+.tooltip--bottom .tooltip__bubble {
+  top: calc(100% + var(--tooltip-offset));
+  left: 50%;
+
+  transform:
+    translate(-50%, calc(-1 * var(--space-1)));
+}
+
+.tooltip--bottom.tooltip--open .tooltip__bubble {
+  transform: translate(-50%, 0);
+}
+
+/* ==========================================================================
+   LEFT
+   ========================================================================== */
+
+.tooltip--left .tooltip__bubble {
+  right: calc(100% + var(--tooltip-offset));
+  top: 50%;
+
+  transform:
+    translate(var(--space-1), -50%);
+}
+
+.tooltip--left.tooltip--open .tooltip__bubble {
+  transform: translate(0, -50%);
+}
+
+/* ==========================================================================
+   RIGHT
+   ========================================================================== */
+
+.tooltip--right .tooltip__bubble {
+  left: calc(100% + var(--tooltip-offset));
+  top: 50%;
+
+  transform:
+    translate(calc(-1 * var(--space-1)), -50%);
+}
+
+.tooltip--right.tooltip--open .tooltip__bubble {
+  transform: translate(0, -50%);
+}
+
+/* ==========================================================================
+   ARROW
+   ========================================================================== */
+
+.tooltip__bubble::after {
+  content: "";
+
+  position: absolute;
+
+  width: var(--space-2);
+  height: var(--space-2);
+
+  background: var(--tooltip-background);
+
+  transform: rotate(45deg);
+
+  pointer-events: none;
+}
+
+/* Top arrow */
+
+.tooltip--top .tooltip__bubble::after {
+  bottom: calc(-1 * var(--space-1));
+  left: 50%;
+
+  margin-left: calc(-1 * var(--space-1));
+}
+
+/* Bottom arrow */
+
+.tooltip--bottom .tooltip__bubble::after {
+  top: calc(-1 * var(--space-1));
+  left: 50%;
+
+  margin-left: calc(-1 * var(--space-1));
+}
+
+/* Left arrow */
+
+.tooltip--left .tooltip__bubble::after {
+  right: calc(-1 * var(--space-1));
+  top: 50%;
+
+  margin-top: calc(-1 * var(--space-1));
+}
+
+/* Right arrow */
+
+.tooltip--right .tooltip__bubble::after {
+  left: calc(-1 * var(--space-1));
+  top: 50%;
+
+  margin-top: calc(-1 * var(--space-1));
+}
+
+/* Arrow disabled */
+
+.tooltip--no-arrow .tooltip__bubble::after {
+  display: none;
+}
+
+/* ==========================================================================
+   DISABLED
+   ========================================================================== */
+
+.tooltip--disabled .tooltip__bubble {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip__bubble {
+    transition: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .tooltip__bubble {
+    border-color: CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+
+    box-shadow: none;
+  }
+
+  .tooltip__bubble::after {
+    display: none;
+  }
+}

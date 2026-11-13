@@ -1,90 +1,240 @@
+/* ==========================================================================
+   BASE ELEMENT STYLES
+   ==========================================================================
+
+   Purpose:
+   - Style native HTML elements.
+   - Apply semantic typography tokens.
+   - Establish readable content defaults.
+   - Maintain theme compatibility.
+   - Keep component-specific styling separate.
+
+   ========================================================================== */
+
+/* ==========================================================================
+   HEADINGS
+   ========================================================================== */
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  color:
-    var(--text-primary);
+  margin: 0;
 
-  font-weight:
-    var(--font-weight-semibold);
+  color: var(--text-primary);
 
-  line-height:
-    var(--line-height-heading);
+  font-family: var(--font-heading-family);
+  font-weight: var(--font-heading-weight);
 
-  letter-spacing:
-    var(--letter-spacing-tight);
+  line-height: var(--font-heading-line-height);
+  letter-spacing: var(--font-heading-letter-spacing);
+
+  text-wrap: balance;
 }
 
 h1 {
-  font-size:
-    var(--font-size-4xl);
+  font-size: var(--font-size-heading-h1);
 }
 
 h2 {
-  font-size:
-    var(--font-size-3xl);
+  font-size: var(--font-size-heading-h2);
 }
 
 h3 {
-  font-size:
-    var(--font-size-2xl);
+  font-size: var(--font-size-heading-h3);
 }
 
 h4 {
-  font-size:
-    var(--font-size-xl);
+  font-size: var(--font-size-heading-h4);
 }
 
 h5 {
-  font-size:
-    var(--font-size-lg);
+  font-size: var(--font-size-heading-h5);
 }
 
 h6 {
-  font-size:
-    var(--font-size-md);
+  font-size: var(--font-size-heading-h6);
 }
+
+/* ==========================================================================
+   PARAGRAPHS
+   ========================================================================== */
 
 p {
-  color:
-    var(--text-secondary);
+  margin: 0;
 
-  line-height:
-    var(--line-height-relaxed);
+  color: var(--text-secondary);
+
+  font-size: inherit;
+  line-height: var(--line-height-relaxed);
+
+  overflow-wrap: break-word;
 }
 
+/* ==========================================================================
+   LINKS
+   ========================================================================== */
+
 a {
-  transition:
-    color var(--transition-fast);
+  color: inherit;
+
+  text-decoration: none;
+
+  transition: var(--transition-link);
 }
 
 a:hover {
-  color:
-    var(--primary);
+  color: var(--text-link-hover);
 }
 
+a:active {
+  color: var(--primary-active);
+}
+
+/* ==========================================================================
+   INLINE TEXT
+   ========================================================================== */
+
+strong,
+b {
+  font-weight: var(--font-weight-bold);
+}
+
+small {
+  font-size: var(--font-size-sm);
+}
+
+mark {
+  background: var(--primary-light);
+  color: var(--text-primary);
+}
+
+abbr[title] {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+
+/* ==========================================================================
+   BLOCKQUOTES
+   ========================================================================== */
+
+blockquote {
+  padding-inline-start: var(--space-4);
+
+  border-inline-start:
+    var(--border-width-thick) solid var(--border-strong);
+
+  color: var(--text-secondary);
+
+  font-style: italic;
+  line-height: var(--line-height-relaxed);
+}
+
+/* ==========================================================================
+   HORIZONTAL RULE
+   ========================================================================== */
+
 hr {
-  margin:
-    var(--space-6) 0;
+  margin-block: var(--space-6);
 
   border: 0;
+  border-top: var(--border-divider);
+}
 
-  border-top:
-    var(--border-width-thin) solid var(--border);
+/* ==========================================================================
+   CODE
+   ========================================================================== */
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-code-family);
 }
 
 code,
-pre {
-  font-family:
-    var(--font-family-mono);
+kbd,
+samp {
+  font-size: var(--font-code-size);
 }
 
-::selection {
-  background:
-    var(--primary);
+pre {
+  max-width: 100%;
 
-  color:
-    var(--on-primary);
+  overflow-x: auto;
+
+  font-size: var(--font-size-sm);
+  line-height: var(--font-code-line-height);
+
+  tab-size: 2;
+}
+
+code {
+  overflow-wrap: anywhere;
+}
+
+pre code {
+  overflow-wrap: normal;
+}
+
+/* ==========================================================================
+   SUPERSCRIPT / SUBSCRIPT
+   ========================================================================== */
+
+sup,
+sub {
+  position: relative;
+
+  font-size: 0.75em;
+  line-height: 0;
+
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+/* ==========================================================================
+   MEDIA
+   ========================================================================== */
+
+img {
+  max-width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption {
+  color: var(--text-tertiary);
+
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+/* ==========================================================================
+   TABLE CONTENT
+   ========================================================================== */
+
+th {
+  font-weight: var(--font-weight-semibold);
+  text-align: start;
+}
+
+/* ==========================================================================
+   SELECTION
+   ========================================================================== */
+
+::selection {
+  background: var(--selection-background, var(--primary));
+  color: var(--selection-text, var(--on-primary));
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import {
   ProfessionalHighlight,
   ImpactArea,
@@ -12,9 +13,10 @@ import {
   standalone: false,
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage {
-  readonly professionalHighlights: ProfessionalHighlight[] = [
+  readonly professionalHighlights: readonly ProfessionalHighlight[] = [
     {
       title: '5+ years',
       description: 'Digital transformation',
@@ -29,31 +31,31 @@ export class HomePage {
     },
   ];
 
-  readonly impactAreas: ImpactArea[] = [
+  readonly impactAreas: readonly ImpactArea[] = [
     {
       modifier: 'systems',
-      label: '01 · Engineering',
+      label: '01 / Engineering',
       title: 'Scalable systems',
       description:
         'Full-stack platforms shaped around dependable workflows, clear architecture, and useful interfaces.',
     },
     {
       modifier: 'intelligence',
-      label: '02 · Intelligence',
+      label: '02 / Intelligence',
       title: 'Data and AI enablement',
       description:
         'Information systems and AI-assisted automation that make insight more accessible and action more timely.',
     },
     {
       modifier: 'leadership',
-      label: '03 · Leadership',
+      label: '03 / Leadership',
       title: 'Product direction',
       description:
         'Technical decisions aligned with real operations, organizational goals, and the people responsible for delivery.',
     },
   ];
 
-  readonly projects: Project[] = [
+  readonly projects: readonly Project[] = [
     {
       modifier: 'digest',
       label: 'Infrastructure intelligence',
@@ -103,7 +105,7 @@ export class HomePage {
     },
   ];
 
-  readonly experiences: Experience[] = [
+  readonly experiences: readonly Experience[] = [
     {
       period: '2025 — Present',
       type: 'Current role',
@@ -130,16 +132,16 @@ export class HomePage {
     },
   ];
 
-  readonly capabilities: Capability[] = [
+  readonly capabilities: readonly Capability[] = [
     {
       modifier: 'engineering',
-      label: '01 · Build',
+      label: '01 / Build',
       title: 'Full-stack engineering',
       skills: ['Angular', 'React', 'TypeScript', 'Python', 'Java'],
     },
     {
       modifier: 'backend',
-      label: '02 · Connect',
+      label: '02 / Connect',
       title: 'Backend and APIs',
       skills: [
         'NestJS',
@@ -154,7 +156,7 @@ export class HomePage {
     },
     {
       modifier: 'data',
-      label: '03 · Learn',
+      label: '03 / Intelligence',
       title: 'Data and AI',
       skills: [
         'PostgreSQL',
@@ -167,7 +169,7 @@ export class HomePage {
     },
     {
       modifier: 'devops',
-      label: '04 · Deliver',
+      label: '04 / Deliver',
       title: 'Cloud and DevOps',
       skills: ['Docker', 'Kubernetes', 'GitHub Actions', 'Linux', 'Nginx', 'SSL/TLS'],
     },

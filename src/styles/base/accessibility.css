@@ -1,57 +1,280 @@
-:focus {
-  outline: none;
-}
+/* ==========================================================================
+   ACCESSIBILITY STYLES
+   ==========================================================================
 
-:focus-visible {
+   Purpose:
+   - Provide accessible keyboard navigation.
+   - Maintain visible focus indicators.
+   - Support screen readers and assistive technologies.
+   - Provide accessible skip navigation.
+   - Respect reduced-motion preferences.
+   - Support Windows high-contrast mode.
+   - Maintain compatibility with all application themes.
+
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. KEYBOARD FOCUS
+   ==========================================================================
+
+   Preserve native focus behavior while providing consistent
+   focus indicators for interactive elements.
+
+   :focus-visible displays the focus ring primarily during
+   keyboard navigation.
+
+   ========================================================================== */
+
+:where(a,
+  button,
+  input,
+  textarea,
+  select,
+  summary,
+  [tabindex]:not([tabindex="-1"])):focus-visible {
   outline:
-    3px solid var(--focus-ring);
+    var(--border-width-thick, 3px) solid var(--focus-ring, currentColor);
 
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
-[disabled],
+
+/* ==========================================================================
+   2. POINTER FOCUS
+   ==========================================================================
+
+   Hide unnecessary focus outlines for pointer interactions
+   while preserving keyboard focus visibility.
+
+   ========================================================================== */
+
+@supports selector(:focus-visible) {
+
+  :where(a,
+    button,
+    input,
+    textarea,
+    select,
+    summary,
+    [tabindex]:not([tabindex="-1"])):focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+
+/* ==========================================================================
+   3. DISABLED STATES
+   ========================================================================== */
+
+:where(button,
+  input,
+  textarea,
+  select):disabled {
+  cursor: not-allowed;
+}
+
 [aria-disabled="true"] {
   cursor: not-allowed;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+
+/* ==========================================================================
+   4. SCREEN READER ONLY
+   ==========================================================================
+
+   Visually hide content while keeping it available to
+   screen readers and other assistive technologies.
+
+   ========================================================================== */
+
+.sr-only,
+.visually-hidden {
+  position: absolute !important;
+
+  width: 1px !important;
+  height: 1px !important;
+
+  padding: 0 !important;
+  margin: -1px !important;
+
+  overflow: hidden !important;
+
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+
+  white-space: nowrap !important;
+
+  border: 0 !important;
 }
+
+
+/* ==========================================================================
+   5. FOCUSABLE SCREEN READER CONTENT
+   ==========================================================================
+
+   Make visually hidden content visible when it receives
+   keyboard focus.
+
+   Example:
+   class="sr-only sr-only-focusable"
+
+   ========================================================================== */
+
+.sr-only-focusable:focus,
+.sr-only-focusable:focus-visible {
+  position: static !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  padding: initial !important;
+  margin: initial !important;
+
+  overflow: visible !important;
+
+  clip: auto !important;
+  clip-path: none !important;
+
+  white-space: normal !important;
+}
+
+
+/* ==========================================================================
+   6. SKIP NAVIGATION LINK
+   ==========================================================================
+
+   Allows keyboard users to bypass repeated navigation and
+   move directly to the main content.
+
+   ========================================================================== */
 
 .skip-link {
   position: fixed;
+
   top: var(--space-4);
   left: var(--space-4);
-  z-index: var(--z-tooltip);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  background: var(--primary);
-  color: var(--on-primary);
-  transform: translateY(-200%);
+
+  z-index: var(--z-skip-link, 9999);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-2);
+
+  padding:
+    var(--space-3) var(--space-4);
+
+  border:
+    var(--border-width-medium, 2px) solid var(--on-primary, #ffffff);
+
+  border-radius: var(--radius-button-md);
+
+  background: var(--primary, #000000);
+  color: var(--on-primary, #ffffff);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+
+  line-height: var(--line-height-normal);
+
+  text-decoration: none;
+
+  box-shadow: var(--shadow-md);
+
+  transform: translateY(calc(-100% - var(--space-8)));
+
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none;
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible {
   transform: translateY(0);
+
+  opacity: 1;
+  visibility: visible;
+
+  pointer-events: auto;
+
+  color: var(--on-primary, #ffffff);
 }
+
+.skip-link:hover {
+  background: var(--primary-hover, #262626);
+  color: var(--on-primary, #ffffff);
+}
+
+
+/* ==========================================================================
+   7. REDUCED MOTION
+   ==========================================================================
+
+   Respect the user's operating-system motion preferences.
+
+   Disable decorative animation and smooth scrolling.
+
+   ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
 
   *,
   *::before,
   *::after {
-    scroll-behavior: auto !important;
-
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
 
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ==========================================================================
+   8. FORCED COLORS / HIGH CONTRAST
+   ==========================================================================
+
+   Support browsers and operating systems that use forced
+   colors, including Windows High Contrast Mode.
+
+   ========================================================================== */
+
+@media (forced-colors: active) {
+
+  :where(a,
+    button,
+    input,
+    textarea,
+    select,
+    summary,
+    [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 3px;
+  }
+
+  .skip-link {
+    background: ButtonFace;
+    color: ButtonText;
+
+    border: 2px solid ButtonText;
+
+    forced-color-adjust: auto;
+  }
+
+  .skip-link:focus,
+  .skip-link:focus-visible,
+  .skip-link:hover {
+    background: Highlight;
+    color: HighlightText;
+
+    border-color: HighlightText;
   }
 }

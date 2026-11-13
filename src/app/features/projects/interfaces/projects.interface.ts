@@ -1,21 +1,21 @@
 export interface Project {
-  id: string;
-  number: string;
-  category: string;
-  title: string;
-  description: string;
-  role: string;
-  year?: string;
-  status?: string;
-  technologies: string[];
-  url?: string;
-  linkText?: string;
-  featured?: boolean;
+  readonly id: string;
+  readonly number: string;
+  readonly category: string;
+  readonly title: string;
+  readonly description: string;
+  readonly role: string;
+  readonly year?: string;
+  readonly status?: string;
+  readonly technologies: readonly string[];
+  readonly url?: string;
+  readonly linkText?: string;
+  readonly featured?: boolean;
 }
 
 export interface ProjectPrinciple {
-  number: string;
-  label: string;
-  title: string;
-  description: string;
+  readonly number: string;
+  readonly label: string;
+  readonly title: string;
+  readonly description: string;
 }

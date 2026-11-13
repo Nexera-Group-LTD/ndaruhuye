@@ -8,10 +8,12 @@
   [class.badge--success]="color === 'success'" [class.badge--warning]="color === 'warning'"
   [class.badge--danger]="color === 'danger'" [class.badge--info]="color === 'info'" [class.badge--pill]="pill"
   [attr.aria-label]="ariaLabel ?? null">
+  <!-- Optional status indicator -->
   @if (dot) {
   <span class="badge__dot" aria-hidden="true"></span>
   }
 
+  <!-- Content -->
   <span class="badge__content">
     <ng-content />
   </span>

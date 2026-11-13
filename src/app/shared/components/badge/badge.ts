@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+/* ==========================================================================
+   BADGE TYPES
+   ========================================================================== */
+
 export type BadgeColor =
   | 'primary'
   | 'neutral'
@@ -14,17 +18,25 @@ export type BadgeColor =
   | 'warning'
   | 'danger'
   | 'info';
+
 export type BadgeAppearance = 'solid' | 'soft' | 'outline';
+
 export type BadgeSize = 'small' | 'medium' | 'large';
+
+/* ==========================================================================
+   BADGE COMPONENT
+   ========================================================================== */
 
 @Component({
   selector: 'app-badge',
   standalone: false,
-  styleUrl: './badge.css',
   templateUrl: './badge.html',
+  styleUrl: './badge.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Badge {
+  /* Appearance */
+
   @Input()
   color: BadgeColor = 'neutral';
 
@@ -34,11 +46,17 @@ export class Badge {
   @Input()
   size: BadgeSize = 'medium';
 
+  /* Shape */
+
   @Input()
   pill = true;
 
+  /* Optional indicator */
+
   @Input()
   dot = false;
+
+  /* Accessibility */
 
   @Input()
   ariaLabel?: string;

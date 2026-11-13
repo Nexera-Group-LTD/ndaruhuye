@@ -1,0 +1,54 @@
+<div class="tabs" [class.tabs--underline]="appearance === 'underline'" [class.tabs--pills]="appearance === 'pills'"
+  [class.tabs--bordered]="appearance === 'bordered'" [class.tabs--horizontal]="orientation === 'horizontal'"
+  [class.tabs--vertical]="orientation === 'vertical'" [class.tabs--small]="size === 'small'"
+  [class.tabs--medium]="size === 'medium'" [class.tabs--large]="size === 'large'" [class.tabs--full-width]="fullWidth">
+  <!-- ==============================================================
+       TAB NAVIGATION
+       ============================================================== -->
+
+  <div class="tabs__navigation">
+    <div class="tabs__list" role="tablist" [attr.aria-label]="ariaLabel" [attr.aria-orientation]="orientation">
+      @for (
+      tab of tabs;
+      track tab.value;
+      let i = $index
+      ) {
+      <button #tabButton type="button" class="tabs__trigger" role="tab" [class.tabs__trigger--active]="
+            selectedValue === tab.value
+          " [id]="tabId + '-tab-' + i" [attr.aria-controls]="
+            selectedValue === tab.value
+              ? panelId
+              : null
+          " [attr.aria-selected]="
+            selectedValue === tab.value
+          " [attr.tabindex]="
+            selectedValue === tab.value
+              ? 0
+              : -1
+          " [disabled]="!!tab.disabled" (click)="selectTab(tab)" (keydown)="onKeydown($event, i)">
+        @if (tab.icon) {
+        <i class="tabs__icon" [class]="tab.icon" aria-hidden="true"></i>
+        }
+
+        <span class="tabs__label">
+          {{ tab.label }}
+        </span>
+      </button>
+      }
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       ACTIVE PANEL
+       ============================================================== -->
+
+  @if (selectedIndex !== -1) {
+  <div class="tabs__panel" role="tabpanel" tabindex="0" [id]="panelId" [attr.aria-labelledby]="
+        tabId + '-tab-' + selectedIndex
+      ">
+    @if (activePanel; as panel) {
+    <ng-container [ngTemplateOutlet]="panel.template" />
+    }
+  </div>
+  }
+</div>

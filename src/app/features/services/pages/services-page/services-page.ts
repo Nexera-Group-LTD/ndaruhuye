@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { EngagementStep, Service, ServiceArea } from '../../interfaces/services.interface';
 
 @Component({
@@ -6,9 +7,10 @@ import { EngagementStep, Service, ServiceArea } from '../../interfaces/services.
   standalone: false,
   templateUrl: './services-page.html',
   styleUrl: './services-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServicesPage {
-  readonly services: Service[] = [
+  readonly services: readonly Service[] = [
     {
       id: 'digital-platforms',
       number: '01',
@@ -111,7 +113,7 @@ export class ServicesPage {
     },
   ];
 
-  readonly engagementSteps: EngagementStep[] = [
+  readonly engagementSteps: readonly EngagementStep[] = [
     {
       number: '01',
       label: 'Understand',
@@ -142,7 +144,7 @@ export class ServicesPage {
     },
   ];
 
-  readonly serviceAreas: ServiceArea[] = [
+  readonly serviceAreas: readonly ServiceArea[] = [
     {
       number: '01',
       title: 'Organizations',

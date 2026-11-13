@@ -1,132 +1,110 @@
 <footer class="site-footer">
-  <div class="site-footer__grid" aria-hidden="true"></div>
-
-  <div class="site-footer__glow" aria-hidden="true"></div>
-
   <div class="site-footer__container">
 
-    <!-- =====================================================
-         MAIN FOOTER
-    ====================================================== -->
-    <div class="site-footer__main">
+    <!-- ============================================================
+         FOOTER INTRO
+         ============================================================ -->
 
-      <!-- Brand / Statement -->
+    <div class="site-footer__intro">
+
+      <!-- Brand -->
       <div class="footer-brand">
-        <div class="footer-brand__top">
+        <div class="footer-brand__meta">
           <span class="footer-brand__eyebrow">
-            Ndaruhuye
+            Ndaruhuye / Portfolio
           </span>
 
           <span class="footer-status">
             <span class="footer-status__dot" aria-hidden="true"></span>
 
-            Available for selected projects
+            <span>Available for selected projects</span>
           </span>
         </div>
 
         <h2 class="footer-brand__heading">
-          Building digital systems where
-          <span>engineering, data, and AI</span>
-          meet real-world problems.
+          Building software that
+          <span>solves real problems.</span>
         </h2>
 
         <p class="footer-brand__description">
-          Software engineering, intelligent systems, and
-          technology solutions designed around meaningful
-          operational needs.
+          Software engineering, intelligent systems,
+          and technology solutions shaped around
+          meaningful operational needs.
         </p>
       </div>
 
-
-      <!-- CTA -->
+      <!-- Call to action -->
       <div class="footer-cta">
-
         <span class="footer-cta__label">
-          Start a conversation
+          Have a project in mind?
         </span>
 
-        <h3>
-          Have something worth building?
-        </h3>
-
-        <p>
-          Let’s turn the challenge into a system that works.
+        <p class="footer-cta__description">
+          I'm always interested in thoughtful ideas,
+          meaningful challenges, and opportunities
+          to build something useful.
         </p>
 
         <a class="footer-cta__link" href="mailto:ndaruhuyves@gmail.com">
-          <span>Email Ndaruhuye</span>
+          <span>Start a conversation</span>
 
-          <span class="footer-cta__arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" focusable="false">
-              <path d="M5 12h14" />
-              <path d="m13 6 6 6-6 6" />
-            </svg>
-          </span>
+          <i class="fa-solid fa-envelope"></i>
         </a>
-
       </div>
 
     </div>
 
-
-    <!-- =====================================================
+    <!-- ============================================================
          FOOTER NAVIGATION
-    ====================================================== -->
+         ============================================================ -->
+
     <div class="footer-navigation">
+
+      <!-- Identity -->
+      <div class="footer-column footer-column--identity">
+        <a class="footer-identity" routerLink="/" aria-label="Ndaruhuye — Home">
+          <span class="footer-identity__mark" aria-hidden="true">
+            N
+          </span>
+
+          <span class="footer-identity__content">
+            <strong>Ndaruhuye</strong>
+            <small>Technology &amp; AI</small>
+          </span>
+        </a>
+
+        <p class="footer-column__description">
+          Engineering reliable digital experiences,
+          data-driven systems, and practical technology.
+        </p>
+      </div>
 
       <!-- Explore -->
       <div class="footer-column">
-        <p class="footer-column__title">
+        <h3 class="footer-column__title">
           Explore
-        </p>
+        </h3>
 
-        <nav aria-label="Footer navigation">
-          <a routerLink="/">
-            <span>01</span>
-            Home
+        <nav class="footer-column__links" aria-label="Footer navigation">
+          @for (item of navigationItems; track item.route) {
+          <a [routerLink]="item.route">
+            {{ item.label }}
           </a>
-
-          <a routerLink="/about">
-            <span>02</span>
-            About
-          </a>
-
-          <a routerLink="/projects">
-            <span>03</span>
-            Projects
-          </a>
-
-          <a routerLink="/skills">
-            <span>04</span>
-            Skills
-          </a>
-
-          <a routerLink="/services">
-            <span>05</span>
-            Services
-          </a>
-
-          <a routerLink="/contact">
-            <span>06</span>
-            Contact
-          </a>
+          }
         </nav>
       </div>
 
-
       <!-- Connect -->
       <div class="footer-column">
-        <p class="footer-column__title">
+        <h3 class="footer-column__title">
           Connect
-        </p>
+        </h3>
 
-        <nav aria-label="Social links">
-          <a href="https://ndaruhuye.nexeragroup.rw/" target="_blank" rel="noreferrer">
-            Website
+        <nav class="footer-column__links" aria-label="Contact and external links">
+          <a href="https://ndaruhuye.nexeragroup.rw/" target="_blank" rel="noopener noreferrer">
+            <span>Website</span>
 
-            <span class="footer-column__external" aria-hidden="true">
-              ↗
-            </span>
+            <i class="fa-solid fa-share-from-square"></i>
           </a>
 
           <a href="mailto:ndaruhuyves@gmail.com">
@@ -135,63 +113,42 @@
         </nav>
       </div>
 
-
-      <!-- Location / System Info -->
-      <div class="footer-column footer-column--system">
-
-        <p class="footer-column__title">
+      <!-- Location -->
+      <div class="footer-column footer-column--location">
+        <h3 class="footer-column__title">
           Base
-        </p>
+        </h3>
 
-        <div class="footer-system">
-
-          <div class="footer-system__row">
-            <span>Location</span>
-            <strong>Kigali, Rwanda</strong>
-          </div>
-
-          <div class="footer-system__row">
-            <span>Timezone</span>
-            <strong>UTC+2</strong>
-          </div>
-
-          <div class="footer-system__row">
-            <span>Focus</span>
-            <strong>Software · Data · AI</strong>
-          </div>
-
+        <div class="footer-location">
+          <p>Kigali, Rwanda</p>
+          <span>Central Africa Time · UTC+2</span>
+          <span>Software · Data · AI</span>
         </div>
-
       </div>
 
     </div>
 
+    <!-- ============================================================
+         FOOTER BOTTOM
+         ============================================================ -->
 
-    <!-- =====================================================
-         BOTTOM BAR
-    ====================================================== -->
     <div class="site-footer__bottom">
 
-      <p>
-        © {{ currentYear }} Ndaruhuye
+      <p class="site-footer__copyright">
+        © {{ currentYear }} Ndaruhuye.
+        All rights reserved.
       </p>
 
-      <div class="site-footer__signature">
-        <span>Engineering</span>
-        <span class="site-footer__separator"></span>
-        <span>Data</span>
-        <span class="site-footer__separator"></span>
-        <span>AI</span>
-      </div>
+      <span class="site-footer__signature">
+        Designed with purpose.
+        Built with care.
+      </span>
 
-      <a class="site-footer__top" href="#home" aria-label="Back to top">
-        Back to top
+      <button type="button" class="site-footer__top" (click)="scrollToTop()" aria-label="Scroll back to top of page">
+        <span>Back to top</span>
 
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M12 19V5" />
-          <path d="m6 11 6-6 6 6" />
-        </svg>
-      </a>
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+      </button>
 
     </div>
 

@@ -1,499 +1,344 @@
 <div class="services-page portfolio-page">
 
-  <!-- =====================================================
-       HERO
-  ====================================================== -->
-
-  <section class="services-hero">
-
-    <div class="services-hero__grid" aria-hidden="true"></div>
-
-    <div class="page-container services-hero__layout">
-
-      <div class="services-hero__content">
-
-        <p class="eyebrow">
-          01 · Services
-        </p>
-
-        <h1>
-          From complex problems
-          <span>to working systems.</span>
-        </h1>
-
-        <p class="services-hero__intro">
-          I help organizations and technical teams design,
-          build, integrate, and improve digital systems across
-          software engineering, data, AI, automation, and
-          production infrastructure.
-        </p>
-
-        <div class="services-hero__actions">
-
-          <a class="button button--primary" routerLink="/" fragment="contact">
-            <span>Discuss a project</span>
-
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 12h14" />
-              <path d="m13 6 6 6-6 6" />
-            </svg>
-          </a>
-
-          <a class="button button--secondary" routerLink="/" fragment="projects">
-            View selected work
-          </a>
-
-        </div>
-
-
-        <div class="services-hero__meta">
-
-          <div>
-            <span>Approach</span>
-            <strong>Problem → System → Impact</strong>
-          </div>
-
-          <div>
-            <span>Coverage</span>
-            <strong>Architecture → Production</strong>
-          </div>
-
-          <div>
-            <span>Focus</span>
-            <strong>Software · Data · AI</strong>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- SERVICE SYSTEM VISUAL -->
-
-      <div class="service-system" aria-hidden="true">
-
-        <div class="service-system__header">
-
-          <div>
-            <span class="service-system__signal"></span>
-            DELIVERY / SYSTEM
-          </div>
-
-          <span>ACTIVE</span>
-
-        </div>
-
-
-        <div class="service-system__field">
-
-          <div class="service-system__orbit service-system__orbit--outer"></div>
-          <div class="service-system__orbit service-system__orbit--middle"></div>
-
-          <div class="service-system__axis service-system__axis--x"></div>
-          <div class="service-system__axis service-system__axis--y"></div>
-
-
-          <div class="service-system__core">
-
-            <span>SYSTEM</span>
-
-            <strong>
-              Solution
-            </strong>
-
-            <small>
-              Delivered
-            </small>
-
-          </div>
-
-
-          <div class="service-system__node service-system__node--problem">
-            <span>01</span>
-            <strong>Problem</strong>
-          </div>
-
-          <div class="service-system__node service-system__node--design">
-            <span>02</span>
-            <strong>Design</strong>
-          </div>
-
-          <div class="service-system__node service-system__node--build">
-            <span>03</span>
-            <strong>Build</strong>
-          </div>
-
-          <div class="service-system__node service-system__node--operate">
-            <span>04</span>
-            <strong>Operate</strong>
-          </div>
-
-        </div>
-
-
-        <div class="service-system__footer">
-          <span>UNDERSTAND</span>
-          <span>ENGINEER</span>
-          <span>DELIVER</span>
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       SERVICES
-  ====================================================== -->
-
-  <section class="section services" id="services">
-
+  <!-- HERO -->
+  <section id="services-overview" class="services-hero" aria-labelledby="services-title">
     <div class="page-container">
 
-      <div class="section-heading">
-
-        <p class="eyebrow">
-          02 · What I deliver
-        </p>
-
-        <h2>
-          Engineering services built around outcomes.
-        </h2>
-
-        <p>
-          The technology depends on the problem. The goal is
-          always the same: create a system that is useful,
-          maintainable, and capable of operating in the real
-          environment around it.
-        </p>
-
+      <div class="services-hero__topline">
+        <span>Services / What I do</span>
+        <span>{{ services.length }} Areas of expertise</span>
       </div>
 
+      <div class="services-hero__layout">
 
-      <div class="services-grid">
-
-        @for (
-        service of services;
-        track service.id
-        ) {
-
-        <article class="service-card" [attr.data-service]="service.id">
-
-          <div class="service-card__header">
-
-            <span class="service-card__number">
-              {{ service.number }}
-            </span>
-
-            <span class="service-card__label">
-              {{ service.label }}
-            </span>
-
-          </div>
-
-
-          <div class="service-card__body">
-
-            <h3>
-              {{ service.title }}
-            </h3>
-
-            <p>
-              {{ service.description }}
-            </p>
-
-          </div>
-
-
-          <div class="service-card__capabilities">
-
-            @for (
-            capability of service.capabilities;
-            track capability
-            ) {
-            <span>
-              {{ capability }}
-            </span>
-            }
-
-          </div>
-
-
-          <div class="service-card__outcome">
-
-            <span>
-              Outcome
-            </span>
-
-            <p>
-              {{ service.outcome }}
-            </p>
-
-          </div>
-
-        </article>
-
-        }
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       PROCESS
-  ====================================================== -->
-
-  <section class="section process">
-
-    <div class="page-container">
-
-      <div class="process__heading">
-
-        <div>
-          <p class="eyebrow">
-            03 · Working process
+        <div class="services-hero__content">
+          <p class="services-eyebrow">
+            <span class="services-eyebrow__line" aria-hidden="true"></span>
+            Engineering · Data · AI · Delivery
           </p>
 
-          <h2>
-            Understand before building.
+          <h1 id="services-title">
+            From complex problems
+            <span>to working systems.</span>
+          </h1>
+
+          <p class="services-hero__intro">
+            I help organizations and technical teams design,
+            build, integrate, and improve digital systems
+            across software engineering, data, AI,
+            automation, and production infrastructure.
+          </p>
+
+          <div class="services-hero__actions">
+            <a class="services-action services-action--primary" routerLink="/contact">
+              <span>Discuss a project</span>
+              <i class="fa-solid fa-arrow-up-right" aria-hidden="true"></i>
+            </a>
+
+            <a class="services-action services-action--outline" routerLink="/projects">
+              View selected work
+            </a>
+          </div>
+        </div>
+
+        <!-- Decorative delivery map -->
+        <div class="service-system" aria-hidden="true">
+          <div class="service-system__header">
+            <span>Delivery / System</span>
+            <span>ND — 004</span>
+          </div>
+
+          <div class="service-system__canvas">
+            <div class="service-system__axis service-system__axis--x"></div>
+            <div class="service-system__axis service-system__axis--y"></div>
+
+            <div class="service-system__ring service-system__ring--outer"></div>
+            <div class="service-system__ring service-system__ring--middle"></div>
+            <div class="service-system__ring service-system__ring--inner"></div>
+
+            <div class="service-system__core">
+              <span>System</span>
+              <strong>Solution</strong>
+              <small>In operation</small>
+            </div>
+
+            <div class="service-system__node service-system__node--problem">
+              <span>01</span>
+              <strong>Understand</strong>
+            </div>
+
+            <div class="service-system__node service-system__node--design">
+              <span>02</span>
+              <strong>Design</strong>
+            </div>
+
+            <div class="service-system__node service-system__node--build">
+              <span>03</span>
+              <strong>Build</strong>
+            </div>
+
+            <div class="service-system__node service-system__node--deliver">
+              <span>04</span>
+              <strong>Deliver</strong>
+            </div>
+          </div>
+
+          <div class="service-system__footer">
+            <span>Problem</span>
+            <span>Engineering</span>
+            <span>Impact</span>
+          </div>
+        </div>
+
+      </div>
+
+      <dl class="services-hero__meta">
+        <div>
+          <dt>Approach</dt>
+          <dd>Problem → System → Impact</dd>
+        </div>
+        <div>
+          <dt>Coverage</dt>
+          <dd>Architecture → Production</dd>
+        </div>
+        <div>
+          <dt>Focus</dt>
+          <dd>Software · Data · AI</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- SERVICE OFFERINGS -->
+  <section id="services" class="services-section services-catalog" aria-labelledby="services-catalog-title">
+    <div class="page-container">
+
+      <div class="services-section__intro">
+        <div class="services-section__heading">
+          <p class="services-eyebrow">01 / What I deliver</p>
+          <h2 id="services-catalog-title">
+            Engineering services
+            <span>built around outcomes.</span>
           </h2>
         </div>
 
-        <p>
+        <p class="services-section__description">
+          The technology depends on the problem. The goal is
+          always the same: create systems that are useful,
+          maintainable, and capable of operating in the real
+          environment around them.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        @for (service of services; track service.id) {
+        <article class="service-card" [class.service-card--digital]="service.id === 'digital-platforms'"
+          [class.service-card--architecture]="service.id === 'architecture'"
+          [class.service-card--ai]="service.id === 'data-ai'"
+          [class.service-card--modernization]="service.id === 'modernization'"
+          [class.service-card--devops]="service.id === 'cloud-devops'"
+          [class.service-card--consulting]="service.id === 'consulting'">
+          <div class="service-card__top">
+            <span class="service-card__number">
+              {{ service.number }}
+            </span>
+            <span class="service-card__label">
+              {{ service.label }}
+            </span>
+          </div>
+
+          <div class="service-card__content">
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+          </div>
+
+          <div class="service-card__offerings">
+            <span class="service-card__subtitle">
+              What this includes
+            </span>
+
+            <ul class="service-card__capabilities" [attr.aria-label]="service.title + ' capabilities'">
+              @for (capability of service.capabilities; track capability) {
+              <li>{{ capability }}</li>
+              }
+            </ul>
+          </div>
+
+          <div class="service-card__outcome">
+            <div class="service-card__outcome-label">
+              <i class="fa-solid fa-check" aria-hidden="true"></i>
+              <span>Intended outcome</span>
+            </div>
+            <p>{{ service.outcome }}</p>
+          </div>
+        </article>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ENGAGEMENT PROCESS -->
+  <section id="process" class="services-section services-process" aria-labelledby="services-process-title">
+    <div class="page-container">
+
+      <div class="services-section__intro">
+        <div class="services-section__heading">
+          <p class="services-eyebrow">02 / How I work</p>
+          <h2 id="services-process-title">
+            Understand
+            <span>before building.</span>
+          </h2>
+        </div>
+
+        <p class="services-section__description">
           Good software begins before the first component,
           endpoint, or database table. Delivery starts with
           understanding what the system needs to accomplish.
         </p>
-
       </div>
 
-
-      <div class="process-flow">
-
-        @for (
-        step of engagementSteps;
-        track step.number;
-        let last = $last
-        ) {
-
-        <article class="process-step">
-
+      <ol class="process-grid">
+        @for (step of engagementSteps; track step.number) {
+        <li class="process-step">
           <div class="process-step__top">
-
-            <span class="process-step__number">
-              {{ step.number }}
-            </span>
-
-            <span class="process-step__label">
-              {{ step.label }}
-            </span>
-
+            <span class="process-step__number">{{ step.number }}</span>
+            <span class="process-step__label">{{ step.label }}</span>
           </div>
 
-          <h3>
-            {{ step.title }}
-          </h3>
-
-          <p>
-            {{ step.description }}
-          </p>
-
-        </article>
-
-        @if (!last) {
-        <div class="process-connector" aria-hidden="true">
-          <span></span>
-        </div>
+          <div class="process-step__body">
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.description }}</p>
+          </div>
+        </li>
         }
-
-        }
-
-      </div>
+      </ol>
 
     </div>
-
   </section>
 
-
-  <!-- =====================================================
-       WHO I WORK WITH
-  ====================================================== -->
-
-  <section class="section collaboration">
-
+  <!-- COLLABORATION -->
+  <section id="collaboration" class="services-section collaboration" aria-labelledby="collaboration-title">
     <div class="page-container collaboration__layout">
 
-      <div class="collaboration__intro">
-
-        <p class="eyebrow">
-          04 · Collaboration
-        </p>
-
-        <h2>
-          Where I can add value.
+      <div class="services-section__heading">
+        <p class="services-eyebrow">03 / Collaboration</p>
+        <h2 id="collaboration-title">
+          Where I can
+          <span>add value.</span>
         </h2>
 
-        <p>
-          I work best on problems where software needs to
-          connect technology with real operational requirements,
+        <p class="services-section__description">
+          I work best on problems where software needs
+          to connect technology with operational requirements,
           information, people, and long-term delivery.
         </p>
-
       </div>
 
-
-      <div class="collaboration__list">
-
-        @for (
-        area of serviceAreas;
-        track area.number
-        ) {
-
-        <article class="collaboration-item">
-
+      <ol class="collaboration__list">
+        @for (area of serviceAreas; track area.number) {
+        <li class="collaboration-item">
           <span class="collaboration-item__number">
             {{ area.number }}
           </span>
 
           <div>
-            <h3>
-              {{ area.title }}
-            </h3>
-
-            <p>
-              {{ area.description }}
-            </p>
+            <h3>{{ area.title }}</h3>
+            <p>{{ area.description }}</p>
           </div>
-
-        </article>
-
+        </li>
         }
-
-      </div>
-
+      </ol>
     </div>
-
   </section>
 
-
-  <!-- =====================================================
-       CONNECTION
-  ====================================================== -->
-
-  <section class="section connection">
-
+  <!-- CONNECTED SYSTEM -->
+  <section id="full-system" class="services-section connection" aria-labelledby="connection-title">
     <div class="page-container">
-
-      <div class="connection__system">
+      <div class="connection__panel">
 
         <div class="connection__heading">
+          <p class="services-eyebrow">04 / Full-system thinking</p>
 
-          <p class="eyebrow">
-            05 · Full-system thinking
-          </p>
-
-          <h2>
-            The service is bigger than the code.
+          <h2 id="connection-title">
+            The service is bigger
+            <span>than the code.</span>
           </h2>
 
           <p>
             A useful digital system connects multiple layers.
-            Decisions made in one layer affect everything around
-            it.
+            Decisions made in one layer affect everything around it.
           </p>
-
         </div>
 
-
-        <div class="connection__flow">
-
-          <div class="connection-node">
-            <span>01</span>
+        <ol class="connection__flow">
+          <li class="connection-node">
+            <span class="connection-node__number">01</span>
+            <i class="fa-solid fa-users" aria-hidden="true"></i>
             <strong>People</strong>
-            <small>Needs & workflows</small>
-          </div>
+            <small>Needs &amp; workflows</small>
+          </li>
 
-          <span class="connection-line" aria-hidden="true"></span>
-
-          <div class="connection-node">
-            <span>02</span>
+          <li class="connection-node">
+            <span class="connection-node__number">02</span>
+            <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
             <strong>Product</strong>
-            <small>Experience & logic</small>
-          </div>
+            <small>Experience &amp; logic</small>
+          </li>
 
-          <span class="connection-line" aria-hidden="true"></span>
-
-          <div class="connection-node">
-            <span>03</span>
+          <li class="connection-node">
+            <span class="connection-node__number">03</span>
+            <i class="fa-solid fa-database" aria-hidden="true"></i>
             <strong>Data</strong>
-            <small>Information & insight</small>
-          </div>
+            <small>Information &amp; insight</small>
+          </li>
 
-          <span class="connection-line" aria-hidden="true"></span>
-
-          <div class="connection-node">
-            <span>04</span>
+          <li class="connection-node">
+            <span class="connection-node__number">04</span>
+            <i class="fa-solid fa-server" aria-hidden="true"></i>
             <strong>Infrastructure</strong>
-            <small>Delivery & operation</small>
-          </div>
+            <small>Delivery &amp; operation</small>
+          </li>
+        </ol>
 
-        </div>
-
+        <p class="connection__footnote">
+          People, software, information, and infrastructure
+          form one operational ecosystem.
+        </p>
       </div>
-
     </div>
-
   </section>
 
-
-  <!-- =====================================================
-       CTA
-  ====================================================== -->
-
-  <section class="section services-cta">
-
+  <!-- FINAL CTA -->
+  <section class="services-section services-cta" aria-labelledby="services-cta-title">
     <div class="page-container">
-
       <div class="services-cta__card">
 
         <div class="services-cta__content">
-
-          <p class="eyebrow">
-            Have a technical challenge?
+          <p class="services-eyebrow">
+            05 / Have a technical challenge?
           </p>
 
-          <h2>
-            Let's turn it into a working system.
+          <h2 id="services-cta-title">
+            Let's turn it into
+            <span>a working system.</span>
           </h2>
 
           <p>
-            Whether you're building something new, improving an
-            existing platform, connecting systems, or exploring
-            where data and AI can create value, the conversation
-            can start with the problem.
+            Whether you're building something new, improving
+            an existing platform, connecting systems, or
+            exploring where data and AI can create value,
+            the conversation can start with the problem.
           </p>
-
         </div>
 
-
-        <a class="services-cta__action" href="mailto:ndaruhuyves@gmail.com">
+        <a class="services-action services-action--primary" routerLink="/contact">
           <span>Start a conversation</span>
-
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M5 12h14" />
-            <path d="m13 6 6 6-6 6" />
-          </svg>
+          <i class="fa-solid fa-arrow-up-right" aria-hidden="true"></i>
         </a>
 
       </div>
-
     </div>
-
   </section>
 
 </div>

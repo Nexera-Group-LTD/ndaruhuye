@@ -1,0 +1,433 @@
+/* ==========================================================================
+   MODAL COMPONENT
+   ==========================================================================
+
+   Purpose:
+   - Reusable modal dialog.
+   - Support custom projected content.
+   - Support responsive sizing.
+   - Provide accessible focus and dismissal controls.
+   - Support all global application themes.
+
+   ========================================================================== */
+
+/* ==========================================================================
+   HOST
+   ========================================================================== */
+
+:host {
+  display: contents;
+}
+
+/* ==========================================================================
+   MODAL BASE
+   ========================================================================== */
+
+.modal {
+  --modal-width: 36rem;
+  --modal-padding: var(--space-6);
+  --modal-radius: var(--radius-2xl);
+
+  position: fixed;
+
+  width: min(calc(100% - var(--space-8)),
+      var(--modal-width));
+
+  max-width: var(--modal-width);
+
+  max-height: calc(100dvh - var(--space-8));
+
+  margin: auto;
+  padding: 0;
+
+  border:
+    var(--border-width-thin) solid var(--border);
+
+  border-radius: var(--modal-radius);
+
+  background: var(--surface);
+  color: var(--text-primary);
+
+  box-shadow: var(--shadow-xl);
+
+  overflow: hidden;
+
+  color-scheme: inherit;
+}
+
+/* ==========================================================================
+   OPEN STATE
+   ========================================================================== */
+
+.modal[open] {
+  animation:
+    modal-enter 220ms ease-out both;
+}
+
+/* ==========================================================================
+   BACKDROP
+   ========================================================================== */
+
+.modal::backdrop {
+  background:
+    var(--overlay-background,
+      rgb(0 0 0 / 55%));
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.modal[open]::backdrop {
+  animation:
+    modal-backdrop-enter 220ms ease-out both;
+}
+
+/* ==========================================================================
+   SURFACE
+   ========================================================================== */
+
+.modal__surface {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-height: inherit;
+
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  flex: 0 0 auto;
+
+  gap: var(--space-4);
+
+  min-width: 0;
+
+  padding: var(--modal-padding);
+
+  border-bottom:
+    var(--border-width-thin) solid var(--border-divider, var(--border));
+}
+
+.modal__heading {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1 1 auto;
+
+  gap: var(--space-2);
+
+  min-width: 0;
+}
+
+/* ==========================================================================
+   TITLE
+   ========================================================================== */
+
+.modal__title {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-family: var(--font-family-base);
+
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+
+  line-height: var(--line-height-heading);
+  letter-spacing: normal;
+
+  text-wrap: balance;
+}
+
+/* ==========================================================================
+   DESCRIPTION
+   ========================================================================== */
+
+.modal__description {
+  margin: 0;
+
+  max-width: 65ch;
+
+  color: var(--text-secondary);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+
+  line-height: var(--line-height-relaxed);
+
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================================================
+   CLOSE BUTTON
+   ========================================================================== */
+
+.modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  margin: calc(-1 * var(--space-1));
+  padding: 0;
+
+  border: 0;
+  border-radius: var(--radius-md);
+
+  background: transparent;
+  color: var(--text-secondary);
+
+  font-size: var(--font-size-sm);
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.modal__close:hover:not(:disabled) {
+  background: var(--surface-secondary);
+  color: var(--text-primary);
+}
+
+.modal__close:active:not(:disabled) {
+  background:
+    color-mix(in srgb,
+      var(--text-primary) 12%,
+      var(--surface));
+}
+
+.modal__close:focus-visible {
+  outline:
+    var(--border-width-medium) solid var(--focus-ring, var(--primary));
+
+  outline-offset: 2px;
+}
+
+.modal__close:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   BODY
+   ========================================================================== */
+
+.modal__body {
+  flex: 1 1 auto;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding: var(--modal-padding);
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  color: var(--text-primary);
+
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  flex: 0 0 auto;
+
+  flex-wrap: wrap;
+
+  gap: var(--space-3);
+
+  min-width: 0;
+
+  padding: var(--space-4) var(--modal-padding);
+
+  border-top:
+    var(--border-width-thin) solid var(--border-divider, var(--border));
+
+  background: var(--surface);
+}
+
+.modal__footer:empty {
+  display: none;
+}
+
+/* ==========================================================================
+   SIZES
+   ========================================================================== */
+
+/* Small */
+
+.modal--small {
+  --modal-width: 26rem;
+}
+
+/* Medium */
+
+.modal--medium {
+  --modal-width: 36rem;
+}
+
+/* Large */
+
+.modal--large {
+  --modal-width: 52rem;
+}
+
+/* Fullscreen */
+
+.modal--fullscreen {
+  --modal-width: 100%;
+
+  width: 100%;
+  max-width: none;
+
+  height: 100dvh;
+  max-height: 100dvh;
+
+  margin: 0;
+
+  border: 0;
+  border-radius: 0;
+}
+
+.modal--fullscreen .modal__surface {
+  height: 100%;
+}
+
+/* ==========================================================================
+   BUSY STATE
+   ========================================================================== */
+
+.modal--busy .modal__close {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   MOBILE
+   ========================================================================== */
+
+@media (max-width: 35.999rem) {
+  .modal {
+    --modal-padding: var(--space-4);
+    --modal-radius: var(--radius-xl);
+
+    width: calc(100% - var(--space-6));
+
+    max-height: calc(100dvh - var(--space-6));
+  }
+
+  .modal__header {
+    gap: var(--space-3);
+  }
+
+  .modal__title {
+    font-size: var(--font-size-lg);
+  }
+
+  .modal__footer {
+    gap: var(--space-2);
+  }
+
+  .modal--fullscreen {
+    width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+
+    border-radius: 0;
+  }
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(var(--space-3)) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0) scale(1);
+  }
+}
+
+@keyframes modal-backdrop-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .modal[open],
+  .modal[open]::backdrop {
+    animation: none !important;
+  }
+
+  .modal__close {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   FORCED COLORS
+   ========================================================================== */
+
+@media (forced-colors: active) {
+  .modal {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .modal__close {
+    color: ButtonText;
+  }
+
+  .modal__close:focus-visible {
+    outline-color: Highlight;
+  }
+}

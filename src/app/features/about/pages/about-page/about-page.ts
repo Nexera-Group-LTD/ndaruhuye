@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { Principle, Perspective, JourneyItem } from '../../interfaces/about.interface';
 
 @Component({
@@ -6,9 +7,10 @@ import { Principle, Perspective, JourneyItem } from '../../interfaces/about.inte
   standalone: false,
   templateUrl: './about-page.html',
   styleUrl: './about-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutPage {
-  readonly principles: Principle[] = [
+  readonly principles: readonly Principle[] = [
     {
       number: '01',
       title: 'Understand before building',
@@ -35,7 +37,7 @@ export class AboutPage {
     },
   ];
 
-  readonly perspectives: Perspective[] = [
+  readonly perspectives: readonly Perspective[] = [
     {
       label: 'Engineering',
       title: 'Systems, not isolated features',
@@ -62,7 +64,7 @@ export class AboutPage {
     },
   ];
 
-  readonly journey: JourneyItem[] = [
+  readonly journey: readonly JourneyItem[] = [
     {
       period: '2025 — Present',
       title: 'Full Stack Developer & Technology Consultant',

@@ -1,46 +1,40 @@
 /* ==========================================================================
-   Breakpoints
+   GLOBAL RESPONSIVE SYSTEM
+   ==========================================================================
 
-   xs: <576
-   sm: 576+
-   md: 768+
-   lg: 992+
-   xl: 1200+
-   2xl: 1440+
+   Purpose:
+   - Define global responsive layout behavior.
+   - Standardize page padding across screen sizes.
+   - Support responsive visibility utilities.
+   - Preserve existing responsive class names.
+   - Avoid component-specific media queries.
+
+   Breakpoints:
+   XS  : < 36rem  (576px)
+   SM  : >= 36rem (576px)
+   MD  : >= 48rem (768px)
+   LG  : >= 62rem (992px)
+   XL  : >= 75rem (1200px)
+   2XL : >= 90rem (1440px)
+
    ========================================================================== */
 
 
-/* Tablet */
+/* ==========================================================================
+   1. MOBILE FIRST — DEFAULT
+   ==========================================================================
 
-@media (min-width: 48rem) {
-  .page {
-    padding:
-      var(--page-padding-tablet);
-  }
-}
+   Mobile styles are defined in the foundation files.
 
+   Default page padding:
+   --page-padding-mobile
 
-/* Desktop */
-
-@media (min-width: 62rem) {
-  .page {
-    padding:
-      var(--page-padding-desktop);
-  }
-}
+   ========================================================================== */
 
 
-/* Large desktop */
-
-@media (min-width: 75rem) {
-  .container {
-    padding-inline:
-      var(--space-4);
-  }
-}
-
-
-/* Small/mobile screens */
+/* ==========================================================================
+   2. SMALL MOBILE SCREENS
+   ========================================================================== */
 
 @media (max-width: 35.999rem) {
   .mobile-hidden {
@@ -49,7 +43,64 @@
 }
 
 
-/* Tablet and below */
+/* ==========================================================================
+   3. SMALL BREAKPOINT — 576px+
+   ========================================================================== */
+
+@media (min-width: 36rem) {
+  /* Reserved for global small-screen adjustments. */
+}
+
+
+/* ==========================================================================
+   4. TABLET BREAKPOINT — 768px+
+   ========================================================================== */
+
+@media (min-width: 48rem) {
+  .page {
+    padding: var(--page-padding-tablet);
+  }
+}
+
+
+/* ==========================================================================
+   5. DESKTOP BREAKPOINT — 992px+
+   ========================================================================== */
+
+@media (min-width: 62rem) {
+  .page {
+    padding: var(--page-padding-desktop);
+  }
+
+  .desktop-hidden {
+    display: none !important;
+  }
+}
+
+
+/* ==========================================================================
+   6. LARGE DESKTOP — 1200px+
+   ========================================================================== */
+
+@media (min-width: 75rem) {
+  .container {
+    padding-inline: var(--space-4);
+  }
+}
+
+
+/* ==========================================================================
+   7. EXTRA LARGE DESKTOP — 1440px+
+   ========================================================================== */
+
+@media (min-width: 90rem) {
+  /* Reserved for future global wide-screen adjustments. */
+}
+
+
+/* ==========================================================================
+   8. TABLET AND BELOW
+   ========================================================================== */
 
 @media (max-width: 61.999rem) {
   .desktop-only {
@@ -58,10 +109,85 @@
 }
 
 
-/* Desktop */
+/* ==========================================================================
+   9. MOBILE ONLY
+   ========================================================================== */
 
-@media (min-width: 62rem) {
-  .desktop-hidden {
+@media (min-width: 36rem) {
+  .mobile-only {
     display: none !important;
+  }
+}
+
+
+/* ==========================================================================
+   10. TABLET ONLY
+   ========================================================================== */
+
+@media (max-width: 47.999rem),
+(min-width: 62rem) {
+  .tablet-only {
+    display: none !important;
+  }
+}
+
+
+/* ==========================================================================
+   11. TABLET HIDDEN
+   ========================================================================== */
+
+@media (min-width: 48rem) and (max-width: 61.999rem) {
+  .tablet-hidden {
+    display: none !important;
+  }
+}
+
+
+/* ==========================================================================
+   12. PRINT STYLES
+   ==========================================================================
+
+   Keep printed pages readable and avoid unnecessary
+   interactive UI when printing.
+
+   ========================================================================== */
+
+@media print {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .no-print,
+  .print-hidden {
+    display: none !important;
+  }
+
+  .page,
+  .container,
+  .portfolio-page .page-container {
+    width: 100%;
+    max-width: none;
+
+    padding: 0;
+    margin: 0;
+  }
+
+  img,
+  svg {
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    break-after: avoid;
   }
 }

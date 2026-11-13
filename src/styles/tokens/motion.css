@@ -1,15 +1,194 @@
+/* ==========================================================================
+   MOTION DESIGN TOKENS
+   ==========================================================================
+
+   Purpose:
+   - Define consistent animation durations.
+   - Standardize easing functions.
+   - Provide reusable transitions.
+   - Support subtle interactions and navigation.
+   - Respect reduced-motion preferences.
+
+   ========================================================================== */
+
 :root {
+  /* ==========================================================================
+     DURATION SCALE
+     ========================================================================== */
+
+  --duration-instant: 0ms;
+
   --duration-fast: 120ms;
   --duration-normal: 200ms;
   --duration-slow: 300ms;
 
-  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --ease-enter: cubic-bezier(0, 0, 0.2, 1);
-  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --duration-slower: 450ms;
+  --duration-slowest: 600ms;
+
+  /* ==========================================================================
+     EASING FUNCTIONS
+     ========================================================================== */
+
+  --ease-linear:
+    linear;
+
+  --ease-standard:
+    cubic-bezier(0.2, 0, 0, 1);
+
+  --ease-enter:
+    cubic-bezier(0, 0, 0.2, 1);
+
+  --ease-exit:
+    cubic-bezier(0.4, 0, 1, 1);
+
+  --ease-in-out:
+    cubic-bezier(0.4, 0, 0.2, 1);
+
+  --ease-out-back:
+    cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ==========================================================================
+     BASE TRANSITIONS
+     ========================================================================== */
+
+  --transition-none:
+    none;
 
   --transition-fast:
     var(--duration-fast) var(--ease-standard);
 
   --transition-normal:
     var(--duration-normal) var(--ease-standard);
+
+  --transition-slow:
+    var(--duration-slow) var(--ease-standard);
+
+  /* ==========================================================================
+     PROPERTY-SPECIFIC TRANSITIONS
+     ========================================================================== */
+
+  --transition-color:
+    color var(--transition-fast);
+
+  --transition-background:
+    background-color var(--transition-normal);
+
+  --transition-border:
+    border-color var(--transition-fast);
+
+  --transition-opacity:
+    opacity var(--transition-normal);
+
+  --transition-transform:
+    transform var(--transition-normal);
+
+  --transition-shadow:
+    box-shadow var(--transition-normal);
+
+  /* ==========================================================================
+     COMPONENT TRANSITIONS
+     ========================================================================== */
+
+  --transition-button:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+
+  --transition-card:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal),
+    border-color var(--transition-normal);
+
+  --transition-input:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+
+  --transition-link:
+    color var(--transition-fast);
+
+  --transition-navigation:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+
+  /* ==========================================================================
+     INTERACTION DISTANCES
+     ========================================================================== */
+
+  --motion-translate-xs: 2px;
+  --motion-translate-sm: 4px;
+  --motion-translate-md: 8px;
+  --motion-translate-lg: 16px;
+
+  /* ==========================================================================
+     INTERACTION SCALE
+     ========================================================================== */
+
+  --motion-scale-pressed: 0.98;
+  --motion-scale-hover: 1.02;
+  --motion-scale-normal: 1;
+
+  /* ==========================================================================
+     PORTFOLIO ANIMATIONS
+     ========================================================================== */
+
+  --motion-section-duration:
+    var(--duration-slower);
+
+  --motion-hero-duration:
+    var(--duration-slowest);
+
+  --motion-card-duration:
+    var(--duration-normal);
+
+  --motion-reveal-distance:
+    var(--motion-translate-lg);
+
+  /* ==========================================================================
+     SCROLLING
+     ========================================================================== */
+
+  --scroll-behavior:
+    smooth;
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ==========================================================================
+
+   Disable optional motion when the user prefers reduced
+   animation.
+
+   The global accessibility stylesheet will also control
+   animation and transition behavior.
+
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --duration-slowest: 0ms;
+
+    --transition-none: none;
+
+    --transition-fast: 0ms linear;
+    --transition-normal: 0ms linear;
+    --transition-slow: 0ms linear;
+
+    --motion-translate-xs: 0px;
+    --motion-translate-sm: 0px;
+    --motion-translate-md: 0px;
+    --motion-translate-lg: 0px;
+
+    --motion-scale-pressed: 1;
+    --motion-scale-hover: 1;
+    --motion-scale-normal: 1;
+
+    --scroll-behavior: auto;
+  }
 }

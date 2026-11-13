@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { Project, ProjectPrinciple } from '../../interfaces/projects.interface';
 
 @Component({
@@ -6,9 +7,10 @@ import { Project, ProjectPrinciple } from '../../interfaces/projects.interface';
   standalone: false,
   templateUrl: './projects-page.html',
   styleUrl: './projects-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsPage {
-  readonly projects: Project[] = [
+  readonly projects: readonly Project[] = [
     {
       id: 'daily-infrastructure-digest',
       number: '01',
@@ -87,7 +89,7 @@ export class ProjectsPage {
     },
   ];
 
-  readonly projectPrinciples: ProjectPrinciple[] = [
+  readonly projectPrinciples: readonly ProjectPrinciple[] = [
     {
       number: '01',
       label: 'Understand',
@@ -118,11 +120,10 @@ export class ProjectsPage {
     },
   ];
 
-  get featuredProject(): Project {
-    return this.projects.find((project) => project.featured) ?? this.projects[0];
-  }
+  readonly featuredProject: Project =
+    this.projects.find((project) => project.featured) ?? this.projects[0];
 
-  get remainingProjects(): Project[] {
-    return this.projects.filter((project) => !project.featured);
-  }
+  readonly remainingProjects: readonly Project[] = this.projects.filter(
+    (project) => project.id !== this.featuredProject.id,
+  );
 }

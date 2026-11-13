@@ -1,14 +1,20 @@
-[data-color-theme="blue"][data-theme="dark"] {
-  --alert-primary: var(--blue-300);
-  --alert-success: var(--green-300);
-  --alert-warning: var(--yellow-300);
-  --alert-danger: var(--red-300);
-  --alert-info: var(--blue-300);
-  --alert-on-solid: #101828;
+/* ==========================================================================
+   BLUE THEME — DARK
+   ==========================================================================
+
+   Purpose:
+   - Provide a dark appearance with blue accents.
+   - Maintain readable foreground/background contrast.
+   - Support navigation, forms, buttons, badges, and alerts.
+   - Share the same semantic contract as other themes.
+
+   ========================================================================== */
+
+:root[data-color-theme="blue"][data-theme="dark"] {
   color-scheme: dark;
 
   /* ==========================================================================
-     Application
+     APPLICATION
      ========================================================================== */
 
   --background: #0b111b;
@@ -23,7 +29,7 @@
   --surface-selected: #193b68;
 
   /* ==========================================================================
-     Primary
+     PRIMARY
      ========================================================================== */
 
   --primary: var(--blue-400);
@@ -32,13 +38,12 @@
 
   --primary-light: #193b68;
   --primary-subtle: #102a4c;
-
   --primary-strong: var(--blue-200);
 
   --on-primary: var(--blue-950);
 
   /* ==========================================================================
-     Text
+     TEXT
      ========================================================================== */
 
   --text-primary: var(--neutral-50);
@@ -53,7 +58,7 @@
   --text-inverse: var(--neutral-950);
 
   /* ==========================================================================
-     Borders
+     BORDERS
      ========================================================================== */
 
   --border: #27364a;
@@ -62,16 +67,17 @@
   --border-strong: #3a4a5f;
 
   /* ==========================================================================
-     Inputs
+     INPUTS
      ========================================================================== */
 
   --input-background: #111927;
+
   --input-border: #34445a;
   --input-border-hover: var(--blue-500);
   --input-border-focus: var(--blue-400);
 
   /* ==========================================================================
-     Navigation
+     NAVIGATION
      ========================================================================== */
 
   --nav-background: #111927;
@@ -84,7 +90,7 @@
   --nav-active-text: var(--blue-200);
 
   /* ==========================================================================
-     Sidebar
+     SIDEBAR
      ========================================================================== */
 
   --sidebar-background: #0f1724;
@@ -95,7 +101,7 @@
   --sidebar-item-active-text: var(--blue-200);
 
   /* ==========================================================================
-     Buttons
+     BUTTONS
      ========================================================================== */
 
   --button-primary-background: var(--blue-500);
@@ -107,8 +113,13 @@
   --button-secondary-hover: #193b68;
   --button-secondary-text: var(--blue-200);
 
+  --button-danger-background: var(--red-500);
+  --button-danger-hover: var(--red-400);
+  --button-danger-active: var(--red-300);
+  --button-danger-text: var(--red-950);
+
   /* ==========================================================================
-     Tables
+     TABLES
      ========================================================================== */
 
   --table-header-background: #15243a;
@@ -116,83 +127,74 @@
   --table-row-selected: #193b68;
 
   /* ==========================================================================
-     Focus
+     FOCUS AND SELECTION
      ========================================================================== */
 
-  --focus-ring: rgb(83 177 253 / 40%);
+  --focus-ring: rgb(83 177 253 / 45%);
 
   --selection-background: var(--blue-500);
   --selection-text: var(--blue-950);
 
   /* ==========================================================================
-     Overlay
+     OVERLAY
      ========================================================================== */
 
   --overlay-background: rgb(0 0 0 / 70%);
 
-  --button-danger-background:
-    var(--red-500);
+  /* ==========================================================================
+     FUNCTIONAL FEEDBACK
+     ========================================================================== */
 
-  --button-danger-hover:
-    var(--red-400);
+  --success: var(--green-300);
+  --warning: var(--yellow-300);
+  --danger: var(--red-300);
+  --info: var(--blue-300);
 
-  --button-danger-active:
-    var(--red-300);
+  --alert-primary: var(--blue-300);
+  --alert-success: var(--green-300);
+  --alert-warning: var(--yellow-300);
+  --alert-danger: var(--red-300);
+  --alert-info: var(--blue-300);
 
-  --button-danger-text:
-    var(--red-950);
+  --alert-on-solid: var(--neutral-950);
 
-  --badge-neutral-background:
-    var(--neutral-800);
+  /* ==========================================================================
+     BADGES
+     ========================================================================== */
 
-  --badge-neutral-border:
-    var(--neutral-700);
+  /* Neutral */
 
-  --badge-neutral-text:
-    var(--neutral-200);
+  --badge-neutral-background: var(--neutral-800);
+  --badge-neutral-border: var(--neutral-700);
+  --badge-neutral-text: var(--neutral-200);
 
-  --badge-primary-background:
-    #102a4c;
+  /* Primary */
 
-  --badge-primary-border:
-    var(--blue-700);
+  --badge-primary-background: #102a4c;
+  --badge-primary-border: var(--blue-700);
+  --badge-primary-text: var(--blue-200);
 
-  --badge-primary-text:
-    var(--blue-200);
+  /* Success */
 
-  --badge-success-background:
-    #0e2c1e;
+  --badge-success-background: #0e2c1e;
+  --badge-success-border: var(--green-700);
+  --badge-success-text: var(--green-200);
 
-  --badge-success-border:
-    var(--green-700);
+  /* Warning */
 
-  --badge-success-text:
-    var(--green-200);
+  --badge-warning-background: #3a280c;
+  --badge-warning-border: var(--yellow-700);
+  --badge-warning-text: var(--yellow-200);
 
-  --badge-warning-background:
-    #3a280c;
+  /* Danger */
 
-  --badge-warning-border:
-    var(--yellow-700);
+  --badge-danger-background: #421513;
+  --badge-danger-border: var(--red-700);
+  --badge-danger-text: var(--red-200);
 
-  --badge-warning-text:
-    var(--yellow-200);
+  /* Info */
 
-  --badge-danger-background:
-    #421513;
-
-  --badge-danger-border:
-    var(--red-700);
-
-  --badge-danger-text:
-    var(--red-200);
-
-  --badge-info-background:
-    #102a4c;
-
-  --badge-info-border:
-    var(--blue-700);
-
-  --badge-info-text:
-    var(--blue-200);
+  --badge-info-background: #102a4c;
+  --badge-info-border: var(--blue-700);
+  --badge-info-text: var(--blue-200);
 }

@@ -1,6 +1,32 @@
+/* ==========================================================================
+   COLOR DESIGN TOKENS
+   ==========================================================================
+
+   Purpose:
+   - Define theme-independent primitive color palettes.
+   - Provide semantic aliases for application components.
+   - Use monochrome colors as the default fallback.
+   - Support Default, Blue, and Green themes.
+   - Preserve existing variable names for compatibility.
+
+   Theme-specific values belong in:
+   styles/themes/default/
+   styles/themes/blue/
+   styles/themes/green/
+
+   ========================================================================== */
+
 :root {
   /* ==========================================================================
-     Neutral
+     BASE COLORS
+     ========================================================================== */
+
+  --white: #ffffff;
+  --black: #000000;
+  --transparent: transparent;
+
+  /* ==========================================================================
+     NEUTRAL / GRAYSCALE
      ========================================================================== */
 
   --gray-50: #f9fafb;
@@ -15,7 +41,8 @@
   --gray-900: #101828;
   --gray-950: #0c111d;
 
-  /* The theme layer uses "neutral" as the semantic gray scale. */
+  /* Neutral aliases retained for theme compatibility */
+
   --neutral-50: var(--gray-50);
   --neutral-100: var(--gray-100);
   --neutral-200: var(--gray-200);
@@ -29,7 +56,7 @@
   --neutral-950: var(--gray-950);
 
   /* ==========================================================================
-     Brand
+     BRAND
      ========================================================================== */
 
   --brand-50: #f4f8f7;
@@ -45,55 +72,7 @@
   --brand-950: #192827;
 
   /* ==========================================================================
-     Green
-     ========================================================================== */
-
-  --green-50: #ecfdf3;
-  --green-100: #dcfae6;
-  --green-200: #abefc6;
-  --green-300: #75e0a7;
-  --green-400: #47cd89;
-  --green-500: #17b26a;
-  --green-600: #079455;
-  --green-700: #067647;
-  --green-800: #085d3a;
-  --green-900: #074d31;
-  --green-950: #053321;
-
-  /* ==========================================================================
-     Yellow
-     ========================================================================== */
-
-  --yellow-50: #fffaeb;
-  --yellow-100: #fef0c7;
-  --yellow-200: #fedf89;
-  --yellow-300: #fec84b;
-  --yellow-400: #fdb022;
-  --yellow-500: #f79009;
-  --yellow-600: #dc6803;
-  --yellow-700: #b54708;
-  --yellow-800: #93370d;
-  --yellow-900: #7a2e0e;
-  --yellow-950: #4e1d09;
-
-  /* ==========================================================================
-     Red
-     ========================================================================== */
-
-  --red-50: #fef3f2;
-  --red-100: #fee4e2;
-  --red-200: #fecdca;
-  --red-300: #fda29b;
-  --red-400: #f97066;
-  --red-500: #f04438;
-  --red-600: #d92d20;
-  --red-700: #b42318;
-  --red-800: #912018;
-  --red-900: #7a271a;
-  --red-950: #55160c;
-
-  /* ==========================================================================
-     Blue
+     BLUE
      ========================================================================== */
 
   --blue-50: #eff8ff;
@@ -109,7 +88,55 @@
   --blue-950: #102a56;
 
   /* ==========================================================================
-     Purple
+     GREEN
+     ========================================================================== */
+
+  --green-50: #ecfdf3;
+  --green-100: #dcfae6;
+  --green-200: #abefc6;
+  --green-300: #75e0a7;
+  --green-400: #47cd89;
+  --green-500: #17b26a;
+  --green-600: #079455;
+  --green-700: #067647;
+  --green-800: #085d3a;
+  --green-900: #074d31;
+  --green-950: #053321;
+
+  /* ==========================================================================
+     YELLOW
+     ========================================================================== */
+
+  --yellow-50: #fffaeb;
+  --yellow-100: #fef0c7;
+  --yellow-200: #fedf89;
+  --yellow-300: #fec84b;
+  --yellow-400: #fdb022;
+  --yellow-500: #f79009;
+  --yellow-600: #dc6803;
+  --yellow-700: #b54708;
+  --yellow-800: #93370d;
+  --yellow-900: #7a2e0e;
+  --yellow-950: #4e1d09;
+
+  /* ==========================================================================
+     RED
+     ========================================================================== */
+
+  --red-50: #fef3f2;
+  --red-100: #fee4e2;
+  --red-200: #fecdca;
+  --red-300: #fda29b;
+  --red-400: #f97066;
+  --red-500: #f04438;
+  --red-600: #d92d20;
+  --red-700: #b42318;
+  --red-800: #912018;
+  --red-900: #7a271a;
+  --red-950: #55160c;
+
+  /* ==========================================================================
+     PURPLE
      ========================================================================== */
 
   --purple-50: #f4f3ff;
@@ -125,7 +152,7 @@
   --purple-950: #281163;
 
   /* ==========================================================================
-     Pink
+     PINK
      ========================================================================== */
 
   --pink-50: #fdf2fa;
@@ -141,7 +168,7 @@
   --pink-950: #4e0d30;
 
   /* ==========================================================================
-     Orange
+     ORANGE
      ========================================================================== */
 
   --orange-50: #fff6ed;
@@ -157,7 +184,7 @@
   --orange-950: #511c10;
 
   /* ==========================================================================
-     Cyan
+     CYAN
      ========================================================================== */
 
   --cyan-50: #ecfdff;
@@ -173,7 +200,7 @@
   --cyan-950: #0d2d3a;
 
   /* ==========================================================================
-     Teal
+     TEAL
      ========================================================================== */
 
   --teal-50: #f0fdfa;
@@ -187,21 +214,158 @@
   --teal-800: #115e59;
   --teal-900: #134e4a;
   --teal-950: #042f2e;
-}
 
-/* Semantic aliases consumed by shared components and foundation styles. */
-:root {
-  --color-primary: var(--primary, var(--blue-600));
-  --color-primary-hover: var(--primary-hover, var(--blue-700));
-  --color-primary-active: var(--primary-active, var(--blue-800));
-  --color-primary-light: var(--primary-light, var(--blue-100));
-  --color-primary-subtle: var(--primary-subtle, var(--blue-50));
-  --color-on-primary: var(--on-primary, var(--white));
-  --color-surface: var(--surface, var(--white));
-  --color-surface-hover: var(--surface-hover, var(--slate-100));
-  --color-surface-muted: var(--surface-secondary, var(--slate-100));
-  --color-text: var(--text-primary, var(--slate-900));
-  --color-text-muted: var(--text-secondary, var(--slate-600));
-  --color-border: var(--border, var(--slate-300));
-  --color-focus: var(--focus-ring, var(--blue-600));
+  /* ==========================================================================
+     SEMANTIC COLOR ALIASES
+     ==========================================================================
+
+     Semantic aliases follow the currently active theme.
+
+     Default fallback:
+       Primary: black
+       Background: white
+       Text: black
+       Surfaces: white / grayscale
+
+     Theme selectors must be applied to the root HTML element
+     to correctly resolve these root-level aliases.
+
+     ========================================================================== */
+
+  /* Primary */
+
+  --color-primary:
+    var(--primary, var(--black));
+
+  --color-primary-hover:
+    var(--primary-hover, var(--gray-800));
+
+  --color-primary-active:
+    var(--primary-active, var(--gray-700));
+
+  --color-primary-light:
+    var(--primary-light, var(--gray-100));
+
+  --color-primary-subtle:
+    var(--primary-subtle, var(--gray-50));
+
+  --color-primary-strong:
+    var(--primary-strong, var(--black));
+
+  --color-on-primary:
+    var(--on-primary, var(--white));
+
+  /* Application backgrounds */
+
+  --color-background:
+    var(--background, var(--white));
+
+  --color-background-subtle:
+    var(--background-subtle, var(--gray-50));
+
+  /* Surfaces */
+
+  --color-surface:
+    var(--surface, var(--white));
+
+  --color-surface-muted:
+    var(--surface-secondary, var(--gray-50));
+
+  --color-surface-tertiary:
+    var(--surface-tertiary, var(--gray-100));
+
+  --color-surface-hover:
+    var(--surface-hover, var(--gray-100));
+
+  --color-surface-active:
+    var(--surface-active, var(--gray-200));
+
+  --color-surface-selected:
+    var(--surface-selected, var(--gray-200));
+
+  /* Text */
+
+  --color-text:
+    var(--text-primary, var(--black));
+
+  --color-text-muted:
+    var(--text-secondary, var(--gray-600));
+
+  --color-text-tertiary:
+    var(--text-tertiary, var(--gray-500));
+
+  --color-text-disabled:
+    var(--text-disabled, var(--gray-400));
+
+  --color-text-brand:
+    var(--text-brand, var(--black));
+
+  --color-text-link:
+    var(--text-link, var(--black));
+
+  --color-text-link-hover:
+    var(--text-link-hover, var(--gray-700));
+
+  --color-text-inverse:
+    var(--text-inverse, var(--white));
+
+  /* Borders */
+
+  --color-border:
+    var(--border, var(--gray-200));
+
+  --color-border-hover:
+    var(--border-hover, var(--gray-400));
+
+  --color-border-active:
+    var(--border-active, var(--gray-800));
+
+  --color-border-strong:
+    var(--border-strong, var(--gray-300));
+
+  /* Inputs */
+
+  --color-input-background:
+    var(--input-background, var(--white));
+
+  --color-input-border:
+    var(--input-border, var(--gray-300));
+
+  --color-input-border-hover:
+    var(--input-border-hover, var(--gray-500));
+
+  --color-input-border-focus:
+    var(--input-border-focus, var(--black));
+
+  /* Focus */
+
+  --color-focus:
+    var(--focus-ring, var(--black));
+
+  /* Functional feedback */
+
+  --color-success:
+    var(--success, var(--green-600));
+
+  --color-warning:
+    var(--warning, var(--yellow-700));
+
+  --color-danger:
+    var(--danger, var(--red-600));
+
+  --color-info:
+    var(--info, var(--blue-600));
+
+  /* Overlay */
+
+  --color-overlay:
+    var(--overlay-background, rgb(0 0 0 / 50%));
+
+  /* Selection */
+
+  --color-selection-background:
+    var(--selection-background, var(--black));
+
+  --color-selection-text:
+    var(--selection-text, var(--white));
 }

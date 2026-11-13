@@ -44,7 +44,7 @@ import { LayoutModule } from './layout/layout.module';
       },
 
       theme: {
-        defaultColor: 'blue',
+        defaultColor: 'default',
         defaultMode: 'system',
       },
     }),

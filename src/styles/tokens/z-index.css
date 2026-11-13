@@ -1,8 +1,43 @@
+/* ==========================================================================
+   Z-INDEX DESIGN TOKENS
+   ==========================================================================
+
+   Purpose:
+   - Establish a predictable stacking hierarchy.
+   - Prevent overlapping UI conflicts.
+   - Support navigation, overlays, and modal components.
+   - Preserve existing z-index values and naming.
+   - Provide semantic aliases for common components.
+
+   ========================================================================== */
+
 :root {
+  /* ==========================================================================
+     FOUNDATION
+     ========================================================================== */
+
+  --z-negative: -1;
   --z-base: 0;
   --z-content: 10;
+
+  /* ==========================================================================
+     PAGE ELEMENTS
+     ========================================================================== */
+
+  --z-raised: 20;
+  --z-floating: 50;
+
+  /* ==========================================================================
+     STICKY ELEMENTS
+     ========================================================================== */
+
   --z-sticky: 100;
   --z-header: 200;
+
+  /* ==========================================================================
+     FLOATING INTERFACES
+     ========================================================================== */
+
   --z-dropdown: 300;
   --z-overlay: 400;
   --z-drawer: 500;
@@ -10,4 +45,62 @@
   --z-popover: 700;
   --z-toast: 800;
   --z-tooltip: 900;
+
+  /* ==========================================================================
+     MAXIMUM PRIORITY
+     ========================================================================== */
+
+  --z-max: 9999;
+
+  /* ==========================================================================
+     SEMANTIC COMPONENT LAYERS
+     ========================================================================== */
+
+  /* Navigation */
+
+  --z-navigation:
+    var(--z-header);
+
+  --z-mobile-navigation:
+    var(--z-drawer);
+
+  /* Overlays */
+
+  --z-backdrop:
+    var(--z-overlay);
+
+  --z-dialog:
+    var(--z-modal);
+
+  --z-menu:
+    var(--z-dropdown);
+
+  /* Feedback */
+
+  --z-notification:
+    var(--z-toast);
+
+  --z-loading-overlay:
+    var(--z-overlay);
+
+  /* Accessibility */
+
+  --z-skip-link:
+    var(--z-max);
+
+  /* ==========================================================================
+     PORTFOLIO COMPONENTS
+     ========================================================================== */
+
+  --z-hero-background:
+    var(--z-base);
+
+  --z-hero-content:
+    var(--z-content);
+
+  --z-project-overlay:
+    var(--z-raised);
+
+  --z-floating-contact:
+    var(--z-floating);
 }

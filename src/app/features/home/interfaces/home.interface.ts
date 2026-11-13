@@ -1,36 +1,36 @@
 export interface ProfessionalHighlight {
-  title: string;
-  description: string;
+  readonly title: string;
+  readonly description: string;
 }
 
 export interface ImpactArea {
-  modifier: string;
-  label: string;
-  title: string;
-  description: string;
+  readonly modifier: string;
+  readonly label: string;
+  readonly title: string;
+  readonly description: string;
 }
 
 export interface Project {
-  modifier: string;
-  label: string;
-  title: string;
-  description: string;
-  url?: string;
-  linkText?: string;
+  readonly modifier: string;
+  readonly label: string;
+  readonly title: string;
+  readonly description: string;
+  readonly url?: string;
+  readonly linkText?: string;
 }
 
 export interface Experience {
-  period: string;
-  type: string;
-  title: string;
-  organization?: string;
-  description: string;
-  current?: boolean;
+  readonly period: string;
+  readonly type: string;
+  readonly title: string;
+  readonly organization?: string;
+  readonly description: string;
+  readonly current?: boolean;
 }
 
 export interface Capability {
-  modifier: string;
-  label: string;
-  title: string;
-  skills: string[];
+  readonly modifier: string;
+  readonly label: string;
+  readonly title: string;
+  readonly skills: readonly string[];
 }

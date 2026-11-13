@@ -1,42 +1,285 @@
+/* ==========================================================================
+   PORTFOLIO LAYOUT SYSTEM
+   ==========================================================================
+
+   Purpose:
+   - Define shared portfolio page layouts.
+   - Establish consistent section spacing.
+   - Standardize content containers.
+   - Support reusable section headings.
+   - Maintain responsive behavior.
+   - Keep component-specific styles isolated.
+
+   ========================================================================== */
+
+
+/* ==========================================================================
+   PORTFOLIO ROOT
+   ========================================================================== */
+
 .portfolio-page {
-  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+
+  overflow-x: clip;
 }
 
+
+/* ==========================================================================
+   PAGE CONTAINERS
+   ========================================================================== */
+
 .portfolio-page .page-container {
-  width: min(100% - var(--space-8), var(--content-max-width));
+  width: min(calc(100% - var(--space-8)),
+      var(--content-max-width));
+
   margin-inline: auto;
 }
 
+.portfolio-page .page-container--narrow {
+  max-width: var(--container-width-narrow);
+}
+
+.portfolio-page .page-container--reading {
+  max-width: var(--container-width-reading);
+}
+
+.portfolio-page .page-container--default {
+  max-width: var(--container-width-default);
+}
+
+.portfolio-page .page-container--wide {
+  max-width: var(--container-width-wide);
+}
+
+
+/* ==========================================================================
+   SECTIONS
+   ========================================================================== */
+
 .portfolio-page .section {
   position: relative;
-  padding-block: var(--space-16);
+
+  min-width: 0;
+
+  padding-block: var(--section-spacing-mobile);
 }
+
+.portfolio-page .section--compact {
+  padding-block: var(--space-10);
+}
+
+.portfolio-page .section--spacious {
+  padding-block: var(--space-20);
+}
+
+.portfolio-page .section--flush {
+  padding-block: 0;
+}
+
+
+/* ==========================================================================
+   SECTION HEADERS
+   ========================================================================== */
+
+.portfolio-page .section-header {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--section-heading-gap);
+
+  max-width: var(--container-width-reading);
+
+  margin-bottom: var(--section-content-gap);
+}
+
+.portfolio-page .section-header--center {
+  align-items: center;
+
+  margin-inline: auto;
+
+  text-align: center;
+}
+
+.portfolio-page .section-header--wide {
+  max-width: var(--container-width-default);
+}
+
+
+/* ==========================================================================
+   EYEBROW LABEL
+   ========================================================================== */
 
 .portfolio-page .eyebrow {
   display: inline-flex;
   align-items: center;
+
   gap: var(--space-2);
+
+  width: fit-content;
+
   color: var(--text-brand);
+
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.11em;
+
+  letter-spacing: var(--letter-spacing-widest);
   line-height: var(--line-height-normal);
+
   text-transform: uppercase;
 }
 
 .portfolio-page .eyebrow::before {
-  inline-size: 1.5rem;
-  block-size: 1px;
+  content: "";
+
+  flex: 0 0 auto;
+
+  width: 1.5rem;
+  height: 1px;
+
   background: currentColor;
-  content: '';
 }
+
+.portfolio-page .section-header--center .eyebrow {
+  justify-content: center;
+}
+
+
+/* ==========================================================================
+   SECTION TITLES
+   ========================================================================== */
+
+.portfolio-page .section-title {
+  color: var(--text-primary);
+
+  font-family: var(--font-heading-family);
+
+  font-size: var(--font-size-heading-h2);
+  font-weight: var(--font-weight-semibold);
+
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
+
+  text-wrap: balance;
+}
+
+
+/* ==========================================================================
+   SECTION DESCRIPTIONS
+   ========================================================================== */
+
+.portfolio-page .section-description {
+  max-width: 65ch;
+
+  color: var(--text-secondary);
+
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+
+  text-wrap: pretty;
+}
+
+
+/* ==========================================================================
+   CONTENT GROUPS
+   ========================================================================== */
+
+.portfolio-page .section-content {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--portfolio-content-gap);
+
+  min-width: 0;
+}
+
+
+/* ==========================================================================
+   PORTFOLIO GRIDS
+   ========================================================================== */
+
+.portfolio-page .portfolio-grid {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr);
+
+  gap: var(--portfolio-project-gap);
+
+  min-width: 0;
+}
+
+.portfolio-page .portfolio-grid--compact {
+  gap: var(--grid-gap-sm);
+}
+
+.portfolio-page .portfolio-grid--spacious {
+  gap: var(--grid-gap-lg);
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — TABLET
+   ========================================================================== */
 
 @media (min-width: 48rem) {
   .portfolio-page .page-container {
-    width: min(100% - var(--space-12), var(--content-max-width));
+    width: min(calc(100% - var(--space-12)),
+        var(--content-max-width));
   }
 
   .portfolio-page .section {
-    padding-block: var(--space-20);
+    padding-block: var(--section-spacing-tablet);
+  }
+
+  .portfolio-page .section--compact {
+    padding-block: var(--space-12);
+  }
+
+  .portfolio-page .section--spacious {
+    padding-block: var(--space-24);
+  }
+
+  .portfolio-page .section--flush {
+    padding-block: 0;
+  }
+
+  .portfolio-page .portfolio-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — DESKTOP
+   ========================================================================== */
+
+@media (min-width: 62rem) {
+  .portfolio-page .section {
+    padding-block: var(--section-spacing-desktop);
+  }
+
+  .portfolio-page .section--compact {
+    padding-block: var(--space-16);
+  }
+
+  .portfolio-page .section--spacious {
+    padding-block: var(--space-32);
+  }
+
+  .portfolio-page .section--flush {
+    padding-block: 0;
+  }
+}
+
+
+/* ==========================================================================
+   RESPONSIVE — LARGE DESKTOP
+   ========================================================================== */
+
+@media (min-width: 75rem) {
+  .portfolio-page .portfolio-grid--three {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
   }
 }

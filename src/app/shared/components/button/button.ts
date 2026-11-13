@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
+/* ==========================================================================
+   BUTTON TYPES
+   ========================================================================== */
+
 export type ButtonColor =
   | 'primary'
   | 'neutral'
@@ -21,14 +25,20 @@ export type ButtonSize = 'small' | 'medium' | 'large';
 
 export type ButtonType = 'button' | 'submit' | 'reset';
 
+/* ==========================================================================
+   BUTTON COMPONENT
+   ========================================================================== */
+
 @Component({
   selector: 'app-button',
   standalone: false,
-  styleUrl: './button.css',
   templateUrl: './button.html',
+  styleUrl: './button.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Button {
+  /* Appearance */
+
   @Input()
   color: ButtonColor = 'primary';
 
@@ -38,8 +48,12 @@ export class Button {
   @Input()
   size: ButtonSize = 'medium';
 
+  /* Native button type */
+
   @Input()
   type: ButtonType = 'button';
+
+  /* Interaction */
 
   @Input()
   disabled = false;
@@ -47,14 +61,23 @@ export class Button {
   @Input()
   loading = false;
 
+  /* Layout */
+
   @Input()
   fullWidth = false;
 
   @Input()
   iconOnly = false;
 
+  /* Accessibility */
+
   @Input()
   ariaLabel?: string;
+
+  @Input()
+  loadingLabel = 'Loading';
+
+  /* Form attributes */
 
   @Input()
   name?: string;
@@ -62,21 +85,27 @@ export class Button {
   @Input()
   value?: string;
 
-  @Input()
-  loadingLabel = 'Loading';
+  /* Events */
 
   @Output()
   readonly buttonClick = new EventEmitter<MouseEvent>();
+
+  /* ==========================================================================
+     COMPUTED INTERACTION STATE
+     ========================================================================== */
 
   get interactionDisabled(): boolean {
     return this.disabled || this.loading;
   }
 
+  /* ==========================================================================
+     CLICK HANDLER
+     ========================================================================== */
+
   handleClick(event: MouseEvent): void {
     if (this.interactionDisabled) {
       event.preventDefault();
       event.stopPropagation();
-
       return;
     }
 

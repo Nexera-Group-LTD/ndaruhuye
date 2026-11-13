@@ -1,135 +1,204 @@
-:root,
-[data-color-theme="default"][data-theme="light"] {
+/* ==========================================================================
+   DEFAULT THEME — LIGHT
+   ==========================================================================
+
+   Design:
+   - Monochrome / black and white.
+   - White application backgrounds.
+   - Black primary actions.
+   - Neutral grayscale surfaces and borders.
+   - No decorative color accents.
+
+   ========================================================================== */
+
+:root:not([data-color-theme]),
+:root[data-color-theme="default"][data-theme="light"],
+:root[data-color-theme="default"]:not([data-theme]) {
   color-scheme: light;
 
-  --black: #000;
-  --white: #fff;
+  /* ==========================================================================
+     APPLICATION
+     ========================================================================== */
 
-  --background: var(--white);
-  --background-subtle: var(--white);
-  --surface: #f0f0f0;
-  --surface-secondary: #f0f0f0;
-  --surface-tertiary: #f0f0f0;
-  --surface-hover: #f0f0f0;
-  --surface-active: #f0f0f0;
-  --surface-selected: #f0f0f0;
+  --background: #ffffff;
+  --background-subtle: #fafafa;
 
-  --primary: var(--black);
-  --primary-hover: var(--black);
-  --primary-active: var(--black);
-  --primary-light: var(--white);
-  --primary-subtle: var(--white);
-  --primary-strong: var(--black);
-  --on-primary: var(--white);
+  --surface: #ffffff;
+  --surface-secondary: #fafafa;
+  --surface-tertiary: #f5f5f5;
 
-  --text-primary: var(--black);
-  --text-secondary: #323232;
-  --text-tertiary: #323232;
-  --text-disabled: #323232;
-  --text-brand: var(--black);
-  --text-link: var(--black);
-  --text-link-hover: var(--black);
-  --text-inverse: var(--white);
+  --surface-hover: #f5f5f5;
+  --surface-active: #eeeeee;
+  --surface-selected: #e5e5e5;
 
-  --border: rgb(0 0 0 / 5%);
-  --border-hover: rgb(0 0 0 / 5%);
-  --border-active: var(--black);
-  --border-strong: var(--black);
+  /* ==========================================================================
+     PRIMARY
+     ========================================================================== */
 
-  --input-background: var(--white);
-  --input-border: var(--black);
-  --input-border-hover: var(--black);
-  --input-border-focus: var(--black);
+  --primary: #000000;
+  --primary-hover: #262626;
+  --primary-active: #404040;
 
-  --nav-background: var(--white);
-  --nav-text: var(--black);
-  --nav-hover-background: var(--black);
-  --nav-hover-text: var(--white);
-  --nav-active-background: var(--black);
-  --nav-active-text: var(--white);
+  --primary-light: #f5f5f5;
+  --primary-subtle: #fafafa;
 
-  --sidebar-background: var(--white);
-  --sidebar-border: rgb(0 0 0 / 5%);
-  --sidebar-item-hover: var(--black);
-  --sidebar-item-active: var(--black);
-  --sidebar-item-active-text: var(--white);
+  --primary-strong: #000000;
 
-  --button-primary-background: var(--black);
-  --button-primary-hover: var(--black);
-  --button-primary-active: var(--black);
-  --button-primary-text: var(--white);
-  --button-secondary-background: var(--white);
-  --button-secondary-hover: var(--white);
-  --button-secondary-text: var(--black);
-  --button-on-solid: var(--white);
+  --on-primary: #ffffff;
 
-  --table-header-background: var(--white);
-  --table-row-hover: var(--white);
-  --table-row-selected: var(--white);
-  --focus-ring: var(--black);
-  --selection-background: var(--black);
-  --selection-text: var(--white);
-  --overlay-background: rgb(0 0 0 / 72%);
+  /* ==========================================================================
+     TEXT
+     ========================================================================== */
 
-  --alert-primary: var(--black);
-  --alert-success: var(--black);
-  --alert-warning: var(--black);
-  --alert-danger: var(--black);
-  --alert-info: var(--black);
-  --alert-on-solid: var(--white);
+  --text-primary: #000000;
+  --text-secondary: #525252;
+  --text-tertiary: #737373;
+  --text-disabled: #a3a3a3;
 
-  --badge-neutral-background: var(--white);
-  --badge-neutral-border: var(--black);
-  --badge-neutral-text: var(--black);
-  --badge-primary-background: var(--white);
-  --badge-primary-border: var(--black);
-  --badge-primary-text: var(--black);
-  --badge-success-background: var(--white);
-  --badge-success-border: var(--black);
-  --badge-success-text: var(--black);
-  --badge-warning-background: var(--white);
-  --badge-warning-border: var(--black);
-  --badge-warning-text: var(--black);
-  --badge-danger-background: var(--white);
-  --badge-danger-border: var(--black);
-  --badge-danger-text: var(--black);
-  --badge-info-background: var(--white);
-  --badge-info-border: var(--black);
-  --badge-info-text: var(--black);
+  --text-brand: #171717;
+  --text-link: #171717;
+  --text-link-hover: #525252;
 
-  --slate-50: var(--white);
-  --slate-100: var(--white);
-  --slate-200: var(--black);
-  --slate-700: var(--black);
-  --slate-800: var(--black);
-  --slate-900: var(--black);
+  --text-inverse: #ffffff;
 
-  --shadow-xs: none;
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
-  --shadow-xl: none;
-}
+  /* ==========================================================================
+     BORDERS
+     ========================================================================== */
 
-[data-color-theme="default"][data-theme="light"] .button {
-  --button-base: var(--black) !important;
-  --button-hover: var(--black) !important;
-  --button-active: var(--black) !important;
-  --button-subtle: var(--white) !important;
-  --button-light: var(--white) !important;
-  --button-on-color: var(--white) !important;
-}
+  --border: #e5e5e5;
+  --border-hover: #a3a3a3;
+  --border-active: #171717;
+  --border-strong: #d4d4d4;
 
-[data-color-theme="default"][data-theme="light"] .badge {
-  --badge-base: var(--black) !important;
-  --badge-subtle: var(--white) !important;
-  --badge-light: var(--white) !important;
-  --badge-on-color: var(--white) !important;
-}
+  /* ==========================================================================
+     INPUTS
+     ========================================================================== */
 
-[data-color-theme="default"][data-theme="light"] .alert {
-  --alert-tone: var(--black) !important;
-  --alert-subtle: var(--white) !important;
-  --alert-light: var(--white) !important;
-  --alert-on-solid: var(--white) !important;
+  --input-background: #ffffff;
+
+  --input-border: #d4d4d4;
+  --input-border-hover: #a3a3a3;
+  --input-border-focus: #171717;
+
+  /* ==========================================================================
+     NAVIGATION
+     ========================================================================== */
+
+  --nav-background: #ffffff;
+  --nav-text: #525252;
+
+  --nav-hover-background: #f5f5f5;
+  --nav-hover-text: #000000;
+
+  --nav-active-background: #eeeeee;
+  --nav-active-text: #000000;
+
+  /* ==========================================================================
+     SIDEBAR
+     ========================================================================== */
+
+  --sidebar-background: #ffffff;
+  --sidebar-border: #e5e5e5;
+
+  --sidebar-item-hover: #f5f5f5;
+  --sidebar-item-active: #eeeeee;
+  --sidebar-item-active-text: #000000;
+
+  /* ==========================================================================
+     BUTTONS
+     ========================================================================== */
+
+  --button-primary-background: #000000;
+  --button-primary-hover: #262626;
+  --button-primary-active: #404040;
+  --button-primary-text: #ffffff;
+
+  --button-secondary-background: #f5f5f5;
+  --button-secondary-hover: #eeeeee;
+  --button-secondary-text: #171717;
+
+  --button-danger-background: #262626;
+  --button-danger-hover: #171717;
+  --button-danger-active: #000000;
+  --button-danger-text: #ffffff;
+
+  /* ==========================================================================
+     TABLES
+     ========================================================================== */
+
+  --table-header-background: #fafafa;
+  --table-row-hover: #f5f5f5;
+  --table-row-selected: #eeeeee;
+
+  /* ==========================================================================
+     FOCUS AND SELECTION
+     ========================================================================== */
+
+  --focus-ring: #525252;
+
+  --selection-background: #171717;
+  --selection-text: #ffffff;
+
+  /* ==========================================================================
+     OVERLAY
+     ========================================================================== */
+
+  --overlay-background: rgb(0 0 0 / 50%);
+
+  /* ==========================================================================
+     FUNCTIONAL FEEDBACK
+     ========================================================================== */
+
+  --success: #404040;
+  --warning: #525252;
+  --danger: #262626;
+  --info: #525252;
+
+  --alert-primary: #171717;
+  --alert-success: #404040;
+  --alert-warning: #525252;
+  --alert-danger: #262626;
+  --alert-info: #525252;
+
+  --alert-on-solid: #ffffff;
+
+  /* ==========================================================================
+     BADGES
+     ========================================================================== */
+
+  /* Neutral */
+
+  --badge-neutral-background: #f5f5f5;
+  --badge-neutral-border: #e5e5e5;
+  --badge-neutral-text: #404040;
+
+  /* Primary */
+
+  --badge-primary-background: #f5f5f5;
+  --badge-primary-border: #d4d4d4;
+  --badge-primary-text: #171717;
+
+  /* Success */
+
+  --badge-success-background: #f5f5f5;
+  --badge-success-border: #d4d4d4;
+  --badge-success-text: #404040;
+
+  /* Warning */
+
+  --badge-warning-background: #fafafa;
+  --badge-warning-border: #d4d4d4;
+  --badge-warning-text: #525252;
+
+  /* Danger */
+
+  --badge-danger-background: #f5f5f5;
+  --badge-danger-border: #d4d4d4;
+  --badge-danger-text: #262626;
+
+  /* Info */
+
+  --badge-info-background: #fafafa;
+  --badge-info-border: #d4d4d4;
+  --badge-info-text: #525252;
 }

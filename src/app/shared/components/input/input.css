@@ -1,173 +1,630 @@
+/* ==========================================================================
+   INPUT COMPONENT
+   ==========================================================================
+
+   Supports:
+   - Text and numeric inputs
+   - Password visibility
+   - Textareas and selects
+   - Radio groups and checkboxes
+   - Prefix and suffix icons
+   - Validation and helper text
+   - Disabled and readonly states
+   - Default, Blue and Green themes
+
+   ========================================================================== */
+
+/* ==========================================================================
+   HOST AND FIELD
+   ========================================================================== */
+
 :host {
   display: block;
-  min-inline-size: 0;
+  width: 100%;
+  min-width: 0;
 }
 
 .field {
-  --field-error: var(--alert-danger, #b42318);
-  display: grid;
-  gap: .5rem;
-  color: var(--text-primary, #101828);
+  --field-error:
+    var(--alert-danger, var(--color-danger));
+
+  --field-border:
+    var(--input-border);
+
+  --field-border-hover:
+    var(--input-border-hover);
+
+  --field-border-focus:
+    var(--input-border-focus);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+
+  width: 100%;
+  min-width: 0;
+
+  color: var(--text-primary);
+
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
 }
+
+/* ==========================================================================
+   LABEL AND LEGEND
+   ========================================================================== */
 
 .field__label,
-legend {
-  font-size: .875rem;
-  font-weight: 600;
+.field__legend {
+  display: inline-flex;
+  align-items: baseline;
+
+  gap: var(--space-1);
+
+  width: fit-content;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text-primary);
+
+  font-size: var(--font-label-size);
+  font-weight: var(--font-label-weight);
+
+  line-height: var(--font-label-line-height);
 }
 
+.field__required {
+  color: var(--field-error);
+
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ==========================================================================
+   CONTROL WRAPPER
+   ========================================================================== */
+
 .field__control {
+  position: relative;
+
   display: flex;
   align-items: center;
-  gap: .5rem;
-  padding-inline: .75rem;
-  border: 1px solid var(--input-border, #667085);
-  border-radius: var(--radius-md, .5rem);
-  background: var(--input-background, #fff);
+
+  gap: var(--space-2);
+
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+
+  padding-inline: var(--space-3);
+
+  border:
+    var(--border-width-thin) solid var(--field-border);
+
+  border-radius: var(--radius-input);
+
+  background: var(--input-background);
+  color: var(--text-primary);
+
+  box-shadow: var(--shadow-input);
+
+  transition: var(--transition-input);
+}
+
+.field__control:hover:not(:focus-within) {
+  border-color: var(--field-border-hover);
 }
 
 .field__control:focus-within {
-  outline: 2px solid var(--input-border-focus, #175cd3);
-  outline-offset: 0px;
+  border-color: var(--field-border-focus);
+
+  outline:
+    var(--border-width-medium) solid var(--focus-ring);
+
+  outline-offset: 1px;
 }
 
-.field--invalid .field__control {
-  border-color: var(--field-error);
-}
+/* ==========================================================================
+   NATIVE CONTROLS
+   ========================================================================== */
 
-.field--invalid .field__control:focus-within {
-  outline-color: var(--field-error);
-}
+.field__native-control {
+  display: block;
 
-.field__control>input,
-textarea,
-select {
-  flex: 1;
-  min-inline-size: 0;
-  inline-size: 100%;
-  min-block-size: 2.75rem;
-  padding-block: .625rem;
-  background: transparent;
-  color: inherit;
-  font: inherit;
+  flex: 1 1 auto;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+
+  margin: 0;
+  padding: var(--space-2) 0;
+
   border: 0;
-  border-radius: inherit;
+  border-radius: 0;
+
+  background: transparent;
+  color: var(--text-primary);
+
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+
+  line-height: var(--line-height-normal);
+
+  outline: none;
+
+  box-shadow: none;
+
+  appearance: none;
 }
 
-.field__control>input:focus,
-textarea:focus,
-select:focus {
+.field__native-control:focus,
+.field__native-control:focus-visible {
   outline: none;
 }
 
-textarea {
-  resize: vertical;
-}
-
-option {
-  color: var(--text-primary, #101828);
-  background: var(--surface, #fff);
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: var(--text-secondary, #475467);
+.field__native-control::placeholder {
+  color: var(--text-tertiary);
   opacity: 1;
 }
+
+/* ==========================================================================
+   PREFIX AND SUFFIX
+   ========================================================================== */
 
 .field__adornment {
   display: inline-flex;
   align-items: center;
-  color: var(--text-secondary, #475467);
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  gap: var(--space-1);
+
+  min-width: 0;
+
+  color: var(--text-tertiary);
+
+  font-size: var(--font-size-sm);
+  line-height: 1;
+}
+
+.field__adornment i {
+  line-height: 1;
 }
 
 .field__adornment:empty {
   display: none;
 }
 
+/* ==========================================================================
+   PASSWORD VISIBILITY
+   ========================================================================== */
+
 .field__toggle {
-  min-block-size: 2.75rem;
-  padding: .5rem;
-  background: transparent;
-  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: var(--space-8);
+  height: var(--space-8);
+
+  padding: 0;
+
   border: 0;
-  font: inherit;
-  font-size: .875rem;
+  border-radius: var(--radius-md);
+
+  background: transparent;
+  color: var(--text-tertiary);
+
+  font-size: var(--font-size-sm);
+
   cursor: pointer;
+
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.field__toggle:hover:not(:disabled) {
+  background: var(--surface-hover);
+  color: var(--text-primary);
 }
 
 .field__toggle:focus-visible {
-  outline: 2px solid var(--input-border-focus, #175cd3);
-  outline-offset: 1px;
+  outline:
+    var(--border-width-medium) solid var(--focus-ring);
+
+  outline-offset: 2px;
+}
+
+.field__toggle:disabled {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   SELECT
+   ========================================================================== */
+
+.field--select .field__native-control {
+  padding-inline-end: var(--space-1);
+
+  cursor: pointer;
+}
+
+.field__select-icon {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  width: var(--space-5);
+  height: var(--space-5);
+
+  color: var(--text-tertiary);
+
+  font-size: var(--font-size-xs);
+
+  pointer-events: none;
+}
+
+.field--select .field__control:focus-within .field__select-icon {
+  color: var(--text-primary);
+}
+
+.field--select .field__native-control option {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   TEXTAREA
+   ========================================================================== */
+
+.field--textarea .field__control {
+  align-items: flex-start;
+
+  min-height: 7rem;
+}
+
+.field--textarea .field__native-control {
+  min-height: 6rem;
+  height: auto;
+
+  padding-block: var(--space-3);
+
+  resize: vertical;
+
+  line-height: var(--line-height-relaxed);
+}
+
+.field--textarea .field__adornment {
+  margin-block-start: var(--space-3);
+}
+
+/* ==========================================================================
+   NUMBER INPUT
+   ========================================================================== */
+
+.field__native-control[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.field__native-control[type="number"]::-webkit-inner-spin-button,
+.field__native-control[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ==========================================================================
+   DATE AND TIME
+   ========================================================================== */
+
+.field__native-control[type="date"],
+.field__native-control[type="time"],
+.field__native-control[type="datetime-local"],
+.field__native-control[type="month"],
+.field__native-control[type="week"] {
+  color-scheme: inherit;
+}
+
+/* ==========================================================================
+   FIELDSET AND RADIO GROUP
+   ========================================================================== */
+
+.field__fieldset {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-3);
+
+  min-width: 0;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+}
+
+.field__legend {
+  margin-block-end: var(--space-2);
+}
+
+.field__choices {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+}
+
+/* ==========================================================================
+   CHECKBOX AND RADIO LABELS
+   ========================================================================== */
+
+.field__choice {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  width: fit-content;
+  max-width: 100%;
+  min-height: var(--space-8);
+
+  color: var(--text-primary);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+
+  line-height: var(--line-height-normal);
+
+  cursor: pointer;
+}
+
+.field__choice-label {
+  display: inline;
+
+  min-width: 0;
+
+  overflow-wrap: anywhere;
+}
+
+.field__choice--disabled {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   NATIVE CHECKBOX AND RADIO INPUTS
+   ========================================================================== */
+
+.field__native-choice {
+  position: relative;
+
+  display: inline-grid;
+  place-content: center;
+
+  flex: 0 0 auto;
+
+  width: 1.125rem;
+  height: 1.125rem;
+
+  margin: 0;
+
+  border:
+    var(--border-width-thin) solid var(--input-border);
+
+  border-radius: var(--radius-xs);
+
+  background: var(--input-background);
+
+  color: var(--on-primary);
+
+  appearance: none;
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.field__native-choice[type="radio"] {
+  border-radius: var(--radius-full);
+}
+
+.field__native-choice:hover:not(:disabled) {
+  border-color: var(--input-border-hover);
+}
+
+.field__native-choice:checked {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+.field__native-choice[type="checkbox"]:checked::after {
+  content: "";
+
+  width: 0.375rem;
+  height: 0.625rem;
+
+  border:
+    solid var(--on-primary);
+
+  border-width: 0 2px 2px 0;
+
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.field__native-choice[type="radio"]:checked::after {
+  content: "";
+
+  width: 0.45rem;
+  height: 0.45rem;
+
+  border-radius: var(--radius-full);
+
+  background: var(--on-primary);
+}
+
+.field__native-choice:focus-visible {
+  outline:
+    var(--border-width-medium) solid var(--focus-ring);
+
+  outline-offset: 3px;
+}
+
+.field__native-choice:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   HINT
+   ========================================================================== */
+
+.field__hint {
+  margin: 0;
+
+  color: var(--text-tertiary);
+
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-relaxed);
+
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================================================
+   VALIDATION
+   ========================================================================== */
+
+.field--invalid .field__control {
+  border-color: var(--field-error);
+}
+
+.field--invalid .field__control:hover {
+  border-color: var(--field-error);
+}
+
+.field--invalid .field__control:focus-within {
+  border-color: var(--field-error);
+
+  outline-color:
+    color-mix(in srgb,
+      var(--field-error) 45%,
+      transparent);
 }
 
 .field__error-icon {
   display: grid;
   place-items: center;
-  flex: 0 0 1.25rem;
-  block-size: 1.25rem;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  font-weight: 700;
+
+  flex: 0 0 auto;
+
+  width: var(--space-5);
+  height: var(--space-5);
+
   color: var(--field-error);
+
+  font-size: var(--font-size-sm);
 }
 
-.field__error,
-.field__hint {
-  margin: 0;
-  font-size: .875rem;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
+.field__feedback {
+  min-width: 0;
 }
 
-.field__hint {
-  color: var(--text-secondary, #475467);
+.field__feedback:empty {
+  display: none;
 }
 
 .field__error {
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--space-2);
+
+  margin: 0;
+
   color: var(--field-error);
+
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+
+  line-height: var(--line-height-relaxed);
+
+  overflow-wrap: anywhere;
 }
+
+.field__error i {
+  flex: 0 0 auto;
+  margin-block-start: 0.2em;
+}
+
+/* ==========================================================================
+   DISABLED
+   ========================================================================== */
 
 .field--disabled {
-  opacity: .65;
+  opacity: 0.65;
 }
 
-fieldset {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-inline-size: 0;
+.field--disabled .field__control {
+  background: var(--surface-secondary);
+
+  cursor: not-allowed;
+
+  box-shadow: none;
 }
 
-legend {
-  margin-block-end: .5rem;
+.field--disabled .field__control:hover {
+  border-color: var(--input-border);
 }
 
-.field__choice {
-  display: flex;
-  align-items: center;
-  gap: .625rem;
-  min-block-size: 2.75rem;
-  cursor: pointer;
-}
-
-.field__choice input {
-  inline-size: 1.125rem;
-  block-size: 1.125rem;
-  margin: 0;
-  flex-shrink: 0;
-  accent-color: var(--primary, #175cd3);
-}
-
-.field__choice input:focus-visible {
-  outline: 2px solid var(--input-border-focus, #175cd3);
-  outline-offset: 3px;
-}
-
-.field--disabled .field__choice,
-:disabled {
+.field--disabled .field__native-control,
+.field--disabled .field__adornment {
   cursor: not-allowed;
 }
+
+/* ==========================================================================
+   READONLY
+   ========================================================================== */
+
+.field--readonly .field__control {
+  background: var(--surface-secondary);
+}
+
+.field--readonly .field__native-control {
+  cursor: default;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 35.999rem) {
+  .field__control {
+    min-height: 2.75rem;
+    padding-inline: var(--space-3);
+  }
+
+  .field__native-control {
+    font-size: var(--font-size-md);
+  }
+
+  .field__choice {
+    min-height: 2.75rem;
+  }
+}
+
+/* ==========================================================================
+   FORCED COLORS / HIGH CONTRAST
+   ========================================================================== */
 
 @media (forced-colors: active) {
   .field__control {
@@ -175,6 +632,34 @@ legend {
   }
 
   .field__control:focus-within {
-    outline-color: Highlight;
+    outline:
+      2px solid Highlight;
+  }
+
+  .field__native-choice {
+    appearance: auto;
+    forced-color-adjust: auto;
+  }
+
+  .field__native-choice::after {
+    display: none;
+  }
+
+  .field__error,
+  .field__error-icon {
+    color: CanvasText;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .field__control,
+  .field__toggle,
+  .field__native-choice {
+    transition: none !important;
   }
 }

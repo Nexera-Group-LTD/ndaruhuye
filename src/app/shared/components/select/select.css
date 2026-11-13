@@ -1,0 +1,446 @@
+/* ==========================================================================
+   SELECT COMPONENT
+   ==========================================================================
+
+   Purpose:
+   - Provide a reusable native select control.
+   - Support labels, icons and validation.
+   - Support small, medium and large sizes.
+   - Maintain theme compatibility.
+   - Preserve native keyboard accessibility.
+
+   ========================================================================== */
+
+/* ==========================================================================
+   HOST
+   ========================================================================== */
+
+:host {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+.select-field {
+  --select-height: 2.75rem;
+  --select-padding: var(--space-3);
+
+  --select-border:
+    var(--input-border, var(--border));
+
+  --select-focus:
+    var(--input-border-focus, var(--primary));
+
+  --select-background:
+    var(--input-background, var(--surface));
+
+  --select-error:
+    var(--alert-danger, var(--danger));
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+
+  width: 100%;
+  min-width: 0;
+
+  color: var(--text-primary);
+
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+/* ==========================================================================
+   LABEL
+   ========================================================================== */
+
+.select-field__label {
+  display: inline-flex;
+  align-items: baseline;
+
+  gap: var(--space-1);
+
+  width: fit-content;
+
+  color: var(--text-primary);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+
+  line-height: var(--line-height-normal);
+}
+
+.select-field__required {
+  color: var(--select-error);
+}
+
+/* ==========================================================================
+   CONTROL
+   ========================================================================== */
+
+.select-field__control {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-2);
+
+  width: 100%;
+  min-width: 0;
+  min-height: var(--select-height);
+
+  padding-inline: var(--select-padding);
+
+  border:
+    var(--border-width-thin) solid var(--select-border);
+
+  border-radius:
+    var(--radius-md);
+
+  background: var(--select-background);
+  color: var(--text-primary);
+
+  box-shadow: var(--shadow-sm);
+
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+/* ==========================================================================
+   HOVER
+   ========================================================================== */
+
+.select-field__control:hover {
+  border-color:
+    var(--input-border-hover, var(--border-strong));
+}
+
+/* ==========================================================================
+   FOCUS
+   ========================================================================== */
+
+.select-field__control:focus-within {
+  border-color: var(--select-focus);
+
+  outline:
+    var(--border-width-medium) solid var(--focus-ring, var(--primary));
+
+  outline-offset: 1px;
+}
+
+/* ==========================================================================
+   NATIVE SELECT
+   ========================================================================== */
+
+.select-field__native {
+  display: block;
+
+  flex: 1 1 auto;
+
+  width: 100%;
+  min-width: 0;
+  min-height: calc(var(--select-height) - 2 * var(--border-width-thin));
+
+  margin: 0;
+
+  padding:
+    var(--space-2) 0;
+
+  border: 0;
+  border-radius: 0;
+
+  outline: none;
+
+  background: transparent;
+  color: var(--text-primary);
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: var(--font-weight-regular);
+
+  line-height: var(--line-height-normal);
+
+  appearance: none;
+
+  cursor: pointer;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select-field__native:focus,
+.select-field__native:focus-visible {
+  outline: none;
+}
+
+/* ==========================================================================
+   PLACEHOLDER
+   ========================================================================== */
+
+.select-field__native--placeholder {
+  color: var(--text-tertiary);
+}
+
+.select-field__native option {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   PREFIX
+   ========================================================================== */
+
+.select-field__prefix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: var(--space-5);
+
+  color: var(--text-tertiary);
+
+  font-size: var(--font-size-sm);
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   CHEVRON
+   ========================================================================== */
+
+.select-field__chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: var(--space-5);
+  height: var(--space-5);
+
+  color: var(--text-tertiary);
+
+  font-size: var(--font-size-xs);
+
+  pointer-events: none;
+
+  transition:
+    color var(--transition-fast);
+}
+
+.select-field__control:focus-within .select-field__chevron {
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   ERROR ICON
+   ========================================================================== */
+
+.select-field__error-icon {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  width: var(--space-5);
+  height: var(--space-5);
+
+  color: var(--select-error);
+
+  font-size: var(--font-size-sm);
+
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   SIZES
+   ========================================================================== */
+
+/* Small — 36px */
+
+.select-field--small {
+  --select-height: 2.25rem;
+  --select-padding: var(--space-3);
+
+  font-size: var(--font-size-xs);
+}
+
+/* Medium — 44px */
+
+.select-field--medium {
+  --select-height: 2.75rem;
+  --select-padding: var(--space-3);
+
+  font-size: var(--font-size-sm);
+}
+
+/* Large — 52px */
+
+.select-field--large {
+  --select-height: 3.25rem;
+  --select-padding: var(--space-4);
+
+  font-size: var(--font-size-md);
+}
+
+/* ==========================================================================
+   HINT
+   ========================================================================== */
+
+.select-field__hint {
+  margin: 0;
+
+  color: var(--text-tertiary);
+
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-relaxed);
+
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================================================
+   VALIDATION
+   ========================================================================== */
+
+.select-field--invalid .select-field__control {
+  border-color: var(--select-error);
+}
+
+.select-field--invalid .select-field__control:hover {
+  border-color: var(--select-error);
+}
+
+.select-field--invalid .select-field__control:focus-within {
+  border-color: var(--select-error);
+
+  outline-color:
+    color-mix(in srgb,
+      var(--select-error) 45%,
+      transparent);
+}
+
+.select-field__feedback {
+  min-width: 0;
+}
+
+.select-field__feedback:empty {
+  display: none;
+}
+
+.select-field__error {
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--space-2);
+
+  margin: 0;
+
+  color: var(--select-error);
+
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+
+  line-height: var(--line-height-relaxed);
+
+  overflow-wrap: anywhere;
+}
+
+.select-field__error i {
+  flex: 0 0 auto;
+
+  margin-block-start: 0.2em;
+}
+
+/* ==========================================================================
+   DISABLED
+   ========================================================================== */
+
+.select-field--disabled {
+  opacity: 0.65;
+}
+
+.select-field--disabled .select-field__control {
+  background: var(--surface-secondary);
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+.select-field--disabled .select-field__native {
+  cursor: not-allowed;
+}
+
+.select-field--disabled .select-field__control:hover {
+  border-color: var(--select-border);
+}
+
+/* ==========================================================================
+   READONLY
+   ========================================================================== */
+
+.select-field--readonly .select-field__control {
+  background: var(--surface-secondary);
+}
+
+.select-field--readonly .select-field__native {
+  cursor: default;
+}
+
+/* ==========================================================================
+   MOBILE
+   ========================================================================== */
+
+@media (max-width: 35.999rem) {
+  .select-field__native {
+    font-size: max(var(--font-size-md),
+        16px);
+  }
+}
+
+/* ==========================================================================
+   FORCED COLORS
+   ========================================================================== */
+
+@media (forced-colors: active) {
+  .select-field__control {
+    border-color: ButtonText;
+  }
+
+  .select-field__control:focus-within {
+    outline-color: Highlight;
+  }
+
+  .select-field__native {
+    color: CanvasText;
+  }
+
+  .select-field__error {
+    color: CanvasText;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .select-field__control,
+  .select-field__chevron {
+    transition: none !important;
+  }
+}

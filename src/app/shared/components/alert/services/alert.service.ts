@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 import { Subject } from 'rxjs';
 
-import { AlertItem, AlertOptions, ConfirmationOptions } from './model/alert.model';
+import { AlertItem, AlertOptions, ConfirmationOptions } from '../model/alert.model';
 
 @Injectable({
   providedIn: 'root',

@@ -1,0 +1,284 @@
+/* ==========================================================================
+   SKELETON COMPONENT
+   ==========================================================================
+
+   Purpose:
+   - Display loading placeholders.
+   - Support text, rectangular, rounded and circular shapes.
+   - Support pulse, wave and static appearances.
+   - Reduce content layout shifts.
+   - Respect accessibility and motion preferences.
+
+   ========================================================================== */
+
+/* ==========================================================================
+   HOST
+   ========================================================================== */
+
+:host {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+.skeleton {
+  --skeleton-background:
+    var(--surface-secondary);
+
+  --skeleton-highlight:
+    var(--surface-hover, var(--surface));
+
+  --skeleton-height: var(--space-4);
+
+  --skeleton-radius: var(--radius-sm);
+
+  --skeleton-duration: 1.6s;
+
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   SHAPE
+   ========================================================================== */
+
+.skeleton__shape {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+  height: var(--skeleton-height);
+
+  max-width: 100%;
+
+  border-radius: var(--skeleton-radius);
+
+  background: var(--skeleton-background);
+
+  overflow: hidden;
+
+  isolation: isolate;
+}
+
+/* ==========================================================================
+   VARIANTS
+   ========================================================================== */
+
+/* Text */
+
+.skeleton--text {
+  --skeleton-height: 0.875rem;
+  --skeleton-radius: var(--radius-xs);
+}
+
+/* Rectangle */
+
+.skeleton--rectangle {
+  --skeleton-height: 8rem;
+  --skeleton-radius: 0;
+}
+
+/* Rounded rectangle */
+
+.skeleton--rounded {
+  --skeleton-height: 8rem;
+  --skeleton-radius: var(--radius-lg);
+}
+
+/* Circle */
+
+.skeleton--circle {
+  --skeleton-height: var(--space-10);
+  --skeleton-radius: var(--radius-full);
+}
+
+.skeleton--circle .skeleton__shape {
+  aspect-ratio: 1;
+  width: var(--skeleton-height);
+  height: var(--skeleton-height);
+}
+
+/* ==========================================================================
+   SIZES
+   ========================================================================== */
+
+/* Small */
+
+.skeleton--small.skeleton--text {
+  --skeleton-height: 0.625rem;
+}
+
+.skeleton--small.skeleton--circle {
+  --skeleton-height: var(--space-8);
+}
+
+.skeleton--small.skeleton--rectangle,
+.skeleton--small.skeleton--rounded {
+  --skeleton-height: 5rem;
+}
+
+/* Medium */
+
+.skeleton--medium.skeleton--text {
+  --skeleton-height: 0.875rem;
+}
+
+.skeleton--medium.skeleton--circle {
+  --skeleton-height: var(--space-10);
+}
+
+.skeleton--medium.skeleton--rectangle,
+.skeleton--medium.skeleton--rounded {
+  --skeleton-height: 8rem;
+}
+
+/* Large */
+
+.skeleton--large.skeleton--text {
+  --skeleton-height: 1.125rem;
+}
+
+.skeleton--large.skeleton--circle {
+  --skeleton-height: var(--space-16);
+}
+
+.skeleton--large.skeleton--rectangle,
+.skeleton--large.skeleton--rounded {
+  --skeleton-height: 12rem;
+}
+
+/* ==========================================================================
+   MULTILINE TEXT
+   ========================================================================== */
+
+.skeleton__lines {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-3);
+
+  width: 100%;
+  min-width: 0;
+}
+
+.skeleton__line {
+  flex: 0 0 auto;
+}
+
+/* ==========================================================================
+   PULSE ANIMATION
+   ========================================================================== */
+
+.skeleton--pulse .skeleton__shape {
+  animation:
+    skeleton-pulse var(--skeleton-duration) ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* ==========================================================================
+   WAVE ANIMATION
+   ========================================================================== */
+
+.skeleton--wave .skeleton__shape::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(90deg,
+      transparent 0%,
+      var(--skeleton-highlight) 50%,
+      transparent 100%);
+
+  transform: translateX(-100%);
+
+  animation:
+    skeleton-wave var(--skeleton-duration) ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+@keyframes skeleton-wave {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* ==========================================================================
+   STATIC
+   ========================================================================== */
+
+.skeleton--static .skeleton__shape {
+  animation: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 35.999rem) {
+  .skeleton__lines {
+    gap: var(--space-2);
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .skeleton__shape,
+  .skeleton__shape::after {
+    animation: none !important;
+  }
+
+  .skeleton__shape {
+    opacity: 1;
+  }
+
+  .skeleton__shape::after {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   FORCED COLORS
+   ========================================================================== */
+
+@media (forced-colors: active) {
+  .skeleton__shape {
+    border: 1px solid CanvasText;
+
+    background: Canvas;
+
+    forced-color-adjust: auto;
+  }
+
+  .skeleton__shape::after {
+    display: none;
+  }
+}

@@ -1,0 +1,20 @@
+<span class="tooltip" [class.tooltip--top]="position === 'top'" [class.tooltip--bottom]="position === 'bottom'"
+  [class.tooltip--left]="position === 'left'" [class.tooltip--right]="position === 'right'"
+  [class.tooltip--dark]="appearance === 'dark'" [class.tooltip--light]="appearance === 'light'"
+  [class.tooltip--theme]="appearance === 'theme'" [class.tooltip--small]="size === 'small'"
+  [class.tooltip--medium]="size === 'medium'" [class.tooltip--large]="size === 'large'" [class.tooltip--open]="isOpen"
+  [class.tooltip--disabled]="disabled" [class.tooltip--no-arrow]="!arrow" (pointerenter)="onPointerEnter()"
+  (pointerleave)="onPointerLeave()" (focusin)="onFocusIn()" (focusout)="onFocusOut($event)"
+  (keydown)="onKeydown($event)">
+  <!-- Trigger -->
+  <span class="tooltip__trigger">
+    <ng-content />
+  </span>
+
+  <!-- Tooltip bubble -->
+  <span class="tooltip__bubble" [id]="tooltipId" role="tooltip">
+    <span class="tooltip__text">
+      {{ text }}
+    </span>
+  </span>
+</span>

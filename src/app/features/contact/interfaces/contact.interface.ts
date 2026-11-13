@@ -8,22 +8,28 @@ export type ProjectType =
   | 'other';
 
 export interface ProjectTypeOption {
-  value: ProjectType;
-  label: string;
+  readonly value: ProjectType;
+  readonly label: string;
 }
 
 export interface ContactFormData {
-  name: string;
-  email: string;
-  organization: string;
-  projectType: ProjectType | '';
-  message: string;
+  readonly name: string;
+  readonly email: string;
+  readonly organization: string;
+  readonly projectType: ProjectType | '';
+  readonly message: string;
 }
 
 export interface ContactChannel {
-  number: string;
-  label: string;
-  value: string;
-  href?: string;
-  external?: boolean;
+  readonly number: string;
+  readonly label: string;
+  readonly value: string;
+  readonly href?: string;
+  readonly external?: boolean;
+}
+
+export interface CollaborationTopic {
+  readonly number: string;
+  readonly title: string;
+  readonly description: string;
 }

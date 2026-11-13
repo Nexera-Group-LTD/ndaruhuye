@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { SkillGroup, SystemLayer, EngineeringStrength } from '../../interfaces/skills.interface';
 
 @Component({
   selector: 'app-skills-page',
   standalone: false,
-  styleUrl: './skills-page.css',
   templateUrl: './skills-page.html',
+  styleUrl: './skills-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkillsPage {
-  readonly skillGroups: SkillGroup[] = [
+  readonly skillGroups: readonly SkillGroup[] = [
     {
       id: 'engineering',
       number: '01',
@@ -79,7 +81,7 @@ export class SkillsPage {
     },
   ];
 
-  readonly systemLayers: SystemLayer[] = [
+  readonly systemLayers: readonly SystemLayer[] = [
     {
       number: '01',
       label: 'Experience',
@@ -112,7 +114,7 @@ export class SkillsPage {
     },
   ];
 
-  readonly engineeringStrengths: EngineeringStrength[] = [
+  readonly engineeringStrengths: readonly EngineeringStrength[] = [
     {
       number: '01',
       title: 'System architecture',

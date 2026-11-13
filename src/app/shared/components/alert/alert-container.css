@@ -1,153 +1,152 @@
+/* ==========================================================================
+   ALERT CONTAINER
+   ==========================================================================
+
+   Responsibilities:
+   - Toast positioning
+   - Toast stacking
+   - Dialog presentation
+   - Backdrop animation
+   - Responsive behavior
+
+   ========================================================================== */
+
 :host {
-  display:
-    contents;
+  display: contents;
 }
 
-
 /* ==========================================================================
-   Toast stacks
+   TOAST STACKS
    ========================================================================== */
 
 .alert-stack {
-  position:
-    fixed;
+  position: fixed;
 
-  z-index:
-    var(--z-toast, 800);
+  z-index: var(--z-toast);
 
-  display:
-    flex;
+  display: flex;
+  flex-direction: column;
 
-  flex-direction:
-    column;
+  gap: var(--space-3);
 
-  gap:
-    var(--space-3, 0.75rem);
+  width: min(calc(100vw - var(--space-8)),
+      26rem);
 
-  inline-size:
-    min(calc(100vw - 2rem),
-      24rem);
+  max-height: calc(100dvh - var(--space-8));
 
-  max-block-size:
-    calc(100dvh - 2rem);
+  overflow-x: hidden;
+  overflow-y: auto;
 
-  overflow-y:
-    auto;
+  padding: var(--space-1);
 
-  pointer-events:
-    none;
+  pointer-events: none;
+
+  scrollbar-width: thin;
+  overscroll-behavior: contain;
 }
-
-
-.alert-stack__item {
-  pointer-events:
-    auto;
-}
-
 
 /* ==========================================================================
-   Top left
+   TOAST ITEMS
+   ========================================================================== */
+
+.alert-stack__item {
+  flex: 0 0 auto;
+
+  width: 100%;
+  min-width: 0;
+
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   TOP LEFT
    ========================================================================== */
 
 .alert-stack--top-left {
-  inset-block-start:
-    var(--space-4, 1rem);
+  top: max(var(--space-4),
+      env(safe-area-inset-top, 0px));
 
-  left:
-    var(--space-4, 1rem);
+  left: max(var(--space-4),
+      env(safe-area-inset-left, 0px));
 }
 
-
 /* ==========================================================================
-   Top right
+   TOP RIGHT
    ========================================================================== */
 
 .alert-stack--top-right {
-  inset-block-start:
-    var(--space-4, 1rem);
+  top: max(var(--space-4),
+      env(safe-area-inset-top, 0px));
 
-  right:
-    var(--space-4, 1rem);
+  right: max(var(--space-4),
+      env(safe-area-inset-right, 0px));
 }
 
-
 /* ==========================================================================
-   Top center
+   TOP CENTER
    ========================================================================== */
 
 .alert-stack--center {
-  inset-block-start:
-    var(--space-4, 1rem);
+  top: max(var(--space-4),
+      env(safe-area-inset-top, 0px));
 
-  left:
-    50%;
+  left: 50%;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 }
 
-
 /* ==========================================================================
-   Dialog
+   DIALOG
    ========================================================================== */
 
 .alert-dialog {
-  width:
-    min(calc(100vw - 2rem),
+  width: min(calc(100vw - var(--space-8)),
       30rem);
 
-  max-block-size:
-    calc(100dvh - 2rem);
+  max-width: 30rem;
+
+  max-height: calc(100dvh - var(--space-8));
 
   padding: 0;
-
   margin: auto;
 
-  overflow:
-    visible;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   border: 0;
+  border-radius: var(--radius-2xl);
 
-  border-radius:
-    var(--radius-lg, 0.75rem);
+  background: var(--surface);
+  color: var(--text-primary);
 
-  background:
-    transparent;
+  box-shadow: var(--shadow-modal);
 
-  color:
-    var(--text-primary);
+  color-scheme: inherit;
 
-  color-scheme:
-    inherit;
+  overscroll-behavior: contain;
 }
 
-
 /* ==========================================================================
-   Backdrop
+   BACKDROP
    ========================================================================== */
 
 .alert-dialog::backdrop {
-  background:
-    var(--overlay-background);
+  background: var(--overlay-background);
 
-  opacity: 1;
-
-  backdrop-filter:
-    blur(2px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 
   animation:
-    alert-backdrop-enter 220ms ease-out both;
+    alert-backdrop-enter 220ms var(--ease-enter) both;
 }
-
 
 .alert-dialog--closing::backdrop {
   animation:
-    alert-backdrop-exit 180ms ease-in both;
+    alert-backdrop-exit 180ms var(--ease-exit) both;
 }
 
-
 /* ==========================================================================
-   Backdrop animation
+   ANIMATIONS
    ========================================================================== */
 
 @keyframes alert-backdrop-enter {
@@ -160,7 +159,6 @@
   }
 }
 
-
 @keyframes alert-backdrop-exit {
   from {
     opacity: 1;
@@ -171,44 +169,40 @@
   }
 }
 
-
 /* ==========================================================================
-   Mobile
+   RESPONSIVE
    ========================================================================== */
 
-@media (max-width: 36rem) {
+@media (max-width: 35.999rem) {
   .alert-stack {
-    inline-size:
-      calc(100vw - 1.5rem);
-  }
+    width: calc(100vw - var(--space-6));
 
+    max-height: calc(100dvh - var(--space-6));
+  }
 
   .alert-stack--top-left {
-    left:
-      0.75rem;
+    left: var(--space-3);
   }
-
 
   .alert-stack--top-right {
-    right:
-      0.75rem;
+    right: var(--space-3);
   }
 
-
   .alert-dialog {
-    width:
-      calc(100vw - 1.5rem);
+    width: calc(100vw - var(--space-6));
+
+    max-height: calc(100dvh - var(--space-6));
+
+    border-radius: var(--radius-xl);
   }
 }
 
-
 /* ==========================================================================
-   Reduced motion
+   REDUCED MOTION
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
   .alert-dialog::backdrop {
-    animation-duration:
-      0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

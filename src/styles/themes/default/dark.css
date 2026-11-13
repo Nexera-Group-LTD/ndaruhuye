@@ -1,134 +1,203 @@
-[data-color-theme="default"][data-theme="dark"] {
+/* ==========================================================================
+   DEFAULT THEME — DARK
+   ==========================================================================
+
+   Design:
+   - Monochrome / black and white.
+   - Near-black application backgrounds.
+   - White primary actions.
+   - Neutral grayscale surfaces and borders.
+   - No decorative color accents.
+
+   ========================================================================== */
+
+:root[data-color-theme="default"][data-theme="dark"],
+:root:not([data-color-theme])[data-theme="dark"] {
   color-scheme: dark;
 
-  --black: #000;
-  --white: #fff;
+  /* ==========================================================================
+     APPLICATION
+     ========================================================================== */
 
-  --background: #0a0a0a;
-  --background-subtle: #0a0a0a;
-  --surface: #323232;
-  --surface-secondary: #323232;
-  --surface-tertiary: #323232;
-  --surface-hover: #323232;
-  --surface-active: #323232;
-  --surface-selected: #323232;
+  --background: #080808;
+  --background-subtle: #0f0f0f;
 
-  --primary: var(--white);
-  --primary-hover: var(--white);
-  --primary-active: var(--white);
-  --primary-light: var(--black);
-  --primary-subtle: var(--black);
-  --primary-strong: var(--white);
-  --on-primary: var(--black);
+  --surface: #141414;
+  --surface-secondary: #1a1a1a;
+  --surface-tertiary: #222222;
 
-  --text-primary: var(--white);
-  --text-secondary: #c8c8c8;
-  --text-tertiary: #c8c8c8;
-  --text-disabled: #c8c8c8;
-  --text-brand: var(--white);
-  --text-link: var(--white);
-  --text-link-hover: var(--white);
-  --text-inverse: var(--black);
+  --surface-hover: #262626;
+  --surface-active: #333333;
+  --surface-selected: #404040;
 
-  --border: rgb(255 255 255 / 5%);
-  --border-hover: rgb(255 255 255 / 5%);
-  --border-active: var(--white);
-  --border-strong: var(--white);
+  /* ==========================================================================
+     PRIMARY
+     ========================================================================== */
 
-  --input-background: var(--black);
-  --input-border: var(--white);
-  --input-border-hover: var(--white);
-  --input-border-focus: var(--white);
+  --primary: #ffffff;
+  --primary-hover: #e5e5e5;
+  --primary-active: #d4d4d4;
 
-  --nav-background: var(--black);
-  --nav-text: var(--white);
-  --nav-hover-background: var(--white);
-  --nav-hover-text: var(--black);
-  --nav-active-background: var(--white);
-  --nav-active-text: var(--black);
+  --primary-light: #262626;
+  --primary-subtle: #1a1a1a;
 
-  --sidebar-background: #0a0a0a;
-  --sidebar-border: rgb(255 255 255 / 5%);
-  --sidebar-item-hover: var(--white);
-  --sidebar-item-active: var(--white);
-  --sidebar-item-active-text: var(--black);
+  --primary-strong: #ffffff;
 
-  --button-primary-background: var(--white);
-  --button-primary-hover: var(--white);
-  --button-primary-active: var(--white);
-  --button-primary-text: var(--black);
-  --button-secondary-background: var(--black);
-  --button-secondary-hover: var(--black);
-  --button-secondary-text: var(--white);
-  --button-on-solid: var(--black);
+  --on-primary: #000000;
 
-  --table-header-background: var(--black);
-  --table-row-hover: var(--black);
-  --table-row-selected: var(--black);
-  --focus-ring: var(--white);
-  --selection-background: var(--white);
-  --selection-text: var(--black);
-  --overlay-background: rgb(0 0 0 / 72%);
+  /* ==========================================================================
+     TEXT
+     ========================================================================== */
 
-  --alert-primary: var(--white);
-  --alert-success: var(--white);
-  --alert-warning: var(--white);
-  --alert-danger: var(--white);
-  --alert-info: var(--white);
-  --alert-on-solid: var(--black);
+  --text-primary: #ffffff;
+  --text-secondary: #d4d4d4;
+  --text-tertiary: #a3a3a3;
+  --text-disabled: #737373;
 
-  --badge-neutral-background: var(--black);
-  --badge-neutral-border: var(--white);
-  --badge-neutral-text: var(--white);
-  --badge-primary-background: var(--black);
-  --badge-primary-border: var(--white);
-  --badge-primary-text: var(--white);
-  --badge-success-background: var(--black);
-  --badge-success-border: var(--white);
-  --badge-success-text: var(--white);
-  --badge-warning-background: var(--black);
-  --badge-warning-border: var(--white);
-  --badge-warning-text: var(--white);
-  --badge-danger-background: var(--black);
-  --badge-danger-border: var(--white);
-  --badge-danger-text: var(--white);
-  --badge-info-background: var(--black);
-  --badge-info-border: var(--white);
-  --badge-info-text: var(--white);
+  --text-brand: #ffffff;
+  --text-link: #ffffff;
+  --text-link-hover: #d4d4d4;
 
-  --slate-50: var(--black);
-  --slate-100: var(--black);
-  --slate-200: var(--white);
-  --slate-700: var(--white);
-  --slate-800: var(--white);
-  --slate-900: var(--white);
+  --text-inverse: #000000;
 
-  --shadow-xs: none;
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
-  --shadow-xl: none;
-}
+  /* ==========================================================================
+     BORDERS
+     ========================================================================== */
 
-[data-color-theme="default"][data-theme="dark"] .button {
-  --button-base: var(--white) !important;
-  --button-hover: var(--white) !important;
-  --button-active: var(--white) !important;
-  --button-subtle: var(--black) !important;
-  --button-light: var(--black) !important;
-  --button-on-color: var(--black) !important;
-}
+  --border: #333333;
+  --border-hover: #525252;
+  --border-active: #e5e5e5;
+  --border-strong: #525252;
 
-[data-color-theme="default"][data-theme="dark"] .badge {
-  --badge-base: var(--white) !important;
-  --badge-subtle: var(--black) !important;
-  --badge-light: var(--black) !important;
-  --badge-on-color: var(--black) !important;
-}
+  /* ==========================================================================
+     INPUTS
+     ========================================================================== */
 
-[data-color-theme="default"][data-theme="dark"] .alert {
-  --alert-tone: var(--white) !important;
-  --alert-subtle: var(--black) !important;
-  --alert-light: var(--black) !important;
-  --alert-on-solid: var(--black) !important;
+  --input-background: #141414;
+
+  --input-border: #404040;
+  --input-border-hover: #737373;
+  --input-border-focus: #ffffff;
+
+  /* ==========================================================================
+     NAVIGATION
+     ========================================================================== */
+
+  --nav-background: #141414;
+  --nav-text: #d4d4d4;
+
+  --nav-hover-background: #262626;
+  --nav-hover-text: #ffffff;
+
+  --nav-active-background: #333333;
+  --nav-active-text: #ffffff;
+
+  /* ==========================================================================
+     SIDEBAR
+     ========================================================================== */
+
+  --sidebar-background: #0f0f0f;
+  --sidebar-border: #333333;
+
+  --sidebar-item-hover: #262626;
+  --sidebar-item-active: #333333;
+  --sidebar-item-active-text: #ffffff;
+
+  /* ==========================================================================
+     BUTTONS
+     ========================================================================== */
+
+  --button-primary-background: #ffffff;
+  --button-primary-hover: #e5e5e5;
+  --button-primary-active: #d4d4d4;
+  --button-primary-text: #000000;
+
+  --button-secondary-background: #262626;
+  --button-secondary-hover: #333333;
+  --button-secondary-text: #ffffff;
+
+  --button-danger-background: #e5e5e5;
+  --button-danger-hover: #ffffff;
+  --button-danger-active: #d4d4d4;
+  --button-danger-text: #000000;
+
+  /* ==========================================================================
+     TABLES
+     ========================================================================== */
+
+  --table-header-background: #1a1a1a;
+  --table-row-hover: #262626;
+  --table-row-selected: #333333;
+
+  /* ==========================================================================
+     FOCUS AND SELECTION
+     ========================================================================== */
+
+  --focus-ring: #d4d4d4;
+
+  --selection-background: #e5e5e5;
+  --selection-text: #000000;
+
+  /* ==========================================================================
+     OVERLAY
+     ========================================================================== */
+
+  --overlay-background: rgb(0 0 0 / 75%);
+
+  /* ==========================================================================
+     FUNCTIONAL FEEDBACK
+     ========================================================================== */
+
+  --success: #d4d4d4;
+  --warning: #a3a3a3;
+  --danger: #ffffff;
+  --info: #d4d4d4;
+
+  --alert-primary: #ffffff;
+  --alert-success: #d4d4d4;
+  --alert-warning: #a3a3a3;
+  --alert-danger: #ffffff;
+  --alert-info: #d4d4d4;
+
+  --alert-on-solid: #000000;
+
+  /* ==========================================================================
+     BADGES
+     ========================================================================== */
+
+  /* Neutral */
+
+  --badge-neutral-background: #262626;
+  --badge-neutral-border: #404040;
+  --badge-neutral-text: #d4d4d4;
+
+  /* Primary */
+
+  --badge-primary-background: #262626;
+  --badge-primary-border: #525252;
+  --badge-primary-text: #ffffff;
+
+  /* Success */
+
+  --badge-success-background: #1a1a1a;
+  --badge-success-border: #404040;
+  --badge-success-text: #d4d4d4;
+
+  /* Warning */
+
+  --badge-warning-background: #262626;
+  --badge-warning-border: #525252;
+  --badge-warning-text: #d4d4d4;
+
+  /* Danger */
+
+  --badge-danger-background: #333333;
+  --badge-danger-border: #737373;
+  --badge-danger-text: #ffffff;
+
+  /* Info */
+
+  --badge-info-background: #1a1a1a;
+  --badge-info-border: #404040;
+  --badge-info-text: #d4d4d4;
 }

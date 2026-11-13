@@ -7,7 +7,7 @@ import {
   inject,
   viewChild,
 } from '@angular/core';
-import { AlertService } from './alert.service';
+import { AlertService } from './services/alert.service';
 
 @Component({
   selector: 'app-alert-container',

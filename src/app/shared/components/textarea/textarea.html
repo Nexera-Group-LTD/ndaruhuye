@@ -1,0 +1,81 @@
+<div class="textarea-field" [class.textarea-field--small]="size() === 'small'"
+  [class.textarea-field--medium]="size() === 'medium'" [class.textarea-field--large]="size() === 'large'"
+  [class.textarea-field--invalid]="!!message" [class.textarea-field--disabled]="isDisabled"
+  [class.textarea-field--readonly]="readonly()" [class.textarea-field--resize-none]="resize() === 'none'"
+  [class.textarea-field--resize-vertical]="resize() === 'vertical'"
+  [class.textarea-field--resize-horizontal]="resize() === 'horizontal'"
+  [class.textarea-field--resize-both]="resize() === 'both'">
+  <!-- ============================================================
+       LABEL
+       ============================================================ -->
+
+  @if (label()) {
+  <label class="textarea-field__label" [for]="inputId()">
+    {{ label() }}
+
+    @if (required()) {
+    <span class="textarea-field__required" aria-hidden="true">*</span>
+    }
+  </label>
+  }
+
+  <!-- ============================================================
+       CONTROL
+       ============================================================ -->
+
+  <div class="textarea-field__control">
+    <textarea class="textarea-field__native" [id]="inputId()" [name]="controlName" [value]="currentValue()"
+      [rows]="rows()" [placeholder]="placeholder()" [disabled]="isDisabled" [readOnly]="readonly()"
+      [required]="required()" [attr.minlength]="minLength()" [attr.maxlength]="maxLength()"
+      [attr.autocomplete]="autocomplete()" [attr.aria-label]="ariaLabel() || null"
+      [attr.aria-invalid]="message ? 'true' : null" [attr.aria-describedby]="describedBy" (input)="update($event)"
+      (focus)="onFocus($event)" (blur)="onBlur($event)"></textarea>
+
+    @if (message) {
+    <span class="textarea-field__error-icon" aria-hidden="true">
+      <i class="fa-solid fa-circle-exclamation"></i>
+    </span>
+    }
+  </div>
+
+  <!-- ============================================================
+       HINT AND CHARACTER COUNT
+       ============================================================ -->
+
+  @if (hint() || showCount()) {
+  <div class="textarea-field__meta">
+    @if (hint()) {
+    <p class="textarea-field__hint" [id]="inputId() + '-hint'">
+      {{ hint() }}
+    </p>
+    }
+
+    @if (showCount()) {
+    <span class="textarea-field__count" [id]="inputId() + '-count'" [class.textarea-field__count--limit]="
+            maxLength() !== null &&
+            characterCount >= maxLength()!
+          ">
+      {{ characterCount }}
+
+      @if (maxLength() !== null) {
+      / {{ maxLength() }}
+      }
+    </span>
+    }
+  </div>
+  }
+
+  <!-- ============================================================
+       VALIDATION MESSAGE
+       ============================================================ -->
+
+  <div class="textarea-field__feedback" aria-live="polite" aria-atomic="true">
+    @if (message) {
+    <p class="textarea-field__error" [id]="inputId() + '-error'">
+      <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+
+      <span>{{ message }}</span>
+    </p>
+    }
+  </div>
+</div>

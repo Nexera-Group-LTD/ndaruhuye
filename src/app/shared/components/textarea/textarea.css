@@ -1,0 +1,382 @@
+/* ==========================================================================
+   TEXTAREA COMPONENT
+   ==========================================================================
+
+   Supports:
+   - Small, medium, large sizes
+   - Native multiline input
+   - Validation and feedback
+   - Character counting
+   - Disabled and readonly states
+   - Four resize modes
+   - Light and dark themes
+
+   ========================================================================== */
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+.textarea-field {
+  --textarea-padding: var(--space-3);
+  --textarea-border: var(--input-border, var(--border));
+  --textarea-background: var(--input-background, var(--surface));
+  --textarea-error: var(--alert-danger, var(--danger));
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+
+  width: 100%;
+  min-width: 0;
+
+  color: var(--text-primary);
+
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+/* ==========================================================================
+   LABEL
+   ========================================================================== */
+
+.textarea-field__label {
+  display: inline-flex;
+  align-items: baseline;
+
+  gap: var(--space-1);
+
+  width: fit-content;
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+
+  line-height: var(--line-height-normal);
+}
+
+.textarea-field__required {
+  color: var(--textarea-error);
+}
+
+/* ==========================================================================
+   CONTROL
+   ========================================================================== */
+
+.textarea-field__control {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  border:
+    var(--border-width-thin) solid var(--textarea-border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--textarea-background);
+  color: var(--text-primary);
+
+  box-shadow: var(--shadow-sm);
+
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.textarea-field__control:hover:not(:focus-within) {
+  border-color: var(--input-border-hover, var(--border-strong));
+}
+
+.textarea-field__control:focus-within {
+  border-color: var(--input-border-focus, var(--primary));
+
+  outline:
+    var(--border-width-medium) solid var(--focus-ring, var(--primary));
+
+  outline-offset: 1px;
+}
+
+/* ==========================================================================
+   NATIVE TEXTAREA
+   ========================================================================== */
+
+.textarea-field__native {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 7rem;
+
+  margin: 0;
+  padding: var(--textarea-padding);
+
+  border: 0;
+  border-radius: inherit;
+
+  background: transparent;
+  color: var(--text-primary);
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+
+  outline: none;
+  box-shadow: none;
+
+  resize: vertical;
+}
+
+.textarea-field__native:focus,
+.textarea-field__native:focus-visible {
+  outline: none;
+}
+
+.textarea-field__native::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   SIZES
+   ========================================================================== */
+
+.textarea-field--small {
+  --textarea-padding: var(--space-2);
+  font-size: var(--font-size-xs);
+}
+
+.textarea-field--small .textarea-field__native {
+  min-height: 5rem;
+}
+
+.textarea-field--medium {
+  --textarea-padding: var(--space-3);
+  font-size: var(--font-size-sm);
+}
+
+.textarea-field--large {
+  --textarea-padding: var(--space-4);
+  font-size: var(--font-size-md);
+}
+
+.textarea-field--large .textarea-field__native {
+  min-height: 9rem;
+}
+
+/* ==========================================================================
+   RESIZING
+   ========================================================================== */
+
+.textarea-field--resize-none .textarea-field__native {
+  resize: none;
+}
+
+.textarea-field--resize-vertical .textarea-field__native {
+  resize: vertical;
+}
+
+.textarea-field--resize-horizontal .textarea-field__native {
+  resize: horizontal;
+}
+
+.textarea-field--resize-both .textarea-field__native {
+  resize: both;
+}
+
+/* ==========================================================================
+   HINT AND COUNTER
+   ========================================================================== */
+
+.textarea-field__meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.textarea-field__hint {
+  flex: 1 1 auto;
+
+  margin: 0;
+
+  color: var(--text-tertiary);
+
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-relaxed);
+
+  overflow-wrap: anywhere;
+}
+
+.textarea-field__count {
+  flex: 0 0 auto;
+
+  margin-inline-start: auto;
+
+  color: var(--text-tertiary);
+
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-relaxed);
+
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.textarea-field__count--limit {
+  color: var(--textarea-error);
+}
+
+/* ==========================================================================
+   VALIDATION
+   ========================================================================== */
+
+.textarea-field--invalid .textarea-field__control,
+.textarea-field--invalid .textarea-field__control:hover {
+  border-color: var(--textarea-error);
+}
+
+.textarea-field--invalid .textarea-field__control:focus-within {
+  border-color: var(--textarea-error);
+
+  outline-color:
+    color-mix(in srgb,
+      var(--textarea-error) 45%,
+      transparent);
+}
+
+.textarea-field__error-icon {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+
+  display: grid;
+  place-items: center;
+
+  width: var(--space-5);
+  height: var(--space-5);
+
+  color: var(--textarea-error);
+
+  font-size: var(--font-size-sm);
+  pointer-events: none;
+}
+
+.textarea-field--invalid .textarea-field__native {
+  padding-inline-end: var(--space-10);
+}
+
+.textarea-field__feedback {
+  min-width: 0;
+}
+
+.textarea-field__feedback:empty {
+  display: none;
+}
+
+.textarea-field__error {
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--space-2);
+
+  margin: 0;
+
+  color: var(--textarea-error);
+
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-relaxed);
+
+  overflow-wrap: anywhere;
+}
+
+.textarea-field__error i {
+  flex: 0 0 auto;
+  margin-block-start: 0.2em;
+}
+
+/* ==========================================================================
+   DISABLED
+   ========================================================================== */
+
+.textarea-field--disabled {
+  opacity: 0.65;
+}
+
+.textarea-field--disabled .textarea-field__control {
+  background: var(--surface-secondary);
+  box-shadow: none;
+}
+
+.textarea-field--disabled .textarea-field__native {
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   READONLY
+   ========================================================================== */
+
+.textarea-field--readonly .textarea-field__control {
+  background: var(--surface-secondary);
+}
+
+.textarea-field--readonly .textarea-field__native {
+  cursor: default;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 35.999rem) {
+  .textarea-field__native {
+    font-size: var(--font-size-md);
+  }
+
+  .textarea-field__meta {
+    flex-wrap: wrap;
+  }
+}
+
+/* ==========================================================================
+   FORCED COLORS
+   ========================================================================== */
+
+@media (forced-colors: active) {
+  .textarea-field__control {
+    border-color: ButtonText;
+  }
+
+  .textarea-field__control:focus-within {
+    outline-color: Highlight;
+  }
+
+  .textarea-field__error,
+  .textarea-field__error-icon {
+    color: CanvasText;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .textarea-field__control {
+    transition: none;
+  }
+}

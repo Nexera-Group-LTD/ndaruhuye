@@ -1,147 +1,150 @@
 <div class="skills-page portfolio-page">
 
-  <!-- HERO -->
-  <section class="skills-hero">
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
 
-    <div class="skills-hero__grid" aria-hidden="true"></div>
-
-    <div class="page-container skills-hero__layout">
-
-      <div class="skills-hero__content">
-
-        <p class="eyebrow">
-          01 · Skills & Expertise
-        </p>
-
-        <h1>
-          Tools change.
-          <span>Engineering principles scale.</span>
-        </h1>
-
-        <p class="skills-hero__intro">
-          I work across the technology stack—from interfaces
-          and APIs to databases, AI, infrastructure, and
-          deployment—to build complete digital systems.
-        </p>
-
-        <div class="skills-hero__summary">
-
-          <div>
-            <span>Primary focus</span>
-            <strong>Full-stack systems</strong>
-          </div>
-
-          <div>
-            <span>Extended focus</span>
-            <strong>Data + AI</strong>
-          </div>
-
-          <div>
-            <span>Delivery</span>
-            <strong>Architecture → Production</strong>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- SYSTEM VISUAL -->
-      <div class="stack-system" aria-hidden="true">
-
-        <div class="stack-system__header">
-          <div>
-            <span class="stack-system__signal"></span>
-            CAPABILITY / MAP
-          </div>
-
-          <span>04 DOMAINS</span>
-        </div>
-
-        <div class="stack-system__body">
-
-          <div class="stack-system__axis"></div>
-
-          @for (
-          group of skillGroups;
-          track group.id;
-          let i = $index
-          ) {
-
-          <div class="stack-system__node" [class]="'stack-system__node stack-system__node--' + group.id">
-            <span>{{ group.number }}</span>
-
-            <strong>
-              {{ group.label }}
-            </strong>
-
-            <small>
-              {{ group.title }}
-            </small>
-          </div>
-
-          }
-
-          <div class="stack-system__core">
-            <span>SYS</span>
-            <strong>Engineering</strong>
-            <small>End-to-end</small>
-          </div>
-
-        </div>
-
-        <div class="stack-system__footer">
-          <span>BUILD</span>
-          <span>CONNECT</span>
-          <span>LEARN</span>
-          <span>DELIVER</span>
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- CORE EXPERTISE -->
-  <section class="section expertise" id="expertise">
-
+  <section id="skills-overview" class="skills-hero" aria-labelledby="skills-title">
     <div class="page-container">
 
-      <div class="section-heading">
+      <div class="skills-hero__topline">
+        <span>Expertise / Technology</span>
+        <span>04 Disciplines</span>
+      </div>
 
-        <p class="eyebrow">
-          02 · Core expertise
-        </p>
+      <div class="skills-hero__layout">
 
-        <h2>
-          Capabilities across the system.
-        </h2>
+        <div class="skills-hero__content">
+          <p class="skills-eyebrow">
+            <span class="skills-eyebrow__line" aria-hidden="true"></span>
+            Skills &amp; expertise
+          </p>
 
-        <p>
-          I don't treat technologies as isolated skills.
-          Each one plays a role in designing, building,
-          connecting, and operating complete products.
-        </p>
+          <h1 id="skills-title">
+            Tools change.
+            <span>Engineering principles scale.</span>
+          </h1>
+
+          <p class="skills-hero__intro">
+            I work across the technology stack—from interfaces
+            and APIs to databases, AI, infrastructure, and
+            deployment—to build complete digital systems.
+          </p>
+
+          <div class="skills-hero__actions">
+            <a class="skills-action skills-action--primary" href="#expertise">
+              <span>Explore capabilities</span>
+
+              <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+            </a>
+
+            <a class="skills-action skills-action--outline" routerLink="/projects">
+              See my work
+            </a>
+          </div>
+        </div>
+
+        <!-- Geometric capability map -->
+
+        <div class="stack-system" aria-hidden="true">
+          <div class="stack-system__header">
+            <span>Capabilities / Map</span>
+            <span>04 Domains</span>
+          </div>
+
+          <div class="stack-system__canvas">
+            <div class="stack-system__axis stack-system__axis--x"></div>
+            <div class="stack-system__axis stack-system__axis--y"></div>
+
+            <div class="stack-system__ring stack-system__ring--outer"></div>
+            <div class="stack-system__ring stack-system__ring--middle"></div>
+            <div class="stack-system__ring stack-system__ring--inner"></div>
+
+            <div class="stack-system__core">
+              <span>SYS</span>
+              <strong>Engineering</strong>
+              <small>End-to-end</small>
+            </div>
+
+            @for (
+            group of skillGroups;
+            track group.id
+            ) {
+            <div class="stack-system__node" [class.stack-system__node--engineering]="group.id === 'engineering'"
+              [class.stack-system__node--backend]="group.id === 'backend'"
+              [class.stack-system__node--data]="group.id === 'data'"
+              [class.stack-system__node--devops]="group.id === 'devops'">
+              <span>{{ group.number }} / {{ group.label }}</span>
+              <strong>{{ group.title }}</strong>
+            </div>
+            }
+          </div>
+
+          <div class="stack-system__footer">
+            <span>Build</span>
+            <span>Connect</span>
+            <span>Learn</span>
+            <span>Deliver</span>
+          </div>
+        </div>
 
       </div>
 
+      <dl class="skills-hero__summary">
+        <div>
+          <dt>Primary focus</dt>
+          <dd>Full-stack systems</dd>
+        </div>
+
+        <div>
+          <dt>Extended focus</dt>
+          <dd>Data + AI</dd>
+        </div>
+
+        <div>
+          <dt>Delivery</dt>
+          <dd>Architecture → Production</dd>
+        </div>
+      </dl>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CORE EXPERTISE
+       ============================================================ -->
+
+  <section id="expertise" class="skills-section expertise" aria-labelledby="expertise-title">
+    <div class="page-container">
+
+      <div class="skills-section__intro">
+        <div class="skills-section__heading">
+          <p class="skills-eyebrow">
+            01 / Core expertise
+          </p>
+
+          <h2 id="expertise-title">
+            Capabilities across
+            <span>the system.</span>
+          </h2>
+        </div>
+
+        <p class="skills-section__description">
+          I don't treat technologies as isolated skills.
+          Each plays a role in designing, building, connecting,
+          and operating complete products.
+        </p>
+      </div>
 
       <div class="expertise-grid">
-
         @for (
         group of skillGroups;
         track group.id
         ) {
-
-        <article [class]="
-              'expertise-card expertise-card--' +
-              group.id
-            ">
-
+        <article class="expertise-card" [class.expertise-card--engineering]="group.id === 'engineering'"
+          [class.expertise-card--backend]="group.id === 'backend'" [class.expertise-card--data]="group.id === 'data'"
+          [class.expertise-card--devops]="group.id === 'devops'">
           <div class="expertise-card__top">
-
             <span class="expertise-card__number">
               {{ group.number }}
             </span>
@@ -149,287 +152,233 @@
             <span class="expertise-card__label">
               {{ group.label }}
             </span>
-
           </div>
 
           <div class="expertise-card__content">
+            <h3>{{ group.title }}</h3>
 
-            <h3>
-              {{ group.title }}
-            </h3>
-
-            <p>
-              {{ group.description }}
-            </p>
-
+            <p>{{ group.description }}</p>
           </div>
 
-          <div class="expertise-card__skills">
-
+          <ul class="expertise-card__skills" [attr.aria-label]="group.title + ' technologies'">
             @for (
             skill of group.skills;
             track skill.name
             ) {
-            <span>
+            <li>
               {{ skill.name }}
-            </span>
+            </li>
             }
-
-          </div>
-
+          </ul>
         </article>
-
         }
-
       </div>
 
     </div>
-
   </section>
 
+  <!-- ============================================================
+       TECHNOLOGY INDEX
+       ============================================================ -->
 
-  <!-- TECHNOLOGY STACK -->
-  <section class="section technology">
-
+  <section id="technology" class="skills-section technology" aria-labelledby="technology-title">
     <div class="page-container">
 
-      <div class="technology__heading">
-
-        <div>
-          <p class="eyebrow">
-            03 · Technology stack
+      <div class="skills-section__intro">
+        <div class="skills-section__heading">
+          <p class="skills-eyebrow">
+            02 / Technology index
           </p>
 
-          <h2>
-            The tools behind the systems.
+          <h2 id="technology-title">
+            The tools behind
+            <span>the work.</span>
           </h2>
         </div>
 
-        <p>
+        <p class="skills-section__description">
           Technologies I use across product development,
           integrations, data systems, intelligent workflows,
           and production infrastructure.
         </p>
-
       </div>
 
-
       <div class="technology-list">
-
         @for (
         group of skillGroups;
         track group.id
         ) {
-
-        <article class="technology-row">
-
+        <article class="technology-row" [attr.id]="'technology-' + group.id">
           <div class="technology-row__identity">
-
-            <span>
+            <span class="technology-row__number">
               {{ group.number }}
             </span>
 
-            <h3>
-              {{ group.title }}
-            </h3>
+            <div>
+              <span class="technology-row__label">
+                {{ group.label }}
+              </span>
 
+              <h3>{{ group.title }}</h3>
+            </div>
           </div>
 
-
-          <div class="technology-row__skills">
-
+          <ul class="technology-row__skills">
             @for (
             skill of group.skills;
             track skill.name
             ) {
-            <span>
-              {{ skill.name }}
-            </span>
+            <li>{{ skill.name }}</li>
             }
-
-          </div>
-
+          </ul>
         </article>
-
         }
-
       </div>
 
     </div>
-
   </section>
 
+  <!-- ============================================================
+       SYSTEM ARCHITECTURE
+       ============================================================ -->
 
-  <!-- SYSTEM CONNECTION -->
-  <section class="section system">
-
+  <section id="system" class="skills-section system" aria-labelledby="system-title">
     <div class="page-container">
 
-      <div class="section-heading section-heading--system">
+      <div class="skills-section__intro">
+        <div class="skills-section__heading">
+          <p class="skills-eyebrow">
+            03 / System architecture
+          </p>
 
-        <p class="eyebrow">
-          04 · How it connects
-        </p>
+          <h2 id="system-title">
+            One system.
+            <span>Multiple layers.</span>
+          </h2>
+        </div>
 
-        <h2>
-          One system. Multiple layers.
-        </h2>
-
-        <p>
+        <p class="skills-section__description">
           Modern products rarely live in one technology.
-          My work often crosses the full path from the
-          interface a person uses to the infrastructure
-          keeping the system running.
+          My work often crosses the full path from the interface
+          a person uses to the infrastructure keeping
+          the system running.
         </p>
-
       </div>
 
-
-      <div class="system-flow">
-
+      <ol class="system-flow">
         @for (
         layer of systemLayers;
-        track layer.number;
-        let last = $last
+        track layer.number
         ) {
-
-        <article class="system-layer">
-
+        <li class="system-layer">
           <div class="system-layer__number">
             {{ layer.number }}
           </div>
 
           <div class="system-layer__content">
-
-            <span>
+            <span class="system-layer__label">
               {{ layer.label }}
             </span>
 
-            <h3>
-              {{ layer.title }}
-            </h3>
+            <h3>{{ layer.title }}</h3>
 
-            <p>
-              {{ layer.technologies }}
-            </p>
-
+            <p>{{ layer.technologies }}</p>
           </div>
 
-        </article>
-
-        @if (!last) {
-        <div class="system-flow__connector" aria-hidden="true">
-          <span></span>
-        </div>
+          <span class="system-layer__endpoint" aria-hidden="true"></span>
+        </li>
         }
+      </ol>
 
-        }
-
-      </div>
+      <p class="system__note">
+        Each layer contributes to the overall system.
+        Reliable products depend on how these layers work together.
+      </p>
 
     </div>
-
   </section>
 
+  <!-- ============================================================
+       ENGINEERING STRENGTHS
+       ============================================================ -->
 
-  <!-- ENGINEERING STRENGTHS -->
-  <section class="section strengths">
-
+  <section id="strengths" class="skills-section strengths" aria-labelledby="strengths-title">
     <div class="page-container strengths__layout">
 
-      <div class="strengths__intro">
-
-        <p class="eyebrow">
-          05 · Engineering strengths
+      <div class="skills-section__heading">
+        <p class="skills-eyebrow">
+          04 / Engineering strengths
         </p>
 
-        <h2>
-          The skills behind the technologies.
+        <h2 id="strengths-title">
+          The skills behind
+          <span>the technologies.</span>
         </h2>
 
-        <p>
-          Frameworks are only part of engineering. The
-          ability to understand systems, make technical
-          decisions, integrate components, and deliver
-          reliably matters just as much.
+        <p class="skills-section__description">
+          Frameworks are only part of engineering.
+          Understanding systems, making technical decisions,
+          integrating components, and delivering reliably
+          matter just as much.
         </p>
-
       </div>
 
-
-      <div class="strengths__list">
-
+      <ol class="strengths__list">
         @for (
         strength of engineeringStrengths;
         track strength.number
         ) {
-
-        <article class="strength-item">
-
+        <li class="strength-item">
           <span class="strength-item__number">
             {{ strength.number }}
           </span>
 
-          <div>
+          <div class="strength-item__content">
+            <h3>{{ strength.title }}</h3>
 
-            <h3>
-              {{ strength.title }}
-            </h3>
-
-            <p>
-              {{ strength.description }}
-            </p>
-
+            <p>{{ strength.description }}</p>
           </div>
 
-        </article>
-
+          <i class="fa-solid fa-sort-down"></i>
+        </li>
         }
-
-      </div>
+      </ol>
 
     </div>
-
   </section>
 
+  <!-- ============================================================
+       CLOSING
+       ============================================================ -->
 
-  <!-- CTA -->
-  <section class="section skills-cta">
-
+  <section class="skills-section skills-cta" aria-labelledby="skills-cta-title">
     <div class="page-container">
 
       <div class="skills-cta__card">
-
         <div class="skills-cta__content">
-
-          <p class="eyebrow">
-            Skills in practice
+          <p class="skills-eyebrow">
+            05 / Skills in practice
           </p>
 
-          <h2>
-            Technology matters most when it ships.
+          <h2 id="skills-cta-title">
+            Technology matters most
+            <span>when it ships.</span>
           </h2>
 
           <p>
             Explore the platforms and systems where these
             capabilities have been applied to real problems.
           </p>
-
         </div>
 
-        <a class="skills-cta__action" routerLink="/" fragment="projects">
+        <a class="skills-action skills-action--primary" routerLink="/projects">
           <span>View selected work</span>
 
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M5 12h14" />
-            <path d="m13 6 6 6-6 6" />
-          </svg>
+          <i class="fa-solid fa-share-from-square"></i>
         </a>
-
       </div>
 
     </div>
-
   </section>
 
 </div>

@@ -1,26 +1,26 @@
 export interface Skill {
-  name: string;
-  description?: string;
+  readonly name: string;
+  readonly description?: string;
 }
 
 export interface SkillGroup {
-  id: string;
-  number: string;
-  label: string;
-  title: string;
-  description: string;
-  skills: Skill[];
+  readonly id: string;
+  readonly number: string;
+  readonly label: string;
+  readonly title: string;
+  readonly description: string;
+  readonly skills: readonly Skill[];
 }
 
 export interface EngineeringStrength {
-  number: string;
-  title: string;
-  description: string;
+  readonly number: string;
+  readonly title: string;
+  readonly description: string;
 }
 
 export interface SystemLayer {
-  number: string;
-  label: string;
-  title: string;
-  technologies: string;
+  readonly number: string;
+  readonly label: string;
+  readonly title: string;
+  readonly technologies: string;
 }

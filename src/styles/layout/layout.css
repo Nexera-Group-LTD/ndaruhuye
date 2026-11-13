@@ -1,35 +1,310 @@
+/* ==========================================================================
+   GLOBAL LAYOUT SYSTEM
+   ==========================================================================
+
+   Purpose:
+   - Define reusable layout primitives.
+   - Standardize page containers and spacing.
+   - Support responsive flexbox and grid layouts.
+   - Avoid component-specific visual styling.
+   - Maintain compatibility with existing Angular components.
+
+   ========================================================================== */
+
+
+/* ==========================================================================
+   PAGE
+   ========================================================================== */
+
 .page {
   width: 100%;
+  min-width: 0;
   min-height: 100%;
+
   padding: var(--page-padding-mobile);
 }
+
+
+/* ==========================================================================
+   CONTAINERS
+   ========================================================================== */
 
 .container {
   width: 100%;
   max-width: var(--content-max-width);
+
   margin-inline: auto;
 }
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--container-width-narrow);
+
+  margin-inline: auto;
+}
+
+.container-reading {
+  width: 100%;
+  max-width: var(--container-width-reading);
+
+  margin-inline: auto;
+}
+
+.container-default {
+  width: 100%;
+  max-width: var(--container-width-default);
+
+  margin-inline: auto;
+}
+
+.container-wide {
+  width: 100%;
+  max-width: var(--container-width-wide);
+
+  margin-inline: auto;
+}
+
+
+/* ==========================================================================
+   STACK
+   ==========================================================================
+
+   Vertical arrangement of elements.
+
+   ========================================================================== */
 
 .stack {
   display: flex;
   flex-direction: column;
+
+  gap: var(--space-4);
+
+  min-width: 0;
+}
+
+.stack-sm {
+  gap: var(--space-2);
+}
+
+.stack-md {
   gap: var(--space-4);
 }
+
+.stack-lg {
+  gap: var(--space-6);
+}
+
+.stack-xl {
+  gap: var(--space-8);
+}
+
+
+/* ==========================================================================
+   CLUSTER
+   ==========================================================================
+
+   Horizontal arrangement of elements with wrapping.
+
+   Useful for badges, tags, buttons, and metadata.
+
+   ========================================================================== */
 
 .cluster {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+
   gap: var(--space-4);
+
+  min-width: 0;
 }
+
+.cluster-start {
+  justify-content: flex-start;
+}
+
+.cluster-center {
+  justify-content: center;
+}
+
+.cluster-end {
+  justify-content: flex-end;
+}
+
+.cluster-between {
+  justify-content: space-between;
+}
+
+
+/* ==========================================================================
+   GRID
+   ========================================================================== */
 
 .grid {
   display: grid;
+
   gap: var(--space-4);
+
+  min-width: 0;
 }
+
+/* Automatically distribute available columns */
 
 .grid-auto {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+
+  grid-template-columns:
+    repeat(auto-fit,
+      minmax(min(100%, 18rem), 1fr));
+
   gap: var(--space-4);
+
+  min-width: 0;
+}
+
+/* Responsive two-column layout */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  gap: var(--grid-gap-md);
+
+  min-width: 0;
+}
+
+/* Responsive three-column layout */
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  gap: var(--grid-gap-md);
+
+  min-width: 0;
+}
+
+/* Responsive four-column layout */
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  gap: var(--grid-gap-md);
+
+  min-width: 0;
+}
+
+
+/* ==========================================================================
+   SPLIT LAYOUT
+   ==========================================================================
+
+   Two sections with flexible distribution.
+
+   Useful for hero sections, about pages, and contact layouts.
+
+   ========================================================================== */
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: var(--space-8);
+
+  min-width: 0;
+}
+
+
+/* ==========================================================================
+   SIDEBAR LAYOUT
+   ==========================================================================
+
+   Responsive main-content and sidebar arrangement.
+
+   ========================================================================== */
+
+.with-sidebar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  gap: var(--space-8);
+
+  min-width: 0;
+}
+
+
+/* ==========================================================================
+   CENTERED CONTENT
+   ========================================================================== */
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-content {
+  width: 100%;
+  max-width: var(--container-width-reading);
+
+  margin-inline: auto;
+
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   RESPONSIVE LAYOUTS
+   ========================================================================== */
+
+/* Tablet */
+
+@media (min-width: 48rem) {
+  .grid-2 {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-3 {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-4 {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .split {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: var(--space-10);
+  }
+}
+
+/* Desktop */
+
+@media (min-width: 62rem) {
+  .grid-3 {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .grid-4 {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+  .split {
+    gap: var(--space-12);
+  }
+
+  .with-sidebar {
+    grid-template-columns:
+      minmax(0, 1fr) minmax(14rem, 18rem);
+  }
 }

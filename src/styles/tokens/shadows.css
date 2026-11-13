@@ -1,20 +1,140 @@
+/* ==========================================================================
+   SHADOW DESIGN TOKENS
+   ==========================================================================
+
+   Purpose:
+   - Establish a consistent elevation system.
+   - Support light and dark appearances.
+   - Provide reusable component shadow tokens.
+   - Preserve existing shadow variable names.
+   - Keep shadows neutral across all color themes.
+
+   ========================================================================== */
+
 :root {
+  /* ==========================================================================
+     SHADOW COLORS
+     ========================================================================== */
+
+  --shadow-color:
+    16 24 40;
+
+  --shadow-opacity-xs: 0.05;
+  --shadow-opacity-sm: 0.08;
+  --shadow-opacity-md: 0.10;
+  --shadow-opacity-lg: 0.12;
+  --shadow-opacity-xl: 0.16;
+
+  /* ==========================================================================
+     ELEVATION SCALE
+     ========================================================================== */
+
+  --shadow-none: none;
+
   --shadow-xs:
-    0 1px 2px rgb(16 24 40 / 5%);
+    0 1px 2px rgb(var(--shadow-color) / var(--shadow-opacity-xs));
 
   --shadow-sm:
-    0 1px 3px rgb(16 24 40 / 10%),
-    0 1px 2px rgb(16 24 40 / 6%);
+    0 1px 3px rgb(var(--shadow-color) / var(--shadow-opacity-sm)),
+    0 1px 2px rgb(var(--shadow-color) / 0.04);
 
   --shadow-md:
-    0 4px 8px -2px rgb(16 24 40 / 10%),
-    0 2px 4px -2px rgb(16 24 40 / 6%);
+    0 4px 8px -2px rgb(var(--shadow-color) / var(--shadow-opacity-md)),
+    0 2px 4px -2px rgb(var(--shadow-color) / 0.06);
 
   --shadow-lg:
-    0 12px 16px -4px rgb(16 24 40 / 8%),
-    0 4px 6px -2px rgb(16 24 40 / 3%);
+    0 12px 16px -4px rgb(var(--shadow-color) / var(--shadow-opacity-lg)),
+    0 4px 6px -2px rgb(var(--shadow-color) / 0.06);
 
   --shadow-xl:
-    0 20px 24px -4px rgb(16 24 40 / 8%),
-    0 8px 8px -4px rgb(16 24 40 / 3%);
+    0 20px 24px -4px rgb(var(--shadow-color) / var(--shadow-opacity-xl)),
+    0 8px 8px -4px rgb(var(--shadow-color) / 0.06);
+
+  --shadow-2xl:
+    0 24px 48px -12px rgb(var(--shadow-color) / 0.20);
+
+  /* ==========================================================================
+     SEMANTIC ELEVATION TOKENS
+     ========================================================================== */
+
+  --shadow-surface:
+    var(--shadow-xs);
+
+  --shadow-card:
+    var(--shadow-sm);
+
+  --shadow-card-hover:
+    var(--shadow-md);
+
+  --shadow-dropdown:
+    var(--shadow-lg);
+
+  --shadow-popover:
+    var(--shadow-lg);
+
+  --shadow-tooltip:
+    var(--shadow-md);
+
+  --shadow-modal:
+    var(--shadow-2xl);
+
+  --shadow-drawer:
+    var(--shadow-xl);
+
+  --shadow-header:
+    var(--shadow-xs);
+
+  /* ==========================================================================
+     INTERACTIVE ELEMENTS
+     ========================================================================== */
+
+  --shadow-button:
+    var(--shadow-xs);
+
+  --shadow-button-hover:
+    var(--shadow-sm);
+
+  --shadow-input:
+    var(--shadow-xs);
+
+  /* ==========================================================================
+     FOCUS SHADOWS
+     ========================================================================== */
+
+  --shadow-focus:
+    0 0 0 3px var(--focus-ring, rgb(0 0 0 / 20%));
+
+  /* ==========================================================================
+     PORTFOLIO COMPONENTS
+     ========================================================================== */
+
+  --shadow-project-card:
+    var(--shadow-sm);
+
+  --shadow-project-card-hover:
+    var(--shadow-lg);
+
+  --shadow-service-card:
+    var(--shadow-sm);
+
+  --shadow-contact-form:
+    var(--shadow-md);
+}
+
+/* ==========================================================================
+   DARK APPEARANCE
+   ==========================================================================
+
+   Applied independently of the selected color theme.
+
+   ========================================================================== */
+
+:root[data-theme="dark"] {
+  --shadow-color: 0 0 0;
+
+  --shadow-opacity-xs: 0.16;
+  --shadow-opacity-sm: 0.22;
+  --shadow-opacity-md: 0.28;
+  --shadow-opacity-lg: 0.34;
+  --shadow-opacity-xl: 0.40;
 }

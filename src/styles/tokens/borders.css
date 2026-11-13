@@ -1,7 +1,42 @@
+/* ==========================================================================
+   BORDER DESIGN TOKENS
+   ==========================================================================
+
+   Purpose:
+   - Define consistent border widths and corner radii.
+   - Provide reusable semantic border tokens.
+   - Maintain compatibility with existing components.
+   - Support Default, Blue, and Green themes.
+   - Keep border colors controlled by the active theme.
+
+   ========================================================================== */
+
 :root {
-  --border-width: var(--border-width-thin);
+  /* ==========================================================================
+     BORDER WIDTHS
+     ========================================================================== */
+
+  --border-width-none: 0;
   --border-width-thin: 1px;
   --border-width-medium: 2px;
+  --border-width-thick: 3px;
+  --border-width-heavy: 4px;
+
+  /* Default border width - backward compatibility */
+
+  --border-width: var(--border-width-thin);
+
+  /* ==========================================================================
+     BORDER STYLES
+     ========================================================================== */
+
+  --border-style-solid: solid;
+  --border-style-dashed: dashed;
+  --border-style-dotted: dotted;
+
+  /* ==========================================================================
+     BORDER RADII
+     ========================================================================== */
 
   --radius-none: 0;
   --radius-xs: 0.25rem;
@@ -10,5 +45,166 @@
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
   --radius-full: 9999px;
+
+  /* ==========================================================================
+     SEMANTIC BORDER WIDTHS
+     ========================================================================== */
+
+  --border-default-width:
+    var(--border-width-thin);
+
+  --border-strong-width:
+    var(--border-width-medium);
+
+  --border-focus-width:
+    var(--border-width-medium);
+
+  --border-divider-width:
+    var(--border-width-thin);
+
+  /* ==========================================================================
+     SEMANTIC BORDER RADII
+     ========================================================================== */
+
+  /* General */
+
+  --radius-default:
+    var(--radius-md);
+
+  --radius-surface:
+    var(--radius-lg);
+
+  /* Buttons */
+
+  --radius-button-sm:
+    var(--radius-sm);
+
+  --radius-button-md:
+    var(--radius-md);
+
+  --radius-button-lg:
+    var(--radius-lg);
+
+  /* Inputs */
+
+  --radius-input:
+    var(--radius-md);
+
+  --radius-textarea:
+    var(--radius-md);
+
+  --radius-select:
+    var(--radius-md);
+
+  /* Cards */
+
+  --radius-card-sm:
+    var(--radius-lg);
+
+  --radius-card-md:
+    var(--radius-xl);
+
+  --radius-card-lg:
+    var(--radius-2xl);
+
+  /* Badges */
+
+  --radius-badge:
+    var(--radius-full);
+
+  /* Navigation */
+
+  --radius-nav-item:
+    var(--radius-md);
+
+  /* Overlays */
+
+  --radius-dropdown:
+    var(--radius-lg);
+
+  --radius-popover:
+    var(--radius-lg);
+
+  --radius-modal:
+    var(--radius-xl);
+
+  --radius-tooltip:
+    var(--radius-sm);
+
+  /* Images */
+
+  --radius-image:
+    var(--radius-lg);
+
+  --radius-avatar:
+    var(--radius-full);
+
+  /* ==========================================================================
+     SEMANTIC BORDER COLORS
+     ==========================================================================
+
+     Border colors are defined by the active theme.
+
+     These tokens reference the semantic theme variables
+     instead of defining fixed color values.
+
+     ========================================================================== */
+
+  --border-color-default:
+    var(--border, var(--gray-200));
+
+  --border-color-hover:
+    var(--border-hover, var(--gray-400));
+
+  --border-color-active:
+    var(--border-active, var(--black));
+
+  --border-color-strong:
+    var(--border-strong, var(--gray-300));
+
+  --border-color-focus:
+    var(--input-border-focus, var(--black));
+
+  /* ==========================================================================
+     COMPOSITE BORDER TOKENS
+     ========================================================================== */
+
+  --border-default:
+    var(--border-default-width) solid var(--border-color-default);
+
+  --border-strong-style:
+    var(--border-strong-width) solid var(--border-color-strong);
+
+  --border-divider:
+    var(--border-divider-width) solid var(--border-color-default);
+
+  --border-input:
+    var(--border-width-thin) solid var(--input-border, var(--gray-300));
+
+  --border-input-hover:
+    var(--border-width-thin) solid var(--input-border-hover, var(--gray-400));
+
+  --border-input-focus:
+    var(--border-focus-width) solid var(--input-border-focus, var(--black));
+
+  /* ==========================================================================
+     PORTFOLIO COMPONENT RADII
+     ========================================================================== */
+
+  --radius-project-card:
+    var(--radius-xl);
+
+  --radius-project-image:
+    var(--radius-lg);
+
+  --radius-skill-badge:
+    var(--radius-full);
+
+  --radius-service-card:
+    var(--radius-xl);
+
+  --radius-contact-form:
+    var(--radius-xl);
 }

@@ -1,22 +1,22 @@
 export interface Service {
-  id: string;
-  number: string;
-  label: string;
-  title: string;
-  description: string;
-  capabilities: string[];
-  outcome: string;
+  readonly id: string;
+  readonly number: string;
+  readonly label: string;
+  readonly title: string;
+  readonly description: string;
+  readonly capabilities: readonly string[];
+  readonly outcome: string;
 }
 
 export interface EngagementStep {
-  number: string;
-  label: string;
-  title: string;
-  description: string;
+  readonly number: string;
+  readonly label: string;
+  readonly title: string;
+  readonly description: string;
 }
 
 export interface ServiceArea {
-  number: string;
-  title: string;
-  description: string;
+  readonly number: string;
+  readonly title: string;
+  readonly description: string;
 }

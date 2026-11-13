@@ -1,78 +1,90 @@
-<div class="field" [class.field--invalid]="!!message" [class.field--disabled]="isDisabled" (focusout)="onBlur($event)"
-  (focusin)="focused.emit($event)">
+<div class="field" [class.field--invalid]="!!message" [class.field--disabled]="isDisabled"
+  [class.field--readonly]="readonly()" [class.field--checkbox]="type() === 'checkbox'"
+  [class.field--radio]="type() === 'radio'" [class.field--textarea]="type() === 'textarea'"
+  [class.field--select]="type() === 'select'" [class.field--password]="type() === 'password'"
+  (focusout)="onBlur($event)" (focusin)="focused.emit($event)">
+  <!-- ==============================================================
+       RADIO GROUP
+       ============================================================== -->
+
   @if (type() === 'radio') {
-  <fieldset [disabled]="isDisabled" [attr.aria-describedby]="describedBy" [attr.aria-invalid]="message ? 'true' : null">
-    <legend>
+  <fieldset class="field__fieldset" [disabled]="isDisabled" [attr.aria-describedby]="describedBy"
+    [attr.aria-invalid]="message ? 'true' : null" [attr.aria-readonly]="readonly() ? 'true' : null">
+    <legend class="field__legend">
       {{ label() || ariaLabel() }}
 
-
       @if (required()) {
-      <span aria-hidden="true">*</span>
+      <span class="field__required" aria-hidden="true">*</span>
       }
     </legend>
 
-    @for (
-    option of options();
-    track option.value;
-    let i = $index
-    ) {
-    <label class="field__choice" [for]="inputId() + '-' + i">
-      <input type="radio" [id]="inputId() + '-' + i" [name]="controlName" [value]="option.value"
-        [checked]="currentValue() === option.value" [required]="required()" [disabled]="
-          isDisabled ||
-          !!option.disabled ||
-          readonly()
-        " (change)="commit(option.value)" />
+    <div class="field__choices">
+      @for (
+      option of options();
+      track option.value;
+      let i = $index
+      ) {
+      <label class="field__choice" [class.field__choice--disabled]="
+              isDisabled || !!option.disabled || readonly()
+            " [for]="inputId() + '-' + i">
+        <input class="field__native-choice" type="radio" [id]="inputId() + '-' + i" [name]="controlName"
+          [value]="option.value" [checked]="currentValue() === option.value" [required]="required()" [disabled]="
+                isDisabled ||
+                !!option.disabled ||
+                readonly()
+              " (change)="commit(option.value)" />
 
-      <span>
-        {{ option.label }}
-      </span>
-    </label>
-    }
+        <span class="field__choice-label">
+          {{ option.label }}
+        </span>
+      </label>
+      }
+    </div>
   </fieldset>
+  }
 
+  <!-- ==============================================================
+       CHECKBOX
+       ============================================================== -->
 
-  } @else if (type() === 'checkbox') {
-  <label class="field__choice" [for]="inputId()">
-    <input type="checkbox" [id]="inputId()" [name]="controlName" [checked]="currentValue() === true" [disabled]="
-isDisabled ||
-readonly()
-" [required]="required()" [attr.aria-label]="
-ariaLabel() || null
-" [attr.aria-describedby]="describedBy" [attr.aria-invalid]="
-message
-? 'true'
-: null
-" (change)="update($event)" />
+  @else if (type() === 'checkbox') {
+  <label class="field__choice field__choice--checkbox" [class.field__choice--disabled]="isDisabled || readonly()"
+    [for]="inputId()">
+    <input class="field__native-choice" type="checkbox" [id]="inputId()" [name]="controlName"
+      [checked]="currentValue() === true" [disabled]="isDisabled || readonly()" [required]="required()"
+      [attr.aria-label]="ariaLabel() || null" [attr.aria-describedby]="describedBy"
+      [attr.aria-invalid]="message ? 'true' : null" (change)="update($event)" />
 
-
-    <span>
+    <span class="field__choice-label">
       {{ label() }}
 
       @if (required()) {
-      <span aria-hidden="true">*</span>
+      <span class="field__required" aria-hidden="true">*</span>
       }
     </span>
   </label>
+  }
 
+  <!-- ==============================================================
+       TEXT, NUMBER, PASSWORD, TEXTAREA, SELECT
+       ============================================================== -->
 
-  } @else {
+  @else {
+  <!-- Label -->
   @if (label()) {
   <label class="field__label" [for]="inputId()">
-    {{ label() }}
-
+    <span>{{ label() }}</span>
 
     @if (required()) {
-    <span aria-hidden="true">*</span>
+    <span class="field__required" aria-hidden="true">*</span>
     }
   </label>
   }
 
+  <!-- Control -->
   <div class="field__control">
-
-    <!-- Prefix -->
-
-    <span class="field__adornment">
+    <!-- Prefix adornment -->
+    <span class="field__adornment field__adornment--prefix">
       <ng-content select="[inputPrefix]" />
 
       @if (prefixIcon()) {
@@ -80,45 +92,25 @@ message
       }
     </span>
 
-
     <!-- Textarea -->
-
     @if (type() === 'textarea') {
-    <textarea [id]="inputId()" [name]="controlName" [value]="displayedValue" [rows]="rows()"
-      [placeholder]="placeholder()" [disabled]="isDisabled" [readOnly]="readonly()" [required]="required()"
-      [attr.minlength]="minLength()" [attr.maxlength]="maxLength()" [attr.aria-label]="
-        ariaLabel() || null
-      " [attr.aria-invalid]="
-        message
-          ? 'true'
-          : null
-      " [attr.aria-describedby]="describedBy" (input)="update($event)"></textarea>
+    <textarea class="field__native-control" [id]="inputId()" [name]="controlName" [value]="displayedValue"
+      [rows]="rows()" [placeholder]="placeholder()" [disabled]="isDisabled" [readOnly]="readonly()"
+      [required]="required()" [attr.minlength]="minLength()" [attr.maxlength]="maxLength()"
+      [attr.aria-label]="ariaLabel() || null" [attr.aria-invalid]="message ? 'true' : null"
+      [attr.aria-describedby]="describedBy" (input)="update($event)"></textarea>
     }
 
     <!-- Select -->
-
     @else if (type() === 'select') {
-    <select [id]="inputId()" [name]="controlName" [value]="displayedValue" [disabled]="
-        isDisabled ||
-        readonly()
-      " [required]="required()" [attr.aria-label]="
-        ariaLabel() || null
-      " [attr.aria-invalid]="
-        message
-          ? 'true'
-          : null
-      " [attr.aria-describedby]="describedBy" (change)="update($event)">
-      <option value="">
-        {{
-        placeholder() ||
-        'Select an option'
-        }}
+    <select class="field__native-control" [id]="inputId()" [name]="controlName" [value]="displayedValue"
+      [disabled]="isDisabled || readonly()" [required]="required()" [attr.aria-label]="ariaLabel() || null"
+      [attr.aria-invalid]="message ? 'true' : null" [attr.aria-describedby]="describedBy" (change)="update($event)">
+      <option value="" [disabled]="required()">
+        {{ placeholder() || 'Select an option' }}
       </option>
 
-      @for (
-      option of options();
-      track option.value
-      ) {
+      @for (option of options(); track option.value) {
       <option [value]="option.value" [disabled]="!!option.disabled">
         {{ option.label }}
       </option>
@@ -127,33 +119,26 @@ message
     }
 
     <!-- Input -->
-
     @else {
-    <input [type]="nativeType" [id]="inputId()" [name]="controlName" [value]="displayedValue"
-      [placeholder]="placeholder()" [disabled]="isDisabled" [readOnly]="readonly()" [required]="required()"
-      [attr.autocomplete]="autocomplete()" [attr.inputmode]="
-        type() === 'numeric'
-          ? 'numeric'
-          : type() === 'number'
-            ? 'decimal'
-            : null
-      " [attr.min]="min()" [attr.max]="max()" [attr.step]="
-        type() === 'number'
-          ? step()
-          : null
-      " [attr.minlength]="minLength()" [attr.maxlength]="maxLength()" [attr.aria-label]="
-        ariaLabel() || null
-      " [attr.aria-invalid]="
-        message
-          ? 'true'
-          : null
-      " [attr.aria-describedby]="describedBy" (input)="update($event)" />
+    <input class="field__native-control" [type]="nativeType" [id]="inputId()" [name]="controlName"
+      [value]="displayedValue" [placeholder]="placeholder()" [disabled]="isDisabled" [readOnly]="readonly()"
+      [required]="required()" [attr.autocomplete]="autocomplete()" [attr.inputmode]="
+            type() === 'numeric'
+              ? 'numeric'
+              : type() === 'number'
+                ? 'decimal'
+                : null
+          " [attr.min]="min()" [attr.max]="max()" [attr.step]="type() === 'number' ? step() : null"
+      [attr.minlength]="minLength()" [attr.maxlength]="maxLength()" [attr.pattern]="
+            pattern() === null
+              ? null
+              : pattern()!.toString()
+          " [attr.aria-label]="ariaLabel() || null" [attr.aria-invalid]="message ? 'true' : null"
+      [attr.aria-describedby]="describedBy" (input)="update($event)" />
     }
 
-
-    <!-- Suffix -->
-
-    <span class="field__adornment">
+    <!-- Suffix adornment -->
+    <span class="field__adornment field__adornment--suffix">
       <ng-content select="[inputSuffix]" />
 
       @if (suffixIcon()) {
@@ -161,48 +146,55 @@ message
       }
     </span>
 
-
     <!-- Password visibility -->
-
     @if (type() === 'password') {
     <button type="button" class="field__toggle" [disabled]="isDisabled" [attr.aria-controls]="inputId()"
       [attr.aria-label]="
-        passwordVisible()
-          ? 'Hide password'
-          : 'Show password'
-      " [attr.aria-pressed]="passwordVisible()" (click)="passwordVisible.set(!passwordVisible())">
+            passwordVisible()
+              ? 'Hide password'
+              : 'Show password'
+          " [attr.aria-pressed]="passwordVisible()" (click)="passwordVisible.set(!passwordVisible())">
       <i class="fa-solid" [class.fa-eye]="!passwordVisible()" [class.fa-eye-slash]="passwordVisible()"
         aria-hidden="true"></i>
     </button>
     }
 
-
-    <!-- Error icon -->
-
+    <!-- Validation icon -->
     @if (message) {
     <span class="field__error-icon" aria-hidden="true">
       <i class="fa-solid fa-circle-exclamation"></i>
     </span>
     }
 
+    <!-- Select chevron -->
+    @if (type() === 'select') {
+    <span class="field__select-icon" aria-hidden="true">
+      <i class="fa-solid fa-chevron-down"></i>
+    </span>
+    }
   </div>
-
-
   }
 
-  <!-- Hint -->
+  <!-- ==============================================================
+       HELPER TEXT
+       ============================================================== -->
 
   @if (hint()) {
   <p class="field__hint" [id]="inputId() + '-hint'">
-    {{ hint() }} </p>
+    {{ hint() }}
+  </p>
   }
 
-  <!-- Validation message -->
+  <!-- ==============================================================
+       VALIDATION MESSAGE
+       ============================================================== -->
 
-  <div aria-live="polite" aria-atomic="true">
+  <div class="field__feedback" aria-live="polite" aria-atomic="true">
     @if (message) {
     <p class="field__error" [id]="inputId() + '-error'">
-      {{ message }}
+      <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+
+      <span>{{ message }}</span>
     </p>
     }
   </div>

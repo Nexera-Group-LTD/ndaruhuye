@@ -1,157 +1,255 @@
-:host {
-  display: inline-block;
-}
+/* ==========================================================================
+   BUTTON COMPONENT
+   ==========================================================================
 
+   Supports:
+   - 13 color variants
+   - Solid, soft, outline, ghost and link appearances
+   - Small, medium and large sizes
+   - Loading and disabled states
+   - Icon-only and full-width buttons
+   - Default, Blue and Green themes
+   - Light and dark appearances
+
+   ========================================================================== */
 
 /* ==========================================================================
-   Base
+   HOST
+   ========================================================================== */
+
+:host {
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+:host:has(.button--full-width) {
+  display: flex;
+  width: 100%;
+}
+
+/* ==========================================================================
+   BASE
    ========================================================================== */
 
 .button {
-  --button-base: var(--color-primary);
-  --button-hover: var(--color-primary-hover);
-  --button-active: var(--color-primary-active);
-  --button-subtle: var(--color-primary-subtle);
-  --button-light: var(--color-primary-light);
-  --button-on-color: var(--color-on-primary);
+  --button-base: var(--primary);
+  --button-hover: var(--primary-hover);
+  --button-active: var(--primary-active);
+
+  --button-subtle: var(--primary-subtle);
+  --button-light: var(--primary-light);
+
+  --button-on-color: var(--on-primary);
+
+  position: relative;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  gap:
-    var(--space-2);
+  gap: var(--space-2);
 
-  position: relative;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 2.5rem;
+
+  padding: var(--space-2) var(--space-4);
 
   border:
-    var(--border-width) solid transparent;
+    var(--border-width-thin) solid transparent;
 
-  border-radius:
-    var(--radius-md);
+  border-radius: var(--radius-button-md);
 
-  font-family:
-    var(--font-sans);
+  background: transparent;
+  color: inherit;
 
-  font-weight:
-    var(--font-medium);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
 
-  line-height:
-    var(--leading-tight);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+
+  text-align: center;
+  text-decoration: none;
 
   white-space: nowrap;
 
   cursor: pointer;
-
   user-select: none;
-
   -webkit-user-select: none;
 
-  transition:
-    background-color var(--duration-fast),
-    border-color var(--duration-fast),
-    color var(--duration-fast),
-    box-shadow var(--duration-fast),
-    opacity var(--duration-fast);
+  transition: var(--transition-button);
 }
+
+.button:not(:disabled):active {
+  transform: scale(var(--motion-scale-pressed));
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
 
 .button__content {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  gap:
-    var(--space-2);
+  gap: var(--space-2);
+
+  min-width: 0;
+
+  color: inherit;
+  line-height: inherit;
+
+  transition: opacity var(--transition-fast);
 }
 
+.button__content i {
+  flex: 0 0 auto;
+  line-height: 1;
+}
 
 /* ==========================================================================
-   Sizes
+   SIZES
    ========================================================================== */
 
+/* Small — 32px */
+
 .button--small {
-  min-height: 1rem;
-
-  padding:
-    0.375rem var(--space-3);
-
-  border-radius:
-    var(--radius-sm);
-
-  font-size:
-    var(--text-sm);
-}
-
-.button--medium {
-  min-height: 1rem;
+  min-height: 2rem;
 
   padding:
     var(--space-1) var(--space-3);
 
-  font-size:
-    var(--text-base);
+  border-radius: var(--radius-button-sm);
+
+  font-size: var(--font-size-xs);
 }
 
-.button--large {
-  min-height: 1rem;
+/* Medium — 40px */
+
+.button--medium {
+  min-height: 2.5rem;
 
   padding:
-    var(--space-2) var(--space-5);
+    var(--space-2) var(--space-4);
 
-  border-radius:
-    var(--radius-lg);
+  border-radius: var(--radius-button-md);
 
-  font-size:
-    var(--text-lg);
+  font-size: var(--font-size-sm);
 }
 
+/* Large — 48px */
+
+.button--large {
+  min-height: 3rem;
+
+  padding:
+    var(--space-3) var(--space-6);
+
+  border-radius: var(--radius-button-lg);
+
+  font-size: var(--font-size-md);
+}
 
 /* ==========================================================================
-   Colors
+   SEMANTIC COLORS
    ========================================================================== */
 
-/*
- * Primary follows the currently selected app color theme.
- *
- * Blue theme:
- * primary -> blue
- *
- * Green theme:
- * primary -> green
- */
+/* Primary — follows selected color theme */
 
 .button--primary {
-  --button-base: var(--color-primary);
-  --button-hover: var(--color-primary-hover);
-  --button-active: var(--color-primary-active);
-  --button-subtle: var(--color-primary-subtle);
-  --button-light: var(--color-primary-light);
-  --button-on-color: var(--color-on-primary);
+  --button-base: var(--button-primary-background);
+  --button-hover: var(--button-primary-hover);
+  --button-active: var(--button-primary-active);
+
+  --button-subtle: var(--primary-subtle);
+  --button-light: var(--primary-light);
+
+  --button-on-color: var(--button-primary-text);
 }
 
-
-/* ==========================================================================
-   Neutral
-   ========================================================================== */
+/* Neutral — follows light/dark appearance */
 
 .button--neutral {
-  --button-base: var(--slate-700);
-  --button-hover: var(--slate-800);
-  --button-active: var(--slate-900);
+  --button-base: var(--text-primary);
+  --button-hover: var(--text-secondary);
+  --button-active: var(--text-primary);
 
-  --button-subtle: var(--slate-100);
-  --button-light: var(--slate-200);
+  --button-subtle: var(--surface-secondary);
+  --button-light: var(--surface-active);
 
-  --button-on-color: #ffffff;
+  --button-on-color: var(--background);
 }
 
+/* Success */
+
+.button--success {
+  --button-base: var(--success);
+  --button-hover:
+    color-mix(in srgb, var(--success) 88%, var(--background));
+  --button-active:
+    color-mix(in srgb, var(--success) 76%, var(--background));
+
+  --button-subtle: var(--badge-success-background);
+  --button-light: var(--surface-active);
+
+  --button-on-color: var(--alert-on-solid);
+}
+
+/* Warning */
+
+.button--warning {
+  --button-base: var(--warning);
+  --button-hover:
+    color-mix(in srgb, var(--warning) 88%, var(--background));
+  --button-active:
+    color-mix(in srgb, var(--warning) 76%, var(--background));
+
+  --button-subtle: var(--badge-warning-background);
+  --button-light: var(--surface-active);
+
+  --button-on-color: var(--alert-on-solid);
+}
+
+/* Danger */
+
+.button--danger {
+  --button-base: var(--button-danger-background);
+  --button-hover: var(--button-danger-hover);
+  --button-active: var(--button-danger-active);
+
+  --button-subtle: var(--badge-danger-background);
+  --button-light: var(--surface-active);
+
+  --button-on-color: var(--button-danger-text);
+}
+
+/* Info */
+
+.button--info {
+  --button-base: var(--info);
+  --button-hover:
+    color-mix(in srgb, var(--info) 88%, var(--background));
+  --button-active:
+    color-mix(in srgb, var(--info) 76%, var(--background));
+
+  --button-subtle: var(--badge-info-background);
+  --button-light: var(--surface-active);
+
+  --button-on-color: var(--alert-on-solid);
+}
 
 /* ==========================================================================
-   Blue
+   EXPLICIT COLOR PALETTES
    ========================================================================== */
 
-.button--blue,
-.button--info {
+/* Blue */
+
+.button--blue {
   --button-base: var(--blue-600);
   --button-hover: var(--blue-700);
   --button-active: var(--blue-800);
@@ -159,16 +257,12 @@
   --button-subtle: var(--blue-50);
   --button-light: var(--blue-100);
 
-  --button-on-color: #ffffff;
+  --button-on-color: var(--white);
 }
 
+/* Green */
 
-/* ==========================================================================
-   Green
-   ========================================================================== */
-
-.button--green,
-.button--success {
+.button--green {
   --button-base: var(--green-600);
   --button-hover: var(--green-700);
   --button-active: var(--green-800);
@@ -176,16 +270,12 @@
   --button-subtle: var(--green-50);
   --button-light: var(--green-100);
 
-  --button-on-color: #ffffff;
+  --button-on-color: var(--white);
 }
 
+/* Red */
 
-/* ==========================================================================
-   Red
-   ========================================================================== */
-
-.button--red,
-.button--danger {
+.button--red {
   --button-base: var(--red-600);
   --button-hover: var(--red-700);
   --button-active: var(--red-800);
@@ -193,46 +283,36 @@
   --button-subtle: var(--red-50);
   --button-light: var(--red-100);
 
-  --button-on-color: #ffffff;
+  --button-on-color: var(--white);
 }
 
+/* Yellow */
 
-/* ==========================================================================
-   Yellow
-   ========================================================================== */
-
-.button--yellow,
-.button--warning {
-  --button-base: var(--yellow-600);
-  --button-hover: var(--yellow-700);
-  --button-active: var(--yellow-800);
+.button--yellow {
+  --button-base: var(--yellow-800);
+  --button-hover: var(--yellow-900);
+  --button-active: var(--yellow-950);
 
   --button-subtle: var(--yellow-50);
   --button-light: var(--yellow-100);
 
-  --button-on-color: #ffffff;
+  --button-on-color: var(--white);
 }
 
-
-/* ==========================================================================
-   Orange
-   ========================================================================== */
+/* Orange */
 
 .button--orange {
-  --button-base: var(--orange-600);
-  --button-hover: var(--orange-700);
-  --button-active: var(--orange-800);
+  --button-base: var(--orange-700);
+  --button-hover: var(--orange-800);
+  --button-active: var(--orange-900);
 
   --button-subtle: var(--orange-50);
   --button-light: var(--orange-100);
 
-  --button-on-color: #ffffff;
+  --button-on-color: var(--white);
 }
 
-
-/* ==========================================================================
-   Purple
-   ========================================================================== */
+/* Purple */
 
 .button--purple {
   --button-base: var(--purple-600);
@@ -242,258 +322,365 @@
   --button-subtle: var(--purple-50);
   --button-light: var(--purple-100);
 
-  --button-on-color: #ffffff;
+  --button-on-color: var(--white);
 }
 
-
-/* ==========================================================================
-   Teal
-   ========================================================================== */
+/* Teal */
 
 .button--teal {
-  --button-base: var(--teal-600);
-  --button-hover: var(--teal-700);
-  --button-active: var(--teal-800);
+  --button-base: var(--teal-700);
+  --button-hover: var(--teal-800);
+  --button-active: var(--teal-900);
 
   --button-subtle: var(--teal-50);
   --button-light: var(--teal-100);
 
-  --button-on-color: #ffffff;
+  --button-on-color: var(--white);
 }
 
+/* ==========================================================================
+   DARK APPEARANCE — EXPLICIT COLORS
+   ========================================================================== */
+
+:host-context([data-theme="dark"]) .button--blue {
+  --button-base: var(--blue-300);
+  --button-hover: var(--blue-200);
+  --button-active: var(--blue-100);
+
+  --button-subtle: var(--blue-950);
+  --button-light: var(--blue-900);
+
+  --button-on-color: var(--blue-950);
+}
+
+:host-context([data-theme="dark"]) .button--green {
+  --button-base: var(--green-300);
+  --button-hover: var(--green-200);
+  --button-active: var(--green-100);
+
+  --button-subtle: var(--green-950);
+  --button-light: var(--green-900);
+
+  --button-on-color: var(--green-950);
+}
+
+:host-context([data-theme="dark"]) .button--red {
+  --button-base: var(--red-300);
+  --button-hover: var(--red-200);
+  --button-active: var(--red-100);
+
+  --button-subtle: var(--red-950);
+  --button-light: var(--red-900);
+
+  --button-on-color: var(--red-950);
+}
+
+:host-context([data-theme="dark"]) .button--yellow {
+  --button-base: var(--yellow-300);
+  --button-hover: var(--yellow-200);
+  --button-active: var(--yellow-100);
+
+  --button-subtle: var(--yellow-950);
+  --button-light: var(--yellow-900);
+
+  --button-on-color: var(--yellow-950);
+}
+
+:host-context([data-theme="dark"]) .button--orange {
+  --button-base: var(--orange-300);
+  --button-hover: var(--orange-200);
+  --button-active: var(--orange-100);
+
+  --button-subtle: var(--orange-950);
+  --button-light: var(--orange-900);
+
+  --button-on-color: var(--orange-950);
+}
+
+:host-context([data-theme="dark"]) .button--purple {
+  --button-base: var(--purple-300);
+  --button-hover: var(--purple-200);
+  --button-active: var(--purple-100);
+
+  --button-subtle: var(--purple-950);
+  --button-light: var(--purple-900);
+
+  --button-on-color: var(--purple-950);
+}
+
+:host-context([data-theme="dark"]) .button--teal {
+  --button-base: var(--teal-300);
+  --button-hover: var(--teal-200);
+  --button-active: var(--teal-100);
+
+  --button-subtle: var(--teal-950);
+  --button-light: var(--teal-900);
+
+  --button-on-color: var(--teal-950);
+}
 
 /* ==========================================================================
-   Appearance: Solid
+   APPEARANCE — SOLID
    ========================================================================== */
 
 .button--solid {
-  border-color:
-    var(--button-base);
+  border-color: var(--button-base);
 
-  background:
-    var(--button-base);
+  background: var(--button-base);
+  color: var(--button-on-color);
 
-  color:
-    var(--button-on-color);
+  box-shadow: var(--shadow-button);
 }
 
 .button--solid:hover:not(:disabled) {
-  border-color:
-    var(--button-hover);
+  border-color: var(--button-hover);
+  background: var(--button-hover);
 
-  background:
-    var(--button-hover);
+  box-shadow: var(--shadow-button-hover);
 }
 
 .button--solid:active:not(:disabled) {
-  border-color:
-    var(--button-active);
-
-  background:
-    var(--button-active);
+  border-color: var(--button-active);
+  background: var(--button-active);
 }
 
-
 /* ==========================================================================
-   Appearance: Soft
+   APPEARANCE — SOFT
    ========================================================================== */
 
 .button--soft {
-  border-color:
-    transparent;
+  border-color: transparent;
 
-  background:
-    var(--button-subtle);
-
-  color:
-    var(--button-base);
+  background: var(--button-subtle);
+  color: var(--button-base);
 }
 
 .button--soft:hover:not(:disabled) {
-  background:
-    var(--button-light);
+  background: var(--button-light);
 }
 
 .button--soft:active:not(:disabled) {
   background:
     color-mix(in srgb,
       var(--button-light) 80%,
-      var(--button-base));
+      var(--button-subtle));
 }
 
-
 /* ==========================================================================
-   Appearance: Outline
+   APPEARANCE — OUTLINE
    ========================================================================== */
 
 .button--outline {
   border-color:
-    var(--button-base);
+    color-mix(in srgb,
+      var(--button-base) 40%,
+      var(--border));
 
-  background:
-    transparent;
-
-  color:
-    var(--button-base);
+  background: transparent;
+  color: var(--button-base);
 }
 
 .button--outline:hover:not(:disabled) {
-  background:
-    var(--button-subtle);
+  border-color: var(--button-base);
+  background: var(--button-subtle);
 }
 
 .button--outline:active:not(:disabled) {
-  background:
-    var(--button-light);
+  background: var(--button-light);
 }
 
-
 /* ==========================================================================
-   Appearance: Ghost
+   APPEARANCE — GHOST
    ========================================================================== */
 
 .button--ghost {
-  border-color:
-    transparent;
+  border-color: transparent;
 
-  background:
-    transparent;
-
-  color:
-    var(--button-base);
+  background: transparent;
+  color: var(--button-base);
 }
 
 .button--ghost:hover:not(:disabled) {
-  background:
-    var(--button-subtle);
+  background: var(--button-subtle);
 }
 
 .button--ghost:active:not(:disabled) {
-  background:
-    var(--button-light);
+  background: var(--button-light);
 }
 
-
 /* ==========================================================================
-   Appearance: Link
+   APPEARANCE — LINK
    ========================================================================== */
 
 .button--link {
-  min-height: unset;
+  min-height: auto;
 
   padding: 0;
 
-  border-color:
-    transparent;
-
-  background:
-    transparent;
-
-  color:
-    var(--button-base);
-
+  border: 0;
   border-radius: 0;
+
+  background: transparent;
+  color: var(--button-base);
+
+  box-shadow: none;
 }
 
 .button--link:hover:not(:disabled) {
-  color:
-    var(--button-hover);
+  color: var(--button-hover);
 
-  text-decoration:
-    underline;
-
-  text-underline-offset:
-    0.2em;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .button--link:active:not(:disabled) {
-  color:
-    var(--button-active);
+  color: var(--button-active);
 }
 
+.button--link:active:not(:disabled) {
+  transform: none;
+}
 
 /* ==========================================================================
-   Focus
+   FOCUS
    ========================================================================== */
 
-.button:focus {
-  outline: none;
-}
-
 .button:focus-visible {
-  box-shadow:
-    0 0 0 3px color-mix(in srgb,
-      var(--button-base) 30%,
-      transparent);
-}
+  outline:
+    var(--border-width-thick) solid var(--focus-ring, currentColor);
 
+  outline-offset: 3px;
+}
 
 /* ==========================================================================
-   Disabled
+   DISABLED
    ========================================================================== */
 
 .button:disabled {
   cursor: not-allowed;
 
-  opacity: 0.5;
+  opacity: 0.55;
 
   box-shadow: none;
 }
 
-
 /* ==========================================================================
-   Loading
+   LOADING
    ========================================================================== */
 
 .button--loading {
   cursor: wait;
 }
 
+.button--loading .button__content {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.button__loader {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: inherit;
+
+  pointer-events: none;
+}
+
+.button__loader app-loader {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* ==========================================================================
-   Full width
+   FULL WIDTH
    ========================================================================== */
 
 .button--full-width {
   width: 100%;
 }
 
-:host:has(.button--full-width) {
-  display: block;
-
-  width: 100%;
-}
-
-
 /* ==========================================================================
-   Icon only
+   ICON ONLY
    ========================================================================== */
 
 .button--icon-only {
-  padding-inline: 0;
-
   aspect-ratio: 1;
+
+  padding: 0;
 }
 
 .button--icon-only.button--small {
   width: 2rem;
+  min-width: 2rem;
 }
 
 .button--icon-only.button--medium {
-  width: 2.75rem;
+  width: 2.5rem;
+  min-width: 2.5rem;
 }
 
 .button--icon-only.button--large {
-  width: 3.25rem;
+  width: 3rem;
+  min-width: 3rem;
 }
 
+.button--icon-only .button__content {
+  gap: 0;
+}
 
 /* ==========================================================================
-   Reduced motion
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 35.999rem) {
+  .button--large {
+    padding-inline: var(--space-5);
+  }
+
+  .button--icon-only.button--large {
+    padding: 0;
+  }
+}
+
+/* ==========================================================================
+   FORCED COLORS
+   ========================================================================== */
+
+@media (forced-colors: active) {
+  .button {
+    border-color: ButtonText;
+
+    forced-color-adjust: auto;
+  }
+
+  .button--solid {
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .button:disabled {
+    color: GrayText;
+    border-color: GrayText;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .button {
-    transition: none;
+
+  .button,
+  .button__content {
+    transition: none !important;
+  }
+
+  .button:active {
+    transform: none !important;
   }
 }

@@ -1,30 +1,42 @@
+<!-- ==============================================================
+     SITE HEADER
+     ============================================================== -->
+
 <header class="site-header">
   <div class="site-header__inner">
 
-    <!-- Brand -->
-    <a class="brand" [routerLink]="['/']" fragment="home" aria-label="Ndaruhuye home"
-      (click)="setActiveSection('home'); closeMenu()">
+    <!-- ============================================================
+         BRAND
+         ============================================================ -->
+
+    <a class="brand" [routerLink]="['/']" fragment="home" aria-label="Ndaruhuye — Home" (click)="
+        setActiveSection('home');
+        closeMenu();
+        closeColorMenu()
+      ">
       <span class="brand__mark" aria-hidden="true">
         N
       </span>
 
-      <span class="brand__content">
+      <span class="brand__identity">
         <strong class="brand__name">
           Ndaruhuye
         </strong>
 
-        <span class="brand__label">
+        <span class="brand__description">
           Technology &amp; AI
         </span>
       </span>
     </a>
 
+    <!-- ============================================================
+         DESKTOP NAVIGATION
+         ============================================================ -->
 
-    <!-- Desktop Navigation -->
     <nav class="desktop-navigation" aria-label="Primary navigation">
       @for (item of navigationItems; track item.route) {
-      <a [routerLink]="item.route" [fragment]="item.fragment" [class.is-active]="isNavigationActive(item)"
-        [attr.aria-current]="
+      <a class="desktop-navigation__link" [routerLink]="item.route" [fragment]="item.fragment"
+        [class.is-active]="isNavigationActive(item)" [attr.aria-current]="
             isNavigationActive(item)
               ? item.fragment
                 ? 'location'
@@ -36,11 +48,104 @@
       }
     </nav>
 
+    <!-- ============================================================
+         HEADER ACTIONS
+         ============================================================ -->
 
-    <!-- Header Actions -->
     <div class="site-header__actions">
 
-      <!-- Contact -->
+      <!-- ==========================================================
+           COLOR THEME SELECTOR
+           ========================================================== -->
+
+      <div #colorPicker class="color-picker">
+        <button #colorButton type="button" class="header-icon-button color-picker__trigger"
+          [class.is-open]="colorMenuOpen()" [attr.aria-expanded]="colorMenuOpen()" [attr.aria-controls]="
+            colorMenuOpen()
+              ? 'header-color-options'
+              : null
+          " aria-label="Choose color theme" (click)="toggleColorMenu()">
+          <i class="fa-solid fa-palette" aria-hidden="true"></i>
+
+          <span class="color-picker__indicator" [class.color-picker__indicator--default]="
+              theme.colorTheme() === 'default'
+            " [class.color-picker__indicator--blue]="
+              theme.colorTheme() === 'blue'
+            " [class.color-picker__indicator--green]="
+              theme.colorTheme() === 'green'
+            " aria-hidden="true"></span>
+        </button>
+
+        @if (colorMenuOpen()) {
+        <div id="header-color-options" class="color-picker__menu">
+          <div class="color-picker__heading">
+            <strong>Color theme</strong>
+
+            <span>
+              Choose an accent color
+            </span>
+          </div>
+
+          <div class="color-picker__options" role="group" aria-label="Available color themes">
+            @for (
+            option of colorOptions;
+            track option.value
+            ) {
+            <button type="button" class="color-picker__option" [class.is-selected]="
+                    theme.colorTheme() === option.value
+                  " [attr.aria-pressed]="
+                    theme.colorTheme() === option.value
+                  " (click)="selectColorTheme(option.value)">
+              <span class="color-picker__swatch" [class.color-picker__swatch--default]="
+                      option.value === 'default'
+                    " [class.color-picker__swatch--blue]="
+                      option.value === 'blue'
+                    " [class.color-picker__swatch--green]="
+                      option.value === 'green'
+                    " aria-hidden="true"></span>
+
+              <span class="color-picker__option-copy">
+                <strong>
+                  {{ option.label }}
+                </strong>
+
+                <small>
+                  {{ option.description }}
+                </small>
+              </span>
+
+              @if (
+              theme.colorTheme() === option.value
+              ) {
+              <i class="fa-solid fa-check color-picker__check" aria-hidden="true"></i>
+              }
+            </button>
+            }
+          </div>
+        </div>
+        }
+      </div>
+
+      <!-- ==========================================================
+           LIGHT / DARK MODE
+           ========================================================== -->
+
+      <button type="button" class="header-icon-button theme-button" [attr.aria-label]="
+          theme.dark()
+            ? 'Switch to light mode'
+            : 'Switch to dark mode'
+        " (click)="toggleTheme()">
+        @if (theme.dark()) {
+        <i class="fa-solid fa-sun" aria-hidden="true"></i>
+        } @else {
+        <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        }
+      </button>
+
+      <!-- ==========================================================
+           CONTACT ACTION
+           ========================================================== -->
+
       <a class="contact-link" [routerLink]="contactNavigation.route" [fragment]="contactNavigation.fragment"
         [class.is-active]="
           isNavigationActive(contactNavigation)
@@ -49,98 +154,107 @@
             ? 'location'
             : null
         " (click)="handleNavigation(contactNavigation)">
-        {{ contactNavigation.label }}
+        <span>
+          {{ contactNavigation.label }}
+        </span>
+
+        <i class="fa-solid fa-envelope"></i>
       </a>
 
+      <!-- ==========================================================
+           MOBILE MENU TOGGLE
+           ========================================================== -->
 
-      <!-- Theme -->
-      <button type="button" class="theme-button" [attr.aria-label]="
-          theme.dark()
-            ? 'Switch to light mode'
-            : 'Switch to dark mode'
-        " [attr.aria-pressed]="theme.dark()" (click)="toggleTheme()">
-        @if (theme.dark()) {
-        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-          <circle cx="12" cy="12" r="4" />
-
-          <path d="
-                M12 2v2
-                m0 16v2
-                M4.93 4.93l1.41 1.41
-                m11.32 11.32 1.41 1.41
-                M2 12h2
-                m16 0h2
-                M4.93 19.07l1.41-1.41
-                M17.66 6.34l1.41-1.41
-              " />
-        </svg>
-        } @else {
-        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-          <path d="
-                M20.5 14.5
-                A8.5 8.5 0 0 1 9.5 3.5
-                8.5 8.5 0 1 0 20.5 14.5Z
-              " />
-        </svg>
-        }
-      </button>
-
-
-      <!-- Mobile Menu -->
-      <button type="button" class="menu-button" [class.menu-button--open]="menuOpen()" [attr.aria-expanded]="menuOpen()"
-        aria-controls="mobile-navigation" [attr.aria-label]="
+      <button #menuButton type="button" class="header-icon-button menu-button" [class.menu-button--open]="menuOpen()"
+        [attr.aria-expanded]="menuOpen()" [attr.aria-controls]="
+          menuOpen()
+            ? 'mobile-navigation'
+            : null
+        " [attr.aria-label]="
           menuOpen()
             ? 'Close navigation menu'
             : 'Open navigation menu'
         " (click)="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span class="menu-button__line"></span>
+        <span class="menu-button__line"></span>
+        <span class="menu-button__line"></span>
       </button>
 
     </div>
-
   </div>
 </header>
 
-
-<!-- =====================================================
+<!-- ==============================================================
      MOBILE NAVIGATION
-====================================================== -->
+     ============================================================== -->
 
 @if (menuOpen()) {
 
-<button type="button" class="menu-backdrop" aria-label="Close navigation menu" (click)="closeMenu()"></button>
+<!-- BACKDROP -->
 
-<nav id="mobile-navigation" class="mobile-navigation" aria-label="Primary navigation">
+<button type="button" class="menu-backdrop" tabindex="-1" aria-label="Close navigation menu"
+  (click)="closeMenu(true)"></button>
 
-  @for (item of navigationItems; track item.label) {
-  <a [routerLink]="item.route" [fragment]="item.fragment" [class.is-active]="isNavigationActive(item)"
-    [attr.aria-current]="
-          isNavigationActive(item)
-            ? item.fragment
-              ? 'location'
-              : 'page'
+<!-- MOBILE NAVIGATION PANEL -->
+
+<nav #mobileNavigation id="mobile-navigation" class="mobile-navigation" aria-label="Mobile navigation">
+  <div class="mobile-navigation__heading">
+    <span>Navigation</span>
+
+    <span class="mobile-navigation__count">
+      01 / 06
+    </span>
+  </div>
+
+  <!-- NAVIGATION LINKS -->
+
+  <div class="mobile-navigation__links">
+    @for (
+    item of navigationItems;
+    track item.route;
+    let i = $index
+    ) {
+    <a class="mobile-navigation__link" [routerLink]="item.route" [fragment]="item.fragment"
+      [class.is-active]="isNavigationActive(item)" [attr.aria-current]="
+            isNavigationActive(item)
+              ? item.fragment
+                ? 'location'
+                : 'page'
+              : null
+          " (click)="handleNavigation(item)">
+      <span class="mobile-navigation__number" aria-hidden="true">
+        {{ (i + 1).toString().padStart(2, '0') }}
+      </span>
+
+      <span class="mobile-navigation__label">
+        {{ item.mobileLabel ?? item.label }}
+      </span>
+
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    }
+  </div>
+
+  <!-- CONTACT LINK -->
+
+  <div class="mobile-navigation__footer">
+    <a class="mobile-navigation__contact" [routerLink]="contactNavigation.route" [fragment]="contactNavigation.fragment"
+      [class.is-active]="
+          isNavigationActive(contactNavigation)
+        " [attr.aria-current]="
+          isNavigationActive(contactNavigation)
+            ? 'location'
             : null
-        " (click)="handleNavigation(item)">
-    {{ item.mobileLabel ?? item.label }}
-  </a>
-  }
+        " (click)="handleNavigation(contactNavigation)">
+      <span>
+        {{
+        contactNavigation.mobileLabel ??
+        contactNavigation.label
+        }}
+      </span>
 
-
-  <!-- Mobile Contact -->
-  <a [routerLink]="contactNavigation.route" [fragment]="contactNavigation.fragment" [class.is-active]="
-        isNavigationActive(contactNavigation)
-      " [attr.aria-current]="
-        isNavigationActive(contactNavigation)
-          ? 'location'
-          : null
-      " (click)="handleNavigation(contactNavigation)">
-    {{
-    contactNavigation.mobileLabel ??
-    contactNavigation.label
-    }}
-  </a>
-
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+  </div>
 </nav>
 }

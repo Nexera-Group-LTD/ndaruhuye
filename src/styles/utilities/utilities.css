@@ -1,9 +1,38 @@
+/* ==========================================================================
+   GLOBAL UTILITY CLASSES
+   ==========================================================================
+
+   Purpose:
+   - Provide reusable single-purpose utility classes.
+   - Reduce repetitive declarations.
+   - Support common display, spacing, and alignment needs.
+   - Maintain compatibility with existing components.
+   - Use design tokens instead of hardcoded values.
+
+   Utilities intentionally use !important to override
+   component-level defaults when explicitly applied.
+
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. DISPLAY
+   ========================================================================== */
+
 .hidden {
   display: none !important;
 }
 
 .block {
   display: block !important;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.inline {
+  display: inline !important;
 }
 
 .flex {
@@ -18,41 +47,170 @@
   display: grid !important;
 }
 
+.inline-grid {
+  display: inline-grid !important;
+}
+
+
+/* ==========================================================================
+   2. FLEXBOX DIRECTION
+   ========================================================================== */
+
+.flex-row {
+  flex-direction: row !important;
+}
+
 .flex-column {
   flex-direction: column !important;
 }
 
+.flex-row-reverse {
+  flex-direction: row-reverse !important;
+}
+
+.flex-column-reverse {
+  flex-direction: column-reverse !important;
+}
+
+
+/* ==========================================================================
+   3. FLEXBOX WRAPPING
+   ========================================================================== */
+
 .flex-wrap {
   flex-wrap: wrap !important;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap !important;
+}
+
+
+/* ==========================================================================
+   4. ALIGN ITEMS
+   ========================================================================== */
+
+.items-start {
+  align-items: flex-start !important;
 }
 
 .items-center {
   align-items: center !important;
 }
 
-.items-start {
-  align-items: flex-start !important;
-}
-
 .items-end {
   align-items: flex-end !important;
+}
+
+.items-stretch {
+  align-items: stretch !important;
+}
+
+.items-baseline {
+  align-items: baseline !important;
+}
+
+
+/* ==========================================================================
+   5. JUSTIFY CONTENT
+   ========================================================================== */
+
+.justify-start {
+  justify-content: flex-start !important;
 }
 
 .justify-center {
   justify-content: center !important;
 }
 
+.justify-end {
+  justify-content: flex-end !important;
+}
+
 .justify-between {
   justify-content: space-between !important;
 }
+
+.justify-around {
+  justify-content: space-around !important;
+}
+
+.justify-evenly {
+  justify-content: space-evenly !important;
+}
+
+
+/* ==========================================================================
+   6. FLEX ITEM BEHAVIOR
+   ========================================================================== */
+
+.flex-1 {
+  flex: 1 1 0% !important;
+}
+
+.flex-auto {
+  flex: 1 1 auto !important;
+}
+
+.flex-none {
+  flex: none !important;
+}
+
+.shrink-0 {
+  flex-shrink: 0 !important;
+}
+
+.grow {
+  flex-grow: 1 !important;
+}
+
+
+/* ==========================================================================
+   7. WIDTH
+   ========================================================================== */
 
 .w-full {
   width: 100% !important;
 }
 
+.w-auto {
+  width: auto !important;
+}
+
+.w-fit {
+  width: fit-content !important;
+}
+
+.min-w-0 {
+  min-width: 0 !important;
+}
+
+
+/* ==========================================================================
+   8. HEIGHT
+   ========================================================================== */
+
 .h-full {
   height: 100% !important;
 }
+
+.h-auto {
+  height: auto !important;
+}
+
+.min-h-0 {
+  min-height: 0 !important;
+}
+
+.min-h-screen {
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+}
+
+
+/* ==========================================================================
+   9. TEXT ALIGNMENT
+   ========================================================================== */
 
 .text-left {
   text-align: left !important;
@@ -66,6 +224,15 @@
   text-align: right !important;
 }
 
+.text-justify {
+  text-align: justify !important;
+}
+
+
+/* ==========================================================================
+   10. TEXT COLORS
+   ========================================================================== */
+
 .text-primary {
   color: var(--text-primary) !important;
 }
@@ -74,12 +241,103 @@
   color: var(--text-secondary) !important;
 }
 
-.text-danger {
-  color: var(--danger) !important;
+.text-tertiary {
+  color: var(--text-tertiary) !important;
+}
+
+.text-brand {
+  color: var(--text-brand) !important;
 }
 
 .text-success {
-  color: var(--success) !important;
+  color: var(--success, var(--color-success)) !important;
+}
+
+.text-warning {
+  color: var(--warning, var(--color-warning)) !important;
+}
+
+.text-danger {
+  color: var(--danger, var(--color-danger)) !important;
+}
+
+.text-info {
+  color: var(--info, var(--color-info)) !important;
+}
+
+
+/* ==========================================================================
+   11. FONT WEIGHTS
+   ========================================================================== */
+
+.font-normal {
+  font-weight: var(--font-weight-regular) !important;
+}
+
+.font-medium {
+  font-weight: var(--font-weight-medium) !important;
+}
+
+.font-semibold {
+  font-weight: var(--font-weight-semibold) !important;
+}
+
+.font-bold {
+  font-weight: var(--font-weight-bold) !important;
+}
+
+
+/* ==========================================================================
+   12. TEXT TRANSFORMATION
+   ========================================================================== */
+
+.uppercase {
+  text-transform: uppercase !important;
+}
+
+.lowercase {
+  text-transform: lowercase !important;
+}
+
+.capitalize {
+  text-transform: capitalize !important;
+}
+
+.normal-case {
+  text-transform: none !important;
+}
+
+
+/* ==========================================================================
+   13. TEXT OVERFLOW
+   ========================================================================== */
+
+.truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.text-wrap {
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+}
+
+.text-nowrap {
+  white-space: nowrap !important;
+}
+
+.break-words {
+  overflow-wrap: anywhere !important;
+}
+
+
+/* ==========================================================================
+   14. GAPS
+   ========================================================================== */
+
+.gap-0 {
+  gap: var(--space-0) !important;
 }
 
 .gap-1 {
@@ -98,10 +356,295 @@
   gap: var(--space-4) !important;
 }
 
+.gap-5 {
+  gap: var(--space-5) !important;
+}
+
 .gap-6 {
   gap: var(--space-6) !important;
 }
 
 .gap-8 {
   gap: var(--space-8) !important;
+}
+
+.gap-10 {
+  gap: var(--space-10) !important;
+}
+
+.gap-12 {
+  gap: var(--space-12) !important;
+}
+
+
+/* ==========================================================================
+   15. MARGINS
+   ========================================================================== */
+
+.m-0 {
+  margin: 0 !important;
+}
+
+.mx-auto {
+  margin-inline: auto !important;
+}
+
+.my-auto {
+  margin-block: auto !important;
+}
+
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+.mt-2 {
+  margin-top: var(--space-2) !important;
+}
+
+.mt-4 {
+  margin-top: var(--space-4) !important;
+}
+
+.mt-6 {
+  margin-top: var(--space-6) !important;
+}
+
+.mt-8 {
+  margin-top: var(--space-8) !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-2 {
+  margin-bottom: var(--space-2) !important;
+}
+
+.mb-4 {
+  margin-bottom: var(--space-4) !important;
+}
+
+.mb-6 {
+  margin-bottom: var(--space-6) !important;
+}
+
+.mb-8 {
+  margin-bottom: var(--space-8) !important;
+}
+
+
+/* ==========================================================================
+   16. PADDING
+   ========================================================================== */
+
+.p-0 {
+  padding: 0 !important;
+}
+
+.p-2 {
+  padding: var(--space-2) !important;
+}
+
+.p-3 {
+  padding: var(--space-3) !important;
+}
+
+.p-4 {
+  padding: var(--space-4) !important;
+}
+
+.p-6 {
+  padding: var(--space-6) !important;
+}
+
+.p-8 {
+  padding: var(--space-8) !important;
+}
+
+.px-4 {
+  padding-inline: var(--space-4) !important;
+}
+
+.px-6 {
+  padding-inline: var(--space-6) !important;
+}
+
+.px-8 {
+  padding-inline: var(--space-8) !important;
+}
+
+.py-2 {
+  padding-block: var(--space-2) !important;
+}
+
+.py-4 {
+  padding-block: var(--space-4) !important;
+}
+
+.py-6 {
+  padding-block: var(--space-6) !important;
+}
+
+.py-8 {
+  padding-block: var(--space-8) !important;
+}
+
+
+/* ==========================================================================
+   17. BACKGROUND COLORS
+   ========================================================================== */
+
+.bg-background {
+  background: var(--background) !important;
+}
+
+.bg-surface {
+  background: var(--surface) !important;
+}
+
+.bg-surface-secondary {
+  background: var(--surface-secondary) !important;
+}
+
+.bg-transparent {
+  background: transparent !important;
+}
+
+
+/* ==========================================================================
+   18. BORDER RADII
+   ========================================================================== */
+
+.rounded-none {
+  border-radius: var(--radius-none) !important;
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm) !important;
+}
+
+.rounded-md {
+  border-radius: var(--radius-md) !important;
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg) !important;
+}
+
+.rounded-xl {
+  border-radius: var(--radius-xl) !important;
+}
+
+.rounded-2xl {
+  border-radius: var(--radius-2xl) !important;
+}
+
+.rounded-full {
+  border-radius: var(--radius-full) !important;
+}
+
+
+/* ==========================================================================
+   19. OVERFLOW
+   ========================================================================== */
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.overflow-auto {
+  overflow: auto !important;
+}
+
+.overflow-x-auto {
+  overflow-x: auto !important;
+}
+
+.overflow-visible {
+  overflow: visible !important;
+}
+
+
+/* ==========================================================================
+   20. POSITION
+   ========================================================================== */
+
+.relative {
+  position: relative !important;
+}
+
+.absolute {
+  position: absolute !important;
+}
+
+.fixed {
+  position: fixed !important;
+}
+
+.sticky {
+  position: sticky !important;
+}
+
+
+/* ==========================================================================
+   21. POINTER AND SELECTION
+   ========================================================================== */
+
+.pointer-events-none {
+  pointer-events: none !important;
+}
+
+.pointer-events-auto {
+  pointer-events: auto !important;
+}
+
+.select-none {
+  user-select: none !important;
+}
+
+.select-text {
+  user-select: text !important;
+}
+
+
+/* ==========================================================================
+   22. OPACITY
+   ========================================================================== */
+
+.opacity-0 {
+  opacity: 0 !important;
+}
+
+.opacity-50 {
+  opacity: 0.5 !important;
+}
+
+.opacity-75 {
+  opacity: 0.75 !important;
+}
+
+.opacity-100 {
+  opacity: 1 !important;
+}
+
+
+/* ==========================================================================
+   23. SHADOWS
+   ========================================================================== */
+
+.shadow-none {
+  box-shadow: none !important;
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md) !important;
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg) !important;
 }

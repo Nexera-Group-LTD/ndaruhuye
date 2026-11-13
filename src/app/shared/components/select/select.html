@@ -1,0 +1,94 @@
+<div class="select-field" [class.select-field--small]="size() === 'small'"
+  [class.select-field--medium]="size() === 'medium'" [class.select-field--large]="size() === 'large'"
+  [class.select-field--invalid]="!!message" [class.select-field--disabled]="isDisabled"
+  [class.select-field--readonly]="isReadonly">
+  <!-- ============================================================
+       LABEL
+       ============================================================ -->
+
+  @if (label()) {
+  <label class="select-field__label" [for]="inputId()">
+    <span>{{ label() }}</span>
+
+    @if (required()) {
+    <span class="select-field__required" aria-hidden="true">
+      *
+    </span>
+    }
+  </label>
+  }
+
+  <!-- ============================================================
+       CONTROL
+       ============================================================ -->
+
+  <div class="select-field__control">
+    <!-- Prefix icon -->
+
+    @if (prefixIcon()) {
+    <span class="select-field__prefix" aria-hidden="true">
+      <i [class]="prefixIcon()"></i>
+    </span>
+    }
+
+    <!-- Native select -->
+
+    <select class="select-field__native" [class.select-field__native--placeholder]="!currentValue()" [id]="inputId()"
+      [name]="controlName" [value]="displayedValue" [disabled]="isNonInteractive" [required]="required()"
+      [attr.aria-label]="ariaLabel() || null" [attr.aria-required]="required() ? 'true' : null"
+      [attr.aria-invalid]="message ? 'true' : null" [attr.aria-describedby]="describedBy" (change)="update($event)"
+      (focus)="onFocus($event)" (blur)="onBlur($event)">
+      <!-- Placeholder -->
+
+      <option value="">
+        {{ placeholder() }}
+      </option>
+
+      <!-- Options -->
+
+      @for (option of options(); track option.value) {
+      <option [value]="option.value" [disabled]="!!option.disabled">
+        {{ option.label }}
+      </option>
+      }
+    </select>
+
+    <!-- Chevron -->
+
+    <span class="select-field__chevron" aria-hidden="true">
+      <i class="fa-solid fa-chevron-down"></i>
+    </span>
+
+    <!-- Error indicator -->
+
+    @if (message) {
+    <span class="select-field__error-icon" aria-hidden="true">
+      <i class="fa-solid fa-circle-exclamation"></i>
+    </span>
+    }
+  </div>
+
+  <!-- ============================================================
+       HINT
+       ============================================================ -->
+
+  @if (hint()) {
+  <p class="select-field__hint" [id]="inputId() + '-hint'">
+    {{ hint() }}
+  </p>
+  }
+
+  <!-- ============================================================
+       ERROR
+       ============================================================ -->
+
+  <div class="select-field__feedback" aria-live="polite" aria-atomic="true">
+    @if (message) {
+    <p class="select-field__error" [id]="inputId() + '-error'">
+      <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+
+      <span>{{ message }}</span>
+    </p>
+    }
+  </div>
+</div>

@@ -10,20 +10,17 @@
   [class.button--warning]="color === 'warning'" [class.button--danger]="color === 'danger'"
   [class.button--info]="color === 'info'" [class.button--full-width]="fullWidth" [class.button--icon-only]="iconOnly"
   [class.button--loading]="loading" [type]="type" [disabled]="interactionDisabled" [attr.name]="name ?? null"
-  [attr.value]="value ?? null" [attr.aria-label]="ariaLabel ?? null" [attr.aria-disabled]="
-    interactionDisabled
-      ? 'true'
-      : null
-  " [attr.aria-busy]="
-    loading
-      ? 'true'
-      : null
-  " (click)="handleClick($event)">
-  @if (loading) {
-  <app-loader size="small" [label]="loadingLabel" />
-  }
-
-  <span class="button__content">
+  [attr.value]="value ?? null" [attr.aria-label]="ariaLabel ?? null" [attr.aria-busy]="loading ? 'true' : null"
+  [attr.aria-disabled]="interactionDisabled ? 'true' : null" (click)="handleClick($event)">
+  <!-- Button content -->
+  <span class="button__content" [attr.aria-hidden]="loading ? 'true' : null">
     <ng-content />
   </span>
+
+  <!-- Loading indicator -->
+  @if (loading) {
+  <span class="button__loader">
+    <app-loader size="small" [label]="loadingLabel" />
+  </span>
+  }
 </button>

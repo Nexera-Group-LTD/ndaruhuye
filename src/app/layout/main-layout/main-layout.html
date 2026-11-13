@@ -1,11 +1,26 @@
-<a class="skip-link" href="#main-content">Skip to main content</a>
+<!-- ==============================================================
+     ACCESSIBILITY
+     ============================================================== -->
+
+<a class="skip-link" href="#main-content">
+  Skip to main content
+</a>
+
+<!-- ==============================================================
+     APPLICATION LAYOUT
+     ============================================================== -->
 
 <div class="site-layout">
+
+  <!-- Global header -->
   <app-header />
 
+  <!-- Main page content -->
   <main id="main-content" class="site-main" tabindex="-1">
     <ng-content />
   </main>
 
+  <!-- Global footer -->
   <app-footer />
+
 </div>

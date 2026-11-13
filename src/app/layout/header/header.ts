@@ -1,16 +1,29 @@
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
-  computed,
+  DestroyRef,
+  ElementRef,
+  HostListener,
   inject,
-  OnDestroy,
   PLATFORM_ID,
   signal,
+  ViewChild,
 } from '@angular/core';
+
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, Subscription } from 'rxjs';
+
+import { filter } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 import { ThemeService } from '../../core/services/theme.service';
+import { ThemeColor } from '../../core/models/theme.model';
+
+/* ==========================================================================
+   TYPES
+   ========================================================================== */
 
 type SectionId = 'home' | 'impact' | 'projects' | 'experience' | 'capabilities' | 'contact';
 
@@ -21,6 +34,16 @@ interface NavigationItem {
   mobileLabel?: string;
 }
 
+interface ColorThemeOption {
+  value: ThemeColor;
+  label: string;
+  description: string;
+}
+
+/* ==========================================================================
+   CONSTANTS
+   ========================================================================== */
+
 const SECTION_IDS: readonly SectionId[] = [
   'home',
   'impact',
@@ -30,150 +53,373 @@ const SECTION_IDS: readonly SectionId[] = [
   'contact',
 ];
 
+const DESKTOP_BREAKPOINT = '(min-width: 64rem)';
+
+/* ==========================================================================
+   COMPONENT
+   ========================================================================== */
+
 @Component({
   selector: 'app-header',
   standalone: false,
   templateUrl: './header.html',
   styleUrl: './header.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Header implements AfterViewInit, OnDestroy {
+export class Header implements AfterViewInit {
+  /* =========================================================================
+     DEPENDENCIES
+     ========================================================================= */
+
   readonly theme = inject(ThemeService);
 
   private readonly router = inject(Router);
+  private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly destroyRef = inject(DestroyRef);
+
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
+
+  /* =========================================================================
+     ELEMENT REFERENCES
+     ========================================================================= */
+
+  @ViewChild('menuButton')
+  private menuButton?: ElementRef<HTMLButtonElement>;
+
+  @ViewChild('mobileNavigation')
+  private mobileNavigation?: ElementRef<HTMLElement>;
+
+  @ViewChild('colorPicker')
+  private colorPicker?: ElementRef<HTMLElement>;
+
+  @ViewChild('colorButton')
+  private colorButton?: ElementRef<HTMLButtonElement>;
+
+  /* =========================================================================
+     STATE
+     ========================================================================= */
 
   readonly menuOpen = signal(false);
+  readonly colorMenuOpen = signal(false);
 
   readonly activeSection = signal<SectionId>('home');
 
-  readonly currentUrl = signal('/');
+  readonly currentUrl = signal(this.router.url);
+
+  /* =========================================================================
+     NAVIGATION
+     ========================================================================= */
 
   readonly navigationItems: readonly NavigationItem[] = [
-    {
-      label: 'Home',
-      route: '/',
-    },
-    {
-      label: 'About',
-      route: '/about',
-    },
-    {
-      label: 'Projects',
-      route: '/projects',
-    },
-    {
-      label: 'Skills',
-      route: '/skills',
-    },
-    {
-      label: 'Services',
-      route: '/services',
-    },
-    {
-      label: 'Contact',
-      route: '/contact',
-    },
+    { label: 'Home', route: '/' },
+    { label: 'About', route: '/about' },
+    { label: 'Projects', route: '/projects' },
+    { label: 'Skills', route: '/skills' },
+    { label: 'Services', route: '/services' },
+    { label: 'Contact', route: '/contact' },
   ];
 
   readonly contactNavigation: NavigationItem = {
     label: 'Contact Ndaruhuye',
-    mobileLabel: 'Contact',
+    mobileLabel: 'Get in touch',
     route: '/',
     fragment: 'contact',
   };
 
-  readonly activeSectionLabel = computed(() =>
-    this.activeSection().replace(/(^|-)\w/g, (match) => match.toUpperCase()),
-  );
+  /* =========================================================================
+     COLOR OPTIONS
+     ========================================================================= */
+
+  readonly colorOptions: readonly ColorThemeOption[] = [
+    {
+      value: 'default',
+      label: 'Default',
+      description: 'Black & white',
+    },
+    {
+      value: 'blue',
+      label: 'Blue',
+      description: 'Blue accents',
+    },
+    {
+      value: 'green',
+      label: 'Green',
+      description: 'Green accents',
+    },
+  ];
+
+  /* =========================================================================
+     PRIVATE REFERENCES
+     ========================================================================= */
 
   private observer?: IntersectionObserver;
-  private routerSubscription?: Subscription;
+
+  private pendingFrame: number | null = null;
+
+  /* =========================================================================
+     INITIALIZATION
+     ========================================================================= */
+
+  ngAfterViewInit(): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    /*
+     * ThemeService owns all theme preferences.
+     * Do not read or write theme storage here.
+     */
+    this.theme.initialize();
+
+    this.currentUrl.set(this.router.url);
+
+    this.initializeResponsiveNavigation();
+
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((event) => {
+        this.currentUrl.set(event.urlAfterRedirects);
+
+        this.closeMenu();
+        this.closeColorMenu();
+
+        this.scheduleSectionObserver();
+      });
+
+    this.scheduleSectionObserver();
+
+    this.destroyRef.onDestroy(() => {
+      this.observer?.disconnect();
+
+      if (this.pendingFrame !== null) {
+        this.document.defaultView?.cancelAnimationFrame(this.pendingFrame);
+      }
+    });
+  }
+
+  /* =========================================================================
+     LIGHT / DARK MODE
+     ========================================================================= */
 
   toggleTheme(): void {
+    /*
+     * ThemeService preserves the existing color
+     * when the display mode changes.
+     */
     this.theme.toggleMode();
   }
 
+  /* =========================================================================
+     COLOR THEME
+     ========================================================================= */
+
+  selectColorTheme(color: ThemeColor): void {
+    /*
+     * ThemeService preserves the existing mode
+     * when the color changes.
+     */
+    this.theme.setColorTheme(color);
+
+    this.closeColorMenu(true);
+  }
+
+  /* =========================================================================
+     COLOR PICKER
+     ========================================================================= */
+
+  toggleColorMenu(): void {
+    if (this.colorMenuOpen()) {
+      this.closeColorMenu();
+      return;
+    }
+
+    this.closeMenu();
+
+    this.colorMenuOpen.set(true);
+  }
+
+  closeColorMenu(restoreFocus = false): void {
+    if (!this.colorMenuOpen()) {
+      return;
+    }
+
+    this.colorMenuOpen.set(false);
+
+    if (restoreFocus && this.isBrowser) {
+      this.colorButton?.nativeElement.focus();
+    }
+  }
+
+  /* =========================================================================
+     MOBILE MENU
+     ========================================================================= */
+
   toggleMenu(): void {
-    this.menuOpen.update((open) => !open);
+    if (this.menuOpen()) {
+      this.closeMenu();
+      return;
+    }
+
+    this.closeColorMenu();
+
+    this.menuOpen.set(true);
   }
 
-  closeMenu(): void {
+  closeMenu(restoreFocus = false): void {
+    if (!this.menuOpen()) {
+      return;
+    }
+
     this.menuOpen.set(false);
+
+    if (restoreFocus && this.isBrowser) {
+      this.menuButton?.nativeElement.focus();
+    }
   }
 
-  setActiveSection(section: SectionId): void {
-    this.activeSection.set(section);
+  /* =========================================================================
+     KEYBOARD
+     ========================================================================= */
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.colorMenuOpen()) {
+      this.closeColorMenu(true);
+      return;
+    }
+
+    if (this.menuOpen()) {
+      this.closeMenu(true);
+    }
   }
+
+  /* =========================================================================
+     POINTER OUTSIDE
+     ========================================================================= */
+
+  @HostListener('document:pointerdown', ['$event'])
+  onDocumentPointerDown(event: PointerEvent): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    const target = event.target;
+
+    if (!(target instanceof Node)) {
+      return;
+    }
+
+    if (this.colorMenuOpen() && !this.colorPicker?.nativeElement.contains(target)) {
+      this.closeColorMenu();
+    }
+
+    if (
+      this.menuOpen() &&
+      !this.mobileNavigation?.nativeElement.contains(target) &&
+      !this.menuButton?.nativeElement.contains(target)
+    ) {
+      this.closeMenu();
+    }
+  }
+
+  /* =========================================================================
+     RESPONSIVE NAVIGATION
+     ========================================================================= */
+
+  private initializeResponsiveNavigation(): void {
+    const browserWindow = this.document.defaultView;
+
+    if (!browserWindow?.matchMedia) {
+      return;
+    }
+
+    const mediaQuery = browserWindow.matchMedia(DESKTOP_BREAKPOINT);
+
+    const onChange = (event: MediaQueryListEvent): void => {
+      if (event.matches) {
+        this.closeMenu();
+      }
+    };
+
+    mediaQuery.addEventListener('change', onChange);
+
+    this.destroyRef.onDestroy(() => {
+      mediaQuery.removeEventListener('change', onChange);
+    });
+  }
+
+  /* =========================================================================
+     NAVIGATION ACTIONS
+     ========================================================================= */
 
   handleNavigation(item: NavigationItem): void {
     this.closeMenu();
+    this.closeColorMenu();
 
     if (item.fragment) {
       this.setActiveSection(item.fragment);
     }
   }
 
+  setActiveSection(section: SectionId): void {
+    this.activeSection.set(section);
+  }
+
+  /* =========================================================================
+     ACTIVE NAVIGATION
+     ========================================================================= */
+
   isNavigationActive(item: NavigationItem): boolean {
     const currentPath = this.getCurrentPath();
+    const itemPath = this.normalizeRoute(item.route);
 
-    /*
-     * Normal page route:
-     * /about
-     * /skills
-     * etc.
-     */
-    if (!item.fragment) {
-      return currentPath === this.normalizeRoute(item.route);
-    }
-
-    /*
-     * Fragment navigation only becomes active when
-     * we're actually on the item's route.
-     */
-    if (currentPath !== this.normalizeRoute(item.route)) {
+    if (currentPath !== itemPath) {
       return false;
     }
 
-    return this.activeSection() === item.fragment;
+    if (item.fragment) {
+      return this.activeSection() === item.fragment;
+    }
+
+    return true;
   }
 
-  ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this.platformId)) {
+  /* =========================================================================
+     SECTION OBSERVER
+     ========================================================================= */
+
+  private scheduleSectionObserver(): void {
+    if (!this.isBrowser) {
       return;
     }
 
-    this.currentUrl.set(this.router.url);
+    const browserWindow = this.document.defaultView;
 
-    this.routerSubscription = this.router.events
-      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
-      .subscribe((event) => {
-        this.currentUrl.set(event.urlAfterRedirects);
+    if (!browserWindow) {
+      return;
+    }
 
-        this.closeMenu();
+    if (this.pendingFrame !== null) {
+      browserWindow.cancelAnimationFrame(this.pendingFrame);
+    }
 
-        /*
-         * Wait until Angular has rendered the new page
-         * before searching for its sections.
-         */
-        requestAnimationFrame(() => {
-          this.setupSectionObserver();
-        });
-      });
-
-    this.setupSectionObserver();
-  }
-
-  ngOnDestroy(): void {
-    this.observer?.disconnect();
-    this.routerSubscription?.unsubscribe();
+    this.pendingFrame = browserWindow.requestAnimationFrame(() => {
+      this.pendingFrame = null;
+      this.setupSectionObserver();
+    });
   }
 
   private setupSectionObserver(): void {
-    if (!isPlatformBrowser(this.platformId)) {
+    if (!this.isBrowser) {
       return;
     }
 
     this.observer?.disconnect();
+    this.observer = undefined;
 
     if (!this.isHomeRoute()) {
       return;
@@ -181,7 +427,17 @@ export class Header implements AfterViewInit, OnDestroy {
 
     this.syncActiveSectionFromUrl();
 
-    if (!('IntersectionObserver' in window)) {
+    const browserWindow = this.document.defaultView;
+
+    if (!browserWindow || !('IntersectionObserver' in browserWindow)) {
+      return;
+    }
+
+    const sections = SECTION_IDS.map((id) => this.document.getElementById(id)).filter(
+      (element): element is HTMLElement => element !== null,
+    );
+
+    if (!sections.length) {
       return;
     }
 
@@ -201,21 +457,21 @@ export class Header implements AfterViewInit, OnDestroy {
       },
     );
 
-    SECTION_IDS.forEach((section) => {
-      const element = document.getElementById(section);
-
-      if (element) {
-        this.observer?.observe(element);
-      }
+    sections.forEach((section) => {
+      this.observer?.observe(section);
     });
   }
 
+  /* =========================================================================
+     FRAGMENT SYNCHRONIZATION
+     ========================================================================= */
+
   private syncActiveSectionFromUrl(): void {
-    if (!isPlatformBrowser(this.platformId)) {
+    if (!this.isBrowser) {
       return;
     }
 
-    const fragment = window.location.hash.slice(1);
+    const fragment = this.document.defaultView?.location.hash.slice(1) ?? '';
 
     if (this.isSectionId(fragment)) {
       this.setActiveSection(fragment);
@@ -224,6 +480,10 @@ export class Header implements AfterViewInit, OnDestroy {
 
     this.setActiveSection('home');
   }
+
+  /* =========================================================================
+     ROUTE HELPERS
+     ========================================================================= */
 
   private getCurrentPath(): string {
     const url = this.currentUrl() || this.router.url;
@@ -247,7 +507,7 @@ export class Header implements AfterViewInit, OnDestroy {
     return this.getCurrentPath() === '/';
   }
 
-  private isSectionId(section: string): section is SectionId {
-    return SECTION_IDS.includes(section as SectionId);
+  private isSectionId(value: string): value is SectionId {
+    return SECTION_IDS.includes(value as SectionId);
   }
 }

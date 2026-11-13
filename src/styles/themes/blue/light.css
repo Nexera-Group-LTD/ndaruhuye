@@ -1,20 +1,27 @@
-[data-color-theme="blue"][data-theme="light"] {
-  --alert-primary: var(--blue-700);
-  --alert-success: var(--green-700);
-  --alert-warning: var(--yellow-800);
-  --alert-danger: var(--red-700);
-  --alert-info: var(--blue-700);
-  --alert-on-solid: #ffffff;
+/* ==========================================================================
+   BLUE THEME — LIGHT
+   ==========================================================================
+
+   Purpose:
+   - Provide a light appearance with blue accents.
+   - Define semantic theme variables.
+   - Support shared components and portfolio layouts.
+   - Maintain consistency with other color themes.
+
+   ========================================================================== */
+
+:root[data-color-theme="blue"][data-theme="light"],
+:root[data-color-theme="blue"]:not([data-theme]) {
   color-scheme: light;
 
   /* ==========================================================================
-     Application
+     APPLICATION
      ========================================================================== */
 
   --background: var(--neutral-50);
   --background-subtle: var(--blue-50);
 
-  --surface: #ffffff;
+  --surface: var(--white);
   --surface-secondary: var(--neutral-50);
   --surface-tertiary: var(--blue-50);
 
@@ -23,7 +30,7 @@
   --surface-selected: var(--blue-100);
 
   /* ==========================================================================
-     Primary
+     PRIMARY
      ========================================================================== */
 
   --primary: var(--blue-600);
@@ -32,13 +39,12 @@
 
   --primary-light: var(--blue-100);
   --primary-subtle: var(--blue-50);
-
   --primary-strong: var(--blue-900);
 
-  --on-primary: #ffffff;
+  --on-primary: var(--white);
 
   /* ==========================================================================
-     Text
+     TEXT
      ========================================================================== */
 
   --text-primary: var(--neutral-900);
@@ -50,10 +56,10 @@
   --text-link: var(--blue-700);
   --text-link-hover: var(--blue-800);
 
-  --text-inverse: #ffffff;
+  --text-inverse: var(--white);
 
   /* ==========================================================================
-     Borders
+     BORDERS
      ========================================================================== */
 
   --border: var(--neutral-200);
@@ -62,19 +68,20 @@
   --border-strong: var(--neutral-300);
 
   /* ==========================================================================
-     Inputs
+     INPUTS
      ========================================================================== */
 
-  --input-background: #ffffff;
+  --input-background: var(--white);
+
   --input-border: var(--neutral-300);
   --input-border-hover: var(--blue-400);
   --input-border-focus: var(--blue-600);
 
   /* ==========================================================================
-     Navigation
+     NAVIGATION
      ========================================================================== */
 
-  --nav-background: #ffffff;
+  --nav-background: var(--white);
   --nav-text: var(--neutral-600);
 
   --nav-hover-background: var(--blue-50);
@@ -84,10 +91,10 @@
   --nav-active-text: var(--blue-700);
 
   /* ==========================================================================
-     Sidebar
+     SIDEBAR
      ========================================================================== */
 
-  --sidebar-background: #ffffff;
+  --sidebar-background: var(--white);
   --sidebar-border: var(--neutral-200);
 
   --sidebar-item-hover: var(--blue-50);
@@ -95,20 +102,25 @@
   --sidebar-item-active-text: var(--blue-700);
 
   /* ==========================================================================
-     Buttons
+     BUTTONS
      ========================================================================== */
 
   --button-primary-background: var(--blue-600);
   --button-primary-hover: var(--blue-700);
   --button-primary-active: var(--blue-800);
-  --button-primary-text: #ffffff;
+  --button-primary-text: var(--white);
 
   --button-secondary-background: var(--blue-50);
   --button-secondary-hover: var(--blue-100);
   --button-secondary-text: var(--blue-700);
 
+  --button-danger-background: var(--red-600);
+  --button-danger-hover: var(--red-700);
+  --button-danger-active: var(--red-800);
+  --button-danger-text: var(--white);
+
   /* ==========================================================================
-     Tables
+     TABLES
      ========================================================================== */
 
   --table-header-background: var(--blue-50);
@@ -116,83 +128,74 @@
   --table-row-selected: var(--blue-100);
 
   /* ==========================================================================
-     Focus / selection
+     FOCUS AND SELECTION
      ========================================================================== */
 
-  --focus-ring: rgb(21 112 239 / 30%);
+  --focus-ring: rgb(21 112 239 / 35%);
 
   --selection-background: var(--blue-600);
-  --selection-text: #ffffff;
+  --selection-text: var(--white);
 
   /* ==========================================================================
-     Overlay
+     OVERLAY
      ========================================================================== */
 
   --overlay-background: rgb(16 24 40 / 50%);
 
-  --button-danger-background:
-    var(--red-600);
+  /* ==========================================================================
+     FUNCTIONAL FEEDBACK
+     ========================================================================== */
 
-  --button-danger-hover:
-    var(--red-700);
+  --success: var(--green-700);
+  --warning: var(--yellow-800);
+  --danger: var(--red-700);
+  --info: var(--blue-700);
 
-  --button-danger-active:
-    var(--red-800);
+  --alert-primary: var(--blue-700);
+  --alert-success: var(--green-700);
+  --alert-warning: var(--yellow-800);
+  --alert-danger: var(--red-700);
+  --alert-info: var(--blue-700);
 
-  --button-danger-text:
-    #ffffff;
+  --alert-on-solid: var(--white);
 
-  --badge-neutral-background:
-    var(--neutral-100);
+  /* ==========================================================================
+     BADGES
+     ========================================================================== */
 
-  --badge-neutral-border:
-    var(--neutral-200);
+  /* Neutral */
 
-  --badge-neutral-text:
-    var(--neutral-700);
+  --badge-neutral-background: var(--neutral-100);
+  --badge-neutral-border: var(--neutral-200);
+  --badge-neutral-text: var(--neutral-700);
 
-  --badge-primary-background:
-    var(--blue-50);
+  /* Primary */
 
-  --badge-primary-border:
-    var(--blue-200);
+  --badge-primary-background: var(--blue-50);
+  --badge-primary-border: var(--blue-200);
+  --badge-primary-text: var(--blue-700);
 
-  --badge-primary-text:
-    var(--blue-700);
+  /* Success */
 
-  --badge-success-background:
-    var(--green-50);
+  --badge-success-background: var(--green-50);
+  --badge-success-border: var(--green-200);
+  --badge-success-text: var(--green-700);
 
-  --badge-success-border:
-    var(--green-200);
+  /* Warning */
 
-  --badge-success-text:
-    var(--green-700);
+  --badge-warning-background: var(--yellow-50);
+  --badge-warning-border: var(--yellow-200);
+  --badge-warning-text: var(--yellow-800);
 
-  --badge-warning-background:
-    var(--yellow-50);
+  /* Danger */
 
-  --badge-warning-border:
-    var(--yellow-200);
+  --badge-danger-background: var(--red-50);
+  --badge-danger-border: var(--red-200);
+  --badge-danger-text: var(--red-700);
 
-  --badge-warning-text:
-    var(--yellow-700);
+  /* Info */
 
-  --badge-danger-background:
-    var(--red-50);
-
-  --badge-danger-border:
-    var(--red-200);
-
-  --badge-danger-text:
-    var(--red-700);
-
-  --badge-info-background:
-    var(--blue-50);
-
-  --badge-info-border:
-    var(--blue-200);
-
-  --badge-info-text:
-    var(--blue-700);
+  --badge-info-background: var(--blue-50);
+  --badge-info-border: var(--blue-200);
+  --badge-info-text: var(--blue-700);
 }

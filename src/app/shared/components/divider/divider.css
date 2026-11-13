@@ -1,0 +1,253 @@
+/* ==========================================================================
+   DIVIDER COMPONENT
+   ==========================================================================
+
+   Purpose:
+   - Separate content and sections visually.
+   - Support horizontal and vertical orientations.
+   - Support solid, dashed and dotted lines.
+   - Support optional centered labels.
+   - Use the active theme's design tokens.
+
+   ========================================================================== */
+
+/* ==========================================================================
+   HOST
+   ========================================================================== */
+
+:host {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+}
+
+:host(.divider-host--vertical) {
+  display: inline-flex;
+
+  align-self: stretch;
+
+  width: auto;
+  height: auto;
+
+  min-height: 1rem;
+
+  flex: 0 0 auto;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+.divider {
+  --divider-color: var(--border-divider, var(--border));
+  --divider-thickness: var(--border-width-thin);
+  --divider-style: solid;
+  --divider-spacing: var(--space-4);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-3);
+
+  width: 100%;
+  min-width: 0;
+
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   ORIENTATIONS
+   ========================================================================== */
+
+/* Horizontal */
+
+.divider--horizontal {
+  flex-direction: row;
+
+  width: 100%;
+  height: auto;
+
+  margin-block: var(--divider-spacing);
+}
+
+/* Vertical */
+
+.divider--vertical {
+  flex-direction: column;
+
+  width: auto;
+  height: 100%;
+  min-height: 1rem;
+
+  margin-inline: var(--divider-spacing);
+}
+
+/* ==========================================================================
+   LINE
+   ========================================================================== */
+
+.divider__line {
+  display: block;
+
+  flex: 1 1 auto;
+
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Horizontal line */
+
+.divider--horizontal .divider__line {
+  width: 100%;
+  height: 0;
+
+  border: 0;
+  border-top:
+    var(--divider-thickness) var(--divider-style) var(--divider-color);
+}
+
+/* Vertical line */
+
+.divider--vertical .divider__line {
+  width: 0;
+  height: 100%;
+  min-height: 1rem;
+
+  border: 0;
+  border-left:
+    var(--divider-thickness) var(--divider-style) var(--divider-color);
+}
+
+/* ==========================================================================
+   APPEARANCES
+   ========================================================================== */
+
+.divider--solid {
+  --divider-style: solid;
+}
+
+.divider--dashed {
+  --divider-style: dashed;
+}
+
+.divider--dotted {
+  --divider-style: dotted;
+}
+
+/* ==========================================================================
+   COLORS
+   ========================================================================== */
+
+.divider--default {
+  --divider-color:
+    var(--border-divider, var(--border));
+}
+
+.divider--subtle {
+  --divider-color:
+    var(--border-subtle, var(--border-divider));
+}
+
+.divider--strong {
+  --divider-color:
+    var(--border-strong);
+}
+
+.divider--primary {
+  --divider-color:
+    var(--primary);
+}
+
+/* ==========================================================================
+   THICKNESS
+   ========================================================================== */
+
+.divider--thin {
+  --divider-thickness:
+    var(--border-width-thin);
+}
+
+.divider--medium {
+  --divider-thickness:
+    var(--border-width-medium);
+}
+
+.divider--thick {
+  --divider-thickness:
+    var(--border-width-thick);
+}
+
+/* ==========================================================================
+   SPACING
+   ========================================================================== */
+
+.divider--spacing-none {
+  --divider-spacing: 0;
+}
+
+.divider--spacing-small {
+  --divider-spacing: var(--space-2);
+}
+
+.divider--spacing-medium {
+  --divider-spacing: var(--space-4);
+}
+
+.divider--spacing-large {
+  --divider-spacing: var(--space-8);
+}
+
+/* ==========================================================================
+   LABEL
+   ========================================================================== */
+
+.divider__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  max-width: 80%;
+
+  color: var(--text-secondary);
+
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+
+  text-align: center;
+
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================================================
+   VERTICAL LABELS
+   ========================================================================== */
+
+.divider--vertical .divider__label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+
+  max-width: none;
+  max-height: 80%;
+}
+
+/* ==========================================================================
+   HIGH CONTRAST
+   ========================================================================== */
+
+@media (forced-colors: active) {
+  .divider {
+    --divider-color: CanvasText;
+  }
+
+  .divider__label {
+    color: CanvasText;
+  }
+}

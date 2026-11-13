@@ -1,0 +1,29 @@
+<div class="skeleton" [class.skeleton--text]="variant() === 'text'"
+  [class.skeleton--rectangle]="variant() === 'rectangle'" [class.skeleton--rounded]="variant() === 'rounded'"
+  [class.skeleton--circle]="variant() === 'circle'" [class.skeleton--small]="size() === 'small'"
+  [class.skeleton--medium]="size() === 'medium'" [class.skeleton--large]="size() === 'large'"
+  [class.skeleton--pulse]="animation() === 'pulse'" [class.skeleton--wave]="animation() === 'wave'"
+  [class.skeleton--static]="animation() === 'none'" role="status" aria-live="polite" aria-atomic="true">
+  <!-- Accessible loading description -->
+  <span class="sr-only">
+    {{ ariaLabel() }}
+  </span>
+
+  <!-- Multiline text skeleton -->
+  @if (variant() === 'text' && lineCount() > 1) {
+  <div class="skeleton__lines" aria-hidden="true">
+    @for (index of lineIndexes(); track index) {
+    <span class="skeleton__shape skeleton__line" [style.width]="
+            index === lineCount() - 1
+              ? lastLineWidth()
+              : '100%'
+          " [style.height]="height() || null"></span>
+    }
+  </div>
+  }
+
+  <!-- Single skeleton -->
+  @else {
+  <span class="skeleton__shape" aria-hidden="true" [style.width]="width()" [style.height]="height() || null"></span>
+  }
+</div>

@@ -1,0 +1,26 @@
+<div class="divider" [class.divider--horizontal]="orientation === 'horizontal'"
+  [class.divider--vertical]="orientation === 'vertical'" [class.divider--solid]="appearance === 'solid'"
+  [class.divider--dashed]="appearance === 'dashed'" [class.divider--dotted]="appearance === 'dotted'"
+  [class.divider--default]="color === 'default'" [class.divider--subtle]="color === 'subtle'"
+  [class.divider--strong]="color === 'strong'" [class.divider--primary]="color === 'primary'"
+  [class.divider--thin]="thickness === 'thin'" [class.divider--medium]="thickness === 'medium'"
+  [class.divider--thick]="thickness === 'thick'" [class.divider--spacing-none]="spacing === 'none'"
+  [class.divider--spacing-small]="spacing === 'small'" [class.divider--spacing-medium]="spacing === 'medium'"
+  [class.divider--spacing-large]="spacing === 'large'" [class.divider--labeled]="!!label"
+  [attr.role]="decorative ? null : 'separator'" [attr.aria-hidden]="decorative ? 'true' : null" [attr.aria-orientation]="
+    decorative ? null : orientation
+  " [attr.aria-label]="
+    !decorative && label ? label : null
+  ">
+  @if (label) {
+  <span class="divider__line" aria-hidden="true"></span>
+
+  <span class="divider__label">
+    {{ label }}
+  </span>
+
+  <span class="divider__line" aria-hidden="true"></span>
+  } @else {
+  <span class="divider__line" aria-hidden="true"></span>
+  }
+</div>
