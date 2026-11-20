@@ -49,7 +49,7 @@
         <div class="project-map" aria-hidden="true">
           <div class="project-map__header">
             <span>Systems / Overview</span>
-            <span>ND — 006</span>
+            <span>ND — {{ projects.length.toString().padStart(3, '0') }}</span>
           </div>
 
           <div class="project-map__canvas">
@@ -62,7 +62,7 @@
 
             <div class="project-map__core">
               <span>Portfolio</span>
-              <strong>06</strong>
+              <strong>{{ projects.length.toString().padStart(2, '0') }}</strong>
               <small>Selected systems</small>
             </div>
 
@@ -277,16 +277,18 @@
         track project.id
         ) {
         <article class="project-card" [class.project-card--zoning]="
-              project.id === 'national-zoning'
-            " [class.project-card--aviation]="
-              project.id === 'akagera-aviation'
-            " [class.project-card--kubaka]="
-              project.id === 'kubaka-bpmis'
-            " [class.project-card--mina]="
-              project.id === 'mina-ai'
-            " [class.project-card--portfolio]="
-              project.id === 'ndaruhuye'
-            ">
+          project.id === 'national-zoning'
+        " [class.project-card--aviation]="
+          project.id === 'akagera-aviation'
+        " [class.project-card--kubaka]="
+          project.id === 'kubaka-bpmis'
+        " [class.project-card--mina]="
+          project.id === 'mina-ai'
+        " [class.project-card--nezeza]="
+          project.id === 'ni'
+        " [class.project-card--portfolio]="
+          project.id === 'ndaruhuye'
+        ">
           <div class="project-card__top">
             <span class="project-card__number">
               {{ project.number }}

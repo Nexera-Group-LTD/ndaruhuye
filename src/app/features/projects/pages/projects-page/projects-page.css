@@ -1448,3 +1448,132 @@
     border-color: CanvasText;
   }
 }
+
+
+/* ==========================================================================
+   NEZEZA IJURU — PROJECT CARD
+   ========================================================================== */
+
+.project-card--nezeza {
+  position: relative;
+  isolation: isolate;
+
+  background: var(--surface-secondary);
+  border-color: var(--projects-border);
+}
+
+/*
+ * Outer geometric ring.
+ */
+
+.project-card--nezeza::before {
+  top: -9rem;
+  right: -8rem;
+  bottom: auto;
+
+  width: 25rem;
+  height: 25rem;
+
+  border: 1px solid var(--projects-accent-ring);
+  border-radius: 50%;
+
+  background:
+    color-mix(in srgb,
+      var(--primary) 4%,
+      transparent);
+}
+
+/*
+ * Inner geometric ring.
+ */
+
+.project-card--nezeza::after {
+  top: -4rem;
+  right: -3rem;
+  bottom: auto;
+
+  width: 15rem;
+  height: 15rem;
+
+  border: 1px solid var(--projects-ring);
+  border-radius: 50%;
+
+  background: transparent;
+}
+
+/*
+ * Maintain readability above the decoration.
+ */
+
+.project-card--nezeza>* {
+  position: relative;
+  z-index: 1;
+}
+
+.project-card--nezeza .project-card__number {
+  background: var(--surface);
+  border-color: var(--projects-accent-ring);
+}
+
+.project-card--nezeza .project-category {
+  color: var(--text-secondary);
+}
+
+.project-card--nezeza .project-card__content h3 {
+  color: var(--text-primary);
+}
+
+/*
+ * Longer project descriptions remain readable.
+ */
+
+.project-card--nezeza .project-card__content>p {
+  max-width: 39rem;
+  line-height: var(--line-height-relaxed, 1.65);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 47.999rem) {
+  .project-card--nezeza::before {
+    top: -7rem;
+    right: -7rem;
+    bottom: auto;
+
+    width: 18rem;
+    height: 18rem;
+  }
+
+  .project-card--nezeza::after {
+    top: -3.5rem;
+    right: -3.5rem;
+    bottom: auto;
+
+    width: 11rem;
+    height: 11rem;
+  }
+}
+
+/* ==========================================================================
+   DESKTOP PROJECT GRID
+   ========================================================================== */
+
+@media (min-width: 64rem) {
+  .project-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .project-grid>.project-card {
+    grid-column: span 6;
+  }
+
+  .project-grid>.project-card:nth-child(1) {
+    grid-column: span 7;
+  }
+
+  .project-grid>.project-card:nth-child(2) {
+    grid-column: span 5;
+  }
+}
