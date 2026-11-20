@@ -1,12 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import {
-  ProfessionalHighlight,
-  ImpactArea,
-  Project,
-  Experience,
-  Capability,
-} from '../../interfaces/home.interface';
+import { PROJECTS, Project } from '../../../../shared/data/projects.data';
+import { ProfessionalHighlight, ImpactArea, Experience, Capability } from '../../interfaces/home.interface';
 
 @Component({
   selector: 'app-home-page',
@@ -55,55 +50,7 @@ export class HomePage {
     },
   ];
 
-  readonly projects: readonly Project[] = [
-    {
-      modifier: 'digest',
-      label: 'Infrastructure intelligence',
-      title: 'Daily Infrastructure Digest System',
-      description:
-        'An AI-enabled platform for aggregating and sharing infrastructure information with greater clarity and speed.',
-      url: 'https://digest.mininfra.gov.rw/',
-      linkText: 'Visit platform',
-    },
-    {
-      modifier: 'zoning',
-      label: 'Public information',
-      title: 'National Zoning Regulation Platform',
-      description: 'A national digital platform for accessing zoning regulations.',
-      url: 'https://zoning.mininfra.gov.rw/',
-      linkText: 'Visit platform',
-    },
-    {
-      modifier: 'aviation',
-      label: 'Operational systems',
-      title: 'Akagera Aviation Inventory Management System',
-      description: 'An inventory management system designed for aviation operations.',
-    },
-    {
-      modifier: 'kubaka',
-      label: 'Business process management',
-      title: 'Kubaka BPMIS',
-      description: 'A digital system supporting structured infrastructure business processes.',
-      url: 'https://kubaka.gov.rw/',
-      linkText: 'Visit platform',
-    },
-    {
-      modifier: 'mina',
-      label: 'AI solutions',
-      title: 'MINA AI',
-      description: 'An AI-focused application in the infrastructure information ecosystem.',
-      url: 'https://testing-digest.mininfra.gov.rw/mina/',
-      linkText: 'Explore MINA AI',
-    },
-    {
-      modifier: 'ndaruhuye',
-      label: 'Portfolio',
-      title: 'Ndaruhuye',
-      description: 'A portfolio presenting software engineering, systems, data, and AI work.',
-      url: 'https://ndaruhuye.nexeragroup.rw/',
-      linkText: 'Visit website',
-    },
-  ];
+  readonly projects: readonly Project[] = PROJECTS;
 
   readonly experiences: readonly Experience[] = [
     {
